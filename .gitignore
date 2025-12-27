@@ -1,0 +1,6 @@
+# Ignore all dot directories except .config
+.*/*        # ignore contents of dot directories
+!.config/   # allow .config directory
+!.zshrc     # allow .zshrc
+!.gitconfig # allow .gitconfig
+
