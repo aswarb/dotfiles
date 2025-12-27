@@ -1,9 +1,6 @@
 [submodule ".config/alacritty/themes"]
 	path = .config/alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme.git
-[submodule ".config/rofi/.config/rofi/rofi-themes-collection"]
-	path = .config/rofi/.config/rofi/rofi-themes-collection
-	url = git@github.com:newmanls/rofi-themes-collection.git
 [submodule ".config/rofi/rofi-themes-collection"]
 	path = .config/rofi/rofi-themes-collection
 	url = git@github.com:newmanls/rofi-themes-collection.git
