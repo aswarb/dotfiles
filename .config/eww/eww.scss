@@ -1,0 +1,161 @@
+$font_color: rgba(#c9c9d9, 1);
+$font_color_alt: rgba(#AAAAAA, 1);
+$bg_color: rgba(#131318, 0.8);
+$border_color: rgba(#303030, 0.2);
+$active_color: rgba(red, 0.2);
+$on_bg: rgba(#404040, 0.2);
+$on_bg_hover: rgba(#606060, 0.4);
+$font-family: 'BlexMono Nerd Font Text', mono;
+$sans-font: 'IBM Plex Sans', sans;
+$serif-font: 'IBM Plex Serif', serif;
+$border-radius: 0.15em;
+$accent-color: rgba(#FFB380,1);
+$accent-color-bright: rgba(#ffd1b3,1);
+$accent-color-dark: rgba(#bf8660,1);
+
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+  transition: all ease 0.05s;
+  font-weight: 400;
+}
+
+*.button:active {
+  background-color: $active_color;
+}
+
+*:hover {
+  text-shadow: 0 0 4px rgba($font_color, 0.5);
+}
+
+*:active {
+  text-shadow: 0 0 4px rgba($font_color, 0.5);
+}
+
+.italic {
+  font-style: italic;
+}
+
+.mono {
+  font-family: $font-family;
+}
+
+.serif {
+  font-family: $serif-font
+}
+
+.bar {
+  background-color: $bg_color;
+  color: $font_color;
+  font-family: $font-family;
+
+  .container {
+    background: $on_bg;
+    border-radius: $border-radius;
+    padding: 0px 5px;
+    margin: 1px 0px;
+    font-family: $serif-font;
+  }
+
+  button.container {
+    border: 1px solid $on_bg_hover;
+    background: $on_bg;
+
+    &:hover {
+      background-color: $on_bg_hover;
+    }
+  }
+}
+
+
+.workspaces {
+  button {
+    padding: 2px 6px;
+    color: $font_color;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.1s ease;
+    font-family: $serif-font;
+    font-size: 16px;
+
+    &:hover {
+      border-bottom-color: $accent-color-bright; // pastel orange
+      text-shadow: 0 0 4px $accent-color;
+      font-style: italic;
+    }
+
+    &.focused {
+      border: 1px solid $font_color;
+    }
+
+    &.active {
+      color: $accent-color; // pastel orange
+      border-bottom-color: $accent-color;
+      font-style: italic;
+    }
+  }
+}
+
+.systray {
+  image {
+    margin: 0px 3px;
+  }
+
+  .popup,
+  menu {
+    padding: 2px;
+    border-radius: $border-radius;
+    border: 1px solid $on_bg_hover;
+    background-color: $bg_color;
+
+
+    >menuitem {
+      padding: 3px 3px;
+      color: $font-color;
+      padding: 5px 5px 5px 5px;
+
+      arrow {
+        min-width: 12px;
+        min-height: 12px;
+
+        &:dir(ltr) {
+          -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+
+
+      &:hover {
+        background-color: $on_bg_hover;
+        text-shadow: 0 0 4px rgba($font_color, 0.5);
+      }
+
+
+      &:disabled {
+        padding: 2px 2px 2px 5px;
+
+        label {
+          font-family: $serif-font;
+          font-style: italic;
+          color: $font_color_alt;
+        }
+      }
+
+      label {
+        font-family: $serif-font;
+        padding: 0px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: $sans-font;
+      }
+    }
+
+    separator {
+      margin: 0px 0;
+      min-height: 2px;
+      padding: 0px;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

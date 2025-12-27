@@ -1,0 +1,5 @@
+require('mason').setup()
+require('mason-lspconfig').setup()
+local coq = require('coq')
+local lsp = require('lspconfig')
+require("mason-lspconfig").setup()
