@@ -5,6 +5,7 @@ offset = { x = 0, y = 0 }
 [font.normal]
 #family = "JetBrainsMono NF"
 family = "BlexMono Nerd Font Medium"
+#family = "Iosevka Nerd Font Mono"
 style = "Regular"
 
 [window]
@@ -15,4 +16,5 @@ dynamic_padding = true
 [general]
 #import = ["./themes/themes/vesper.toml"]
 import = ["./themes/cynosure_dark.toml"]
-#import = ["/home/aos/.config/alacritty/themes/themes/nord.toml"]
+#import = ["./themes/themes/kanagawa_dragon.toml"]
+#import = ["./themes/themes/nord.toml"]
