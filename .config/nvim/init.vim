@@ -19,8 +19,8 @@ lua require('gen-nvim_cfg')
 "lua require('formatter_cfg')
 lua require('undotree_cfg')
 lua require('keybinds')
-lua require('copilot_cfg')
-lua require('copilot_chat_cfg')
+"lua require('copilot_cfg')
+"lua require('copilot_chat_cfg')
 
 "colorscheme tokyonight
 let g:gruvbox_material_transparent_background = 1
