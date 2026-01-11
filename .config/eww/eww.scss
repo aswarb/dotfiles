@@ -1,118 +1,156 @@
-$font_color: rgba(#c9c9d9, 1);
-$font_color_alt: rgba(#AAAAAA, 1);
-$bg_color: rgba(#131318, 0.8);
-$border_color: rgba(#303030, 0.2);
-$active_color: rgba(red, 0.2);
-$on_bg: rgba(#404040, 0.2);
-$on_bg_hover: rgba(#606060, 0.4);
-$font-family: 'BlexMono Nerd Font Text', mono;
-$sans-font: 'IBM Plex Sans', sans;
-$serif-font: 'IBM Plex Serif', serif;
+// ===============================
+// Base palette (warm, opaque)
+// ===============================
+$warm-darkest: rgba(#1a1614, 1);
+$warm-darker:  rgba(#2a2421, 1);
+$warm-dark:    rgba(#3d3935, 1);
+$warm-mid:     rgba(#8a8479, 1);
+$warm-light:   rgba(#cdc6bc, 1);
+$warm-lighter: rgba(#ebe6e0, 1);
+$warm-white:   rgba(#faf7f2, 1);
+
+// Accents
+$accent-peach:   rgba(#edc99a, 1);
+$accent-coral:   rgba(#e07860, 1);
+$accent-apricot: rgba(#d4a574, 1);
+$accent-cherry:  rgba(#c85a5a, 1);
+
+// ===============================
+// Semantic roles
+// ===============================
+
+// Glass layers anchored to dark for translucency
+$glass-container: rgba(20, 22, 24, 0.75);
+$glass-hover:     rgba(235, 235, 235, 0.08);
+$glass-active:    rgba(0, 0, 0, 0.45);
+
+// Text
+$text-primary:   $warm-white;
+$text-secondary: $warm-lighter;
+$text-muted:     rgba($warm-light, 0.85);
+$text-accent:    $accent-peach;
+$text-error:     $accent-cherry;
+
+// Typography
+$font-family: 'BlexMono Nerd Font', monospace;
 $border-radius: 0.15em;
-$accent-color: rgba(#FFB380,1);
-$accent-color-bright: rgba(#ffd1b3,1);
-$accent-color-dark: rgba(#bf8660,1);
 
+// ===============================
+// Reset
+// ===============================
 * {
-  all: unset; //Unsets everything so you can style everything from scratch
-  transition: all ease 0.05s;
-  font-weight: 400;
+  all: unset;
+  transition:
+    background-color 0.09s cubic-bezier(0.4, 0.0, 0.2, 1),
+    color 0.09s cubic-bezier(0.4, 0.0, 0.2, 1),
+    box-shadow 0.09s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-*.button:active {
-  background-color: $active_color;
-}
+.mono { font-family: $font-family; }
+.italic { font-style: italic; }
 
-*:hover {
-  text-shadow: 0 0 4px rgba($font_color, 0.5);
-}
-
-*:active {
-  text-shadow: 0 0 4px rgba($font_color, 0.5);
-}
-
-.italic {
-  font-style: italic;
-}
-
-.mono {
-  font-family: $font-family;
-}
-
-.serif {
-  font-family: $serif-font
-}
-
+// ===============================
+// Bar
+// ===============================
 .bar {
-  background-color: $bg_color;
-  color: $font_color;
+  background-color: transparent; // fully transparent
+  color: $text-primary;
   font-family: $font-family;
 
   .container {
-    background: $on_bg;
+    margin: 1px 0;
+    padding: 2px 6px;
     border-radius: $border-radius;
-    padding: 0px 5px;
-    margin: 1px 0px;
-    font-family: $serif-font;
-  }
+    background-color: $glass-container; // container carries the color
+    box-shadow: inset 0 0 0 1px rgba($warm-white, 0.05);
 
-  button.container {
-    border: 1px solid $on_bg_hover;
-    background: $on_bg;
+    button.container {
+      background-color: transparent; // container itself is interactive
+      padding: 2px 6px;
+      border-radius: $border-radius;
 
-    &:hover {
-      background-color: $on_bg_hover;
+      &:hover {
+        background-color: $glass-hover;
+        box-shadow: inset 0 0 0 1px rgba($warm-white, 0.08);
+      }
+
+      &:active {
+        background-color: $glass-active;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+      }
     }
   }
 }
 
-
+// ===============================
+// Workspaces
+// ===============================
 .workspaces {
   button {
-    padding: 2px 6px;
-    color: $font_color;
-    background: transparent;
+    padding: 2px 8px 0 8px; // pull underline to container edge
+    font-size: 14px;
+    font-family: $font-family;
+    color: $text-muted;
+    background: none;
     border: none;
     border-bottom: 2px solid transparent;
-    transition: all 0.1s ease;
-    font-family: $serif-font;
-    font-size: 16px;
 
     &:hover {
-      border-bottom-color: $accent-color-bright; // pastel orange
-      text-shadow: 0 0 4px $accent-color;
-      font-style: italic;
-    }
-
-    &.focused {
-      border: 1px solid $font_color;
+      color: $text-primary;
+      background-color: $glass-hover;
     }
 
     &.active {
-      color: $accent-color; // pastel orange
-      border-bottom-color: $accent-color;
-      font-style: italic;
+      color: $text-accent;
+      border-bottom-color: $accent-peach;
+    }
+
+    &.focused {
+      color: $text-primary;
+      border-bottom-color: rgba($warm-light, 0.6);
     }
   }
 }
 
+// ===============================
+// Systray
+// ===============================
 .systray {
   image {
-    margin: 0px 3px;
+    margin: 0 4px;
+    opacity: 0.85;
+
+    &:hover {
+      opacity: 1;
+      background-color: $glass-hover;
+      border-radius: $border-radius;
+    }
   }
 
   .popup,
   menu {
-    padding: 2px;
+    padding: 4px;
+    background-color: $glass-container;
     border-radius: $border-radius;
-    border: 1px solid $on_bg_hover;
-    background-color: $bg_color;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
 
+    > menuitem {
+      padding: 5px 10px;
+      border-radius: $border-radius;
+      font-family: $font-family;
+      font-size: 13px;
+      color: $text-secondary;
 
-    >menuitem {
-      padding: 3px 3px;
-      color: $font-color;
-      padding: 5px 5px 5px 5px;
+      &:hover {
+        background-color: $glass-hover;
+        color: $text-primary;
+      }
+
+      &:disabled {
+        color: $text-muted;
+        opacity: 0.55;
+        font-style: italic;
+      }
 
       arrow {
         min-width: 12px;
@@ -120,42 +158,23 @@ $accent-color-dark: rgba(#bf8660,1);
 
         &:dir(ltr) {
           -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
-          margin-left: 10px;
-          margin-right: 10px;
+          margin: 0 8px;
         }
-      }
-
-
-      &:hover {
-        background-color: $on_bg_hover;
-        text-shadow: 0 0 4px rgba($font_color, 0.5);
-      }
-
-
-      &:disabled {
-        padding: 2px 2px 2px 5px;
-
-        label {
-          font-family: $serif-font;
-          font-style: italic;
-          color: $font_color_alt;
-        }
-      }
-
-      label {
-        font-family: $serif-font;
-        padding: 0px;
-        font-size: 14px;
-        font-weight: 500;
-        font-family: $sans-font;
       }
     }
 
     separator {
-      margin: 0px 0;
-      min-height: 2px;
-      padding: 0px;
-      background-color: rgba(255, 255, 255, 0.1);
+      margin: 4px 6px;
+      min-height: 1px;
+      background-color: rgba(255, 255, 255, 0.08);
     }
   }
 }
+
+// ===============================
+// Errors
+// ===============================
+.error {
+  color: $text-error;
+}
+
