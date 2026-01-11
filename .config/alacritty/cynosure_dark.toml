@@ -1,0 +1,25 @@
+# Default colors
+[colors.primary]
+#background = '#1a1614'  # Warm dark (slight brown tint, like dark chocolate)
+background = '#1a1a1a'  # Warm dark (slight brown tint, like dark chocolate)
+foreground = '#ebe6e0'  # Warm cream (meringue)
+
+[colors.normal]
+black   = '#2a2421'  # Warm dark grey (espresso)
+red     = '#d96459'  # Deeper cherry/strawberry red (richer fruit)
+green   = '#a8a299'  # Medium-light warm cream-grey
+yellow  = '#e0a865'  # Brighter peach/apricot (more vibrant fruit)
+blue    = '#999489'  # Darkest warm cream-grey
+magenta = '#b8b2a9'  # Lighter warm cream-grey
+cyan    = '#c8c3ba'  # Lightest warm cream-grey
+white   = '#cdc6bc'  # Warm light grey (lighter cream)
+
+[colors.bright]
+black   = '#4a443f'  # Lighter warm dark grey
+red     = '#eb8570'  # Bright coral/salmon (fresh ripe strawberry)
+green   = '#c0bbb2'  # Medium-light
+yellow  = '#f5c785'  # Bright honey/golden peach (very ripe)
+blue    = '#b0aba2'  # Darkest (bright version)
+magenta = '#d0cbc2'  # Lighter
+cyan    = '#e0dbd2'  # Lightest
+white   = '#ebe6e0'  # Foreground cream (brightest)
