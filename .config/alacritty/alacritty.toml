@@ -15,6 +15,6 @@ dynamic_padding = true
 
 [general]
 #import = ["./themes/themes/vesper.toml"]
-import = ["./themes/cynosure_dark.toml"]
+import = ["./cynosure_dark.toml"]
 #import = ["./themes/themes/kanagawa_dragon.toml"]
 #import = ["./themes/themes/nord.toml"]
