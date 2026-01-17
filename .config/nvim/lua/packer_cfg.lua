@@ -17,9 +17,9 @@ return require("packer").startup(function(use)
 	})
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 
-	use("navarasu/onedark.nvim")
-	use("rose-pine/neovim")
-	use("everviolet/nvim")
+	--use("navarasu/onedark.nvim")
+	--use("rose-pine/neovim")
+	--use("everviolet/nvim")
 	use({
 		"nvim-tree/nvim-tree.lua",
 		requires = {
@@ -35,13 +35,14 @@ return require("packer").startup(function(use)
 	use("ms-jpq/coq_nvim")
 	use("ms-jpq/coq.artifacts")
 	use("ms-jpq/coq.thirdparty")
+	use("chentoast/marks.nvim")
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
 	-- use("folke/tokyonight.nvim")
-	use("sainnhe/gruvbox-material")
-	use("shaunsingh/nord.nvim")
+	--use("sainnhe/gruvbox-material")
+	--use("shaunsingh/nord.nvim")
 	use("NvChad/nvim-colorizer.lua")
 	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
 	-- use "Bekaboo/dropbar.nvim"
@@ -77,7 +78,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use("zapling/mason-conform.nvim")
-
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+	use("tpope/vim-fugitive")
+	--[[
 	use({
 		"zbirenbaum/copilot.lua",
 		requires = { "copilotlsp-nvim/copilot-lsp" },
@@ -90,5 +93,5 @@ return require("packer").startup(function(use)
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
-	})
+	})]]
 end)
