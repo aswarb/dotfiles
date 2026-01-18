@@ -18,7 +18,8 @@ $accent-cherry:  rgba(#c85a5a, 1);
 // ===============================
 // Semantic roles
 // ===============================
-$glass-container: rgba(20, 22, 24, 0.75);
+$glass-container: rgba(20, 22, 24, 0.7);
+$glass-menu:      rgba(40, 42, 44, 0.8);
 $glass-hover:     rgba(235, 235, 235, 0.08);
 $glass-active:    rgba(0, 0, 0, 0.45);
 
@@ -52,7 +53,7 @@ $border-radius: 0.15em;
 // Bar
 // ===============================
 .bar {
-  background-color: rgba(20, 22, 24, 0.6);
+  background-color: $glass-container;
   color: $text-primary;
   font-family: $font-family;
 
@@ -141,7 +142,7 @@ $border-radius: 0.15em;
     padding: 2px;
     border-radius: $border-radius;
     border: 1px solid rgba($warm-light, 0.6);
-    background-color: $glass-container;
+    background-color: rgba($glass-menu,0.6);
 
 
     >menuitem {
