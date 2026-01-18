@@ -114,7 +114,7 @@
 ;; =========================
 (defwidget focusedProgramBox []
   (box :orientation "h" :halign "start"
-    (label :class "italic" :text focusedProgram :wrap false)
+    (label :class "italic focusedProgramBox" :text focusedProgram :wrap false)
   )
 )
 
