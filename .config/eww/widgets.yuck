@@ -36,12 +36,12 @@
       )
       (separator)
       (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
-        (label :class "texticon gpu icon" :halign "start" :text " ")
+        (label :class "texticon gpu icon" :halign "start" :text "󰾲 ")
         (label :class "texticon gpu text" :halign "start" :text "${gpu} ${gpu_temp} ${gpu_freq}")
       )
     )
     (box :orientation "h" :spacing 6 :space-evenly false :halign "end" :width 500
-      (label :class "texticon network icon" :halign "start" :text " ")
+      (label :class "texticon network icon" :halign "start" :text "󰑩 ")
       (label :class "texticon network ip" :halign "start" :text "${network_ip}")
       (label :class "texticon network at" :halign "start" :text "@")
       (label :class "texticon network ssid" :halign "start" :text "${network_ssid}")
@@ -138,31 +138,31 @@
 (defpoll cpu :interval "5s"
   "scripts/cpu.sh"
 )
-(defpoll cpu_temp :interval "5s"
+(defpoll cpu_temp :interval "1s"
   "scripts/cpu_temp.sh"
 )
-(defpoll cpu_freq :interval "5s"
+(defpoll cpu_freq :interval "1s"
   "scripts/cpu_freq.sh"
 )
-(defpoll mem_used :interval "5s"
+(defpoll mem_used :interval "1s"
   "scripts/mem_used.sh"
 )
-(defpoll mem_total :interval "5s"
+(defpoll mem_total :interval "1s"
   "scripts/mem_total.sh"
 )
-(defpoll mem_cached :interval "5s"
+(defpoll mem_cached :interval "1s"
   "scripts/mem_cached.sh"
 )
-(defpoll mem_free :interval "5s"
+(defpoll mem_free :interval "1s"
   "scripts/mem_free.sh"
 )
 (defpoll disk :interval "10s"
   "scripts/disk.sh"
 )
-(defpoll network_ip :interval "5s"
+(defpoll network_ip :interval "1s"
   "scripts/network_ip.sh"
 )
-(defpoll network_ssid :interval "5s"
+(defpoll network_ssid :interval "1s"
   "scripts/network_ssid.sh"
 )
 (defpoll network_up :interval "1s"
@@ -171,13 +171,13 @@
 (defpoll network_down :interval "1s"
   "scripts/network_down.sh"
 )
-(defpoll gpu :interval "5s"
+(defpoll gpu :interval "1s"
   "scripts/gpu.sh"
 )
-(defpoll gpu_temp :interval "5s"
+(defpoll gpu_temp :interval "1s"
   "scripts/gpu_temp.sh"
 )
-(defpoll gpu_freq :interval "5s"
+(defpoll gpu_freq :interval "1s"
   "scripts/gpu_freq.sh"
 )
 
