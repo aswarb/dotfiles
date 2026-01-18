@@ -1,0 +1,50 @@
+;; =========================
+;; Windows
+;; =========================
+(defwindow top0
+  :monitor 0
+  :windowtype "dock"
+  :exclusive true
+  :namespace "bar"
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "20px" :anchor "top center")
+  :reserve (struts :side "top" :distance "4%")
+  (topBar)
+)
+
+(defwindow bottom0
+  :monitor 0
+  :windowtype "dock"
+  :exclusive true
+  :namespace "bar"
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "20px" :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "4%")
+  (bottomBar)
+)
+
+(defwindow top1
+  :monitor 1
+  :windowtype "dock"
+  :exclusive true
+  :namespace "bar"
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "20px" :anchor "top center")
+  :reserve (struts :side "top" :distance "4%")
+  (topBar)
+)
+
+(defwindow bottom1
+  :monitor 1
+  :windowtype "dock"
+  :exclusive true
+  :namespace "bar"
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "20px" :anchor "bottom center")
+  :reserve (struts :side "bottom" :distance "4%")
+  (bottomBar)
+)
+
+(defwindow genericWindow
+  :monitor 0
+  :windowtype "normal"
+  :namespace "generic"
+  :geometry (geometry :x "0%" :y "0%" :width "1200px" :height "150px" :anchor "top left")
+  (label :class "generic" :markup true :text fontart)
+)

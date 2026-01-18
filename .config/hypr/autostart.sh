@@ -26,4 +26,4 @@ gnome-keyring-daemon -r -d &
 kdeconnect-indicator &
 alacritty --command tmux attach &
 eww daemon &
-eww open-many RBar LBar &
+eww open-many top1 top0 bottom1 bottom0 &
