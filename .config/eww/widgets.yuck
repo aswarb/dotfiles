@@ -1,0 +1,223 @@
+;; =========================
+;; Bar
+;; =========================
+(defwidget bar []
+  (centerbox :orientation "h" :class "bar"
+    ;; Left section
+    (box :hexpand false
+      (barLeft)
+    )
+    ;; Center: clock
+    (box :hexpand true :halign "center"
+      (barCenter)
+    )
+    ;; Right: systray
+    (box :hexpand false:halign "end" :valign "center"
+      (barRight)
+    )
+  )
+)
+
+(defwidget topBar []
+  (bar)
+)
+
+(defwidget bottomBar []
+  (box :orientation "h" :class "bar" 
+    (box :orientation "h" :spacing 10 :hexpand false :space-evenly false :halign "start"
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
+        (label :class "texticon mem icon" :halign "start" :text " ")
+        (label :class "texticon mem text" :halign "start" :text "${mem_used}/${mem_total} ${mem_cached} ${mem_free}")
+      )
+      (separator)
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
+        (label :class "texticon cpu icon" :halign "start" :text " ")
+        (label :halign "start" :text "${cpu} ${cpu_temp} ${cpu_freq}")
+      )
+      (separator)
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
+        (label :class "texticon gpu icon" :halign "start" :text " ")
+        (label :class "texticon gpu text" :halign "start" :text "${gpu} ${gpu_temp} ${gpu_freq}")
+      )
+    )
+    (box :orientation "h" :spacing 6 :space-evenly false :halign "end" :width 500
+      (label :class "texticon network icon" :halign "start" :text " ")
+      (label :class "texticon network ip" :halign "start" :text "${network_ip}")
+      (label :class "texticon network at" :halign "start" :text "@")
+      (label :class "texticon network ssid" :halign "start" :text "${network_ssid}")
+      (separator)
+      (label :class "texticon network up" :halign "start" :text "${network_up}")
+      (separator)
+      (label :class "texticon network down" :halign "start" :text "${network_down}")
+    )
+  )
+)
+;; =========================
+;; Corner widgets
+;; =========================
+(defwidget topLeft []
+  (barLeft)
+)
+
+(defwidget topRight []
+  (box :orientation "h" :spacing 10
+    (barCenter)
+    (barRight)
+  )
+)
+
+(defwidget bottomLeft []
+  (box :orientation "h" :spacing 10
+    (label :text "MEM: ${mem_used}/${mem_total}")
+    (label :text "CPU: ${cpu}")
+    (label :text "GPU: ${gpu}")
+  )
+)
+
+(defwidget bottomRight []
+  (label :text "IP: ${network_ip} @ ${network_ssid} | ${network_up} | ${network_down}")
+)
+
+;; =========================
+;; Left section: apps + focused program
+;; =========================
+(defwidget barLeft []
+  (box :orientation "h" :halign "start" :valign "center" :spacing 1 :space-evenly false
+    (button :class "button"
+      :onclick "~/.config/hypr/scripts/showAppMenu.sh"
+      :width 30
+      "󰣇"
+    )
+    (separator)
+    (box
+      (focusedProgramBox)
+    )
+  )
+)
+
+;; =========================
+;; Workspaces: reactive buttons
+;; =========================
+(defwidget workspaces []
+  (box :class "workspaces" :orientation "h" :spacing 2
+    (for workspace_id in allWorkspaces
+      (button :class {"button" + (workspace_id == focusedWorkspace ? " hypr_focus" : "") + (jq(activeWorkspaces, "contains([${workspace_id}])") == "true" ? " active" : "")}
+        :onclick "~/.config/hypr/scripts/switch_to_workspace.sh ${workspace_id}"
+        workspace_id
+      )
+    )
+  )
+)
+
+;; =========================
+;; Focused program
+;; =========================
+(defwidget focusedProgramBox []
+  (box :orientation "h" :halign "start"
+    (label :class "italic" :text focusedProgram :wrap false)
+  )
+)
+
+;; =========================
+;; Time
+;; =========================
+(defpoll time :interval "0.95s"
+  "date '+%Y-%m-%d %H:%M:%S'"
+)
+
+;; =========================
+;; Font Art
+;; =========================
+(defpoll fontart :interval "600"
+  "cat fontart.txt"
+)
+
+;; =========================
+;; System Info
+;; =========================
+(defpoll cpu :interval "5s"
+  "scripts/cpu.sh"
+)
+(defpoll cpu_temp :interval "5s"
+  "scripts/cpu_temp.sh"
+)
+(defpoll cpu_freq :interval "5s"
+  "scripts/cpu_freq.sh"
+)
+(defpoll mem_used :interval "5s"
+  "scripts/mem_used.sh"
+)
+(defpoll mem_total :interval "5s"
+  "scripts/mem_total.sh"
+)
+(defpoll mem_cached :interval "5s"
+  "scripts/mem_cached.sh"
+)
+(defpoll mem_free :interval "5s"
+  "scripts/mem_free.sh"
+)
+(defpoll disk :interval "10s"
+  "scripts/disk.sh"
+)
+(defpoll network_ip :interval "5s"
+  "scripts/network_ip.sh"
+)
+(defpoll network_ssid :interval "5s"
+  "scripts/network_ssid.sh"
+)
+(defpoll network_up :interval "1s"
+  "scripts/network_up.sh"
+)
+(defpoll network_down :interval "1s"
+  "scripts/network_down.sh"
+)
+(defpoll gpu :interval "5s"
+  "scripts/gpu.sh"
+)
+(defpoll gpu_temp :interval "5s"
+  "scripts/gpu_temp.sh"
+)
+(defpoll gpu_freq :interval "5s"
+  "scripts/gpu_freq.sh"
+)
+
+;; =========================
+;; Separator
+;; =========================
+(defwidget separator []
+  (label :class "texticon separator" :text "|")
+)
+
+;; =========================
+;; Bar Center
+;; =========================
+(defwidget barCenter []
+  (workspaces)
+)
+
+;; =========================
+;; Bar Right
+;; =========================
+(defwidget barRight []
+  (box :orientation "h" :spacing 8
+
+    (box :hexpand false :halign "end"
+      (box :width 24 :height 20
+        (systray :icon-size 20 :class "systray"
+          :space-evenly false
+          :spacing 4
+          :prepend-new true)
+      )
+    )
+
+    (box :hexpand true :halign "end" :space-evenly false
+      (label :class "texticon time icon" :hexpand false :halign "start" :text " ")
+      (label :class "texticon time text" :hexpand false :halign "start" :text "${time} ")
+    )
+
+  )
+)
+
+
+
+

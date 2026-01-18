@@ -23,9 +23,19 @@ get_workspaces() {
 get_focused_program() {
     local thisLine="$1"
     if echo "$thisLine" | grep -q "activewindow>>"; then
+    
         clientFullTitle=$(sed -E 's/^activewindow>>//' <<< "$thisLine")
-        clientName=$(sed 's/,.*//' <<< "$clientFullTitle")
-        echo "$clientName"
+clientName=$(sed -E 's/^[^,]*,//' <<< "$clientFullTitle")
+echo "$clientName"
+
+    fi
+}
+
+get_focused_workspace() {
+    local thisLine="$1"
+    if echo "$thisLine" | grep -qE "workspace>>|focusedmon>>"; then
+        focused_ws=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .activeWorkspace.id')
+        echo "$focused_ws"
     fi
 }
 
