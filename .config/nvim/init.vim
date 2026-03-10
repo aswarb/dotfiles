@@ -1,9 +1,6 @@
 let g:coq_settings = { 'auto_start' : 'shut-up' }
 
 lua require("packer_cfg")
-"lua require('rose_pine_cfg')
-"lua require("evergarden_cfg")
-"colorscheme evergarden
 lua require("kanagawa_cfg")
 colorscheme kanagawa
 lua require('mason_cfg')
@@ -12,17 +9,17 @@ lua require('mason-conform_cfg')
 lua require('lsp')
 let mapleader = "\<Space>"
 lua require('telescope_cfg')
-lua require('coq-3p_cfg')
 lua require('lualine_cfg')
-"lua require('tokyonight-config')
+lua require('blink-cmp_cfg')
 lua require('gen-nvim_cfg')
-"lua require('formatter_cfg')
 lua require('undotree_cfg')
 lua require('keybinds')
 lua require('marks_cfg')
 lua require('diffview')
+"lua require('99_cfg')
+lua require('opencode_cfg')
+lua require('clipboard_cfg')
 
-"colorscheme tokyonight test
 let g:gruvbox_material_transparent_background = 1
 let g:gruvbox_material_ui_contrast = 'low'
 let g:gruvbox_material_background = 'medium'
@@ -30,16 +27,11 @@ let g:gruvbox_material_diagnostic_text_highlight = 0
 let g:gruvbox_material_diagnostic_line_highlight = 1
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_diagnostic_virtual_text = 'colored'
-"colorscheme gruvbox-material
-"lua require('kanagawa_cfg')
-"colorscheme kanagawa
-"let g:nord_disable_background = v:true
-"colorscheme nord
 lua require('nvim-colorizer_cfg')
 
 lua require("treesitter_cfg")
 set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+set foldexpr=v:lua.vim.treesitter.foldexpr()
 
 set number
 set relativenumber
