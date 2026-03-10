@@ -1,0 +1,372 @@
+// Niri configuration
+// Designed for a Hyprland-like tiling workflow without scrolling in practice.
+// Layout: 2x2 grid by default (two columns at 50%, two windows per column).
+// Extra windows park off-screen to the right as utility space.
+// Mod+F to maximize any column to full width.
+
+// ============================================================
+// INPUT
+// ============================================================
+
+input {
+	focus-follows-mouse
+    keyboard {
+        xkb {
+            layout "gb"
+            // Change to your layout. Use "us" for US QWERTY, etc.
+        }
+        repeat-delay 300
+        repeat-rate 50
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        dwt     // disable while typing
+        accel-speed 0.3
+    }
+
+    mouse {
+        accel-speed 0.0
+        accel-profile "flat"
+    }
+}
+
+// ============================================================
+// OUTPUTS
+// ============================================================
+// Run `niri msg outputs` to get your monitor names, then configure here.
+// Example:
+// output "HDMI-A-1" {
+//     mode "1920x1080@60";
+//     scale 1.0;
+//     position x=0 y=0;
+//}
+// output "eDP-1" {
+//     mode "1920x1080@60"
+//     scale 1.0
+//     position x=2560 y=0
+// }
+
+// ============================================================
+// LAYOUT
+// ============================================================
+
+layout {
+    gaps 8
+
+    // Two columns at 50% fills the screen. Mod+R cycles between these.
+    preset-column-widths {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    // New windows open at half screen width by default.
+    // Two of these = full screen. A third goes off-screen to the right
+    // as your utility/reference space.
+    default-column-width { proportion 0.5; }
+
+    // Cycle between half, two-thirds, and full height for stacked windows.
+    preset-window-heights {
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    // Keep the focused column centred so you never drift into
+    // scroll-land accidentally.
+    center-focused-column "on-overflow"
+
+    // If there's only one column, centre it rather than leaving it
+    // stuck to the left edge.
+    always-center-single-column
+    // Focus ring around active window.
+    focus-ring {
+        width 2
+        active-color "#7fc8ff"
+        inactive-color "#404040"
+        urgent-color "#bf616a"
+    }
+
+    // Borders around all windows.
+    border {
+        off
+    }
+
+    // Subtle shadow behind windows.
+    shadow {
+        on
+        softness 20
+        spread 3
+        offset x=0 y=3
+        color "#00000050"
+    }
+
+    // Tab indicator for tabbed columns.
+    tab-indicator {
+        hide-when-single-tab
+        width 3
+        gap 4
+        corner-radius 2
+        active-color "#7fc8ff"
+        inactive-color "#404040"
+    }
+}
+
+// ============================================================
+// GENERAL
+// ============================================================
+
+// Ask windows to drop client-side decorations. Niri will draw borders.
+prefer-no-csd
+
+// Screenshot path.
+screenshot-path "~/Pictures/Screenshots/Screenshot %Y-%m-%d %H-%M-%S.png"
+
+// Disable the hotkey overlay after first launch so it doesn't nag you.
+hotkey-overlay {
+    skip-at-startup
+}
+
+// ============================================================
+// NAMED WORKSPACES
+// ============================================================
+// Define named workspaces so you always have a predictable set.
+// These are optional — niri creates dynamic workspaces anyway — but
+// named ones stick around even when empty, which is nice.
+
+
+// ============================================================
+// WINDOW RULES
+// ============================================================
+
+// Round corners on all tiled windows.
+window-rule {
+	draw-border-with-background false
+    geometry-corner-radius 1
+    clip-to-geometry true
+}
+
+// Browsers open at full width by default.
+window-rule {
+    match app-id="firefox"
+    match app-id="chromium"
+    match app-id="google-chrome"
+    match app-id="brave-browser"
+    default-column-width { proportion 1.0; }
+}
+
+// Terminals open at half width (the default, but explicit for clarity).
+window-rule {
+    match app-id="foot"
+    match app-id="alacritty"
+    match app-id="kitty"
+    match app-id="ghostty"
+    match app-id="wezterm"
+    default-column-width { proportion 0.5; }
+}
+
+// File managers open at half width.
+window-rule {
+    match app-id="thunar"
+    match app-id="nautilus"
+    match app-id="pcmanfm"
+    match app-id="nemo"
+    default-column-width { proportion 0.5; }
+}
+
+// Float dialog-like windows.
+window-rule {
+    match app-id="pavucontrol"
+    match app-id="nm-connection-editor"
+    match app-id="blueman-manager"
+    open-floating true
+}
+
+// ============================================================
+// ANIMATIONS
+// ============================================================
+
+animations {
+    workspace-switch {
+        spring damping-ratio=0.85 stiffness=500 epsilon=0.0001
+    }
+
+    window-open {
+        duration-ms 200
+        curve "ease-out-expo"
+    }
+
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=0.9 stiffness=400 epsilon=0.0001
+    }
+
+    window-movement {
+        spring damping-ratio=0.8 stiffness=400 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=0.85 stiffness=400 epsilon=0.0001
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.7 stiffness=800 epsilon=0.001
+    }
+
+    overview-open-close {
+        spring damping-ratio=0.85 stiffness=700 epsilon=0.0001
+    }
+}
+
+// ============================================================
+// AUTOSTART
+// ============================================================
+
+environment {
+    DISPLAY ":0"
+}
+
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "bash" "./home/aos/.config/niri/autostart.sh"
+spawn-at-startup "swaybg" "-m" "fill" "-i" "/home/aos/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png"
+// spawn-at-startup "swayidle" ...
+
+// ============================================================
+// KEY BINDINGS
+// ============================================================
+// Designed to feel familiar coming from Hyprland.
+// Mod = Super when running on a TTY.
+
+binds {
+    // ---- Launch ----
+    Mod+Return      { spawn "alacritty"; }
+Mod+Shift+R {spawn "bash" "./home/aos/.config/niri/autostart.sh";}
+    Mod+R           { spawn "rofi" "-show" "combi" "-combi-modes" "run,drun,window" "-modes" "combi"; }
+    Mod+E           { spawn "thunar"; }
+    Mod+Escape      { spawn "swaylock"; }
+
+    // ---- Window management ----
+    Mod+Q           { close-window; }
+    Mod+F           { maximize-column; }
+    Mod+Shift+F     { fullscreen-window; }
+    Mod+Space       { toggle-window-floating; }
+
+    // ---- Focus movement (arrow keys) ----
+    Mod+Left        { focus-column-left; }
+    Mod+Right       { focus-column-right; }
+    Mod+Up          { focus-window-up; }
+    Mod+Down        { focus-window-down; }
+
+    // ---- Focus movement (vim keys) ----
+    Mod+H           { focus-column-left; }
+    Mod+L           { focus-column-right; }
+    Mod+K           { focus-window-up; }
+    Mod+J           { focus-window-down; }
+
+    // ---- Move windows (arrow keys) ----
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Down  { move-window-down; }
+
+    // ---- Move windows (vim keys) ----
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+L     { move-column-right; }
+    Mod+Shift+K     { move-window-up; }
+    Mod+Shift+J     { move-window-down; }
+
+    // ---- Column sizing ----
+    Mod+W           { switch-preset-column-width; }
+    Mod+Shift+W     { switch-preset-window-height; }
+    Mod+Minus       { set-column-width "-10%"; }
+    Mod+Equal       { set-column-width "+10%"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // ---- Column stacking (consume/expel) ----
+    // Pull the window to the right into current column (stack vertically).
+    Mod+BracketLeft  { consume-window-into-column; }
+    // Pop focused window out of column into its own column.
+    Mod+BracketRight { expel-window-from-column; }
+
+    // ---- Tabbed mode ----
+    Mod+T           { toggle-column-tabbed-display; }
+
+    // ---- Workspaces (number keys) ----
+Mod+1 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "1"; }
+Mod+2 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "2"; }
+Mod+3 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "3"; }
+Mod+4 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "4"; }
+Mod+5 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "5"; }
+Mod+6 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "6"; }
+Mod+7 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "7"; }
+Mod+8 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "8"; }
+Mod+9 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "9"; }
+Mod+0 { spawn "bash" "/home/aos/.config/niri/scripts/focus-workspace.sh" "10"; }
+    // ---- Move window to workspace ----
+    Mod+Shift+1     { move-window-to-workspace 1; }
+    Mod+Shift+2     { move-window-to-workspace 2; }
+    Mod+Shift+3     { move-window-to-workspace 3; }
+    Mod+Shift+4     { move-window-to-workspace 4; }
+    Mod+Shift+5     { move-window-to-workspace 5; }
+    Mod+Shift+6     { move-window-to-workspace 6; }
+    Mod+Shift+7     { move-window-to-workspace 7; }
+    Mod+Shift+8     { move-window-to-workspace 8; }
+    Mod+Shift+9     { move-window-to-workspace 9; }
+
+    // ---- Workspace navigation ----
+    Mod+Page_Down       { focus-workspace-down; }
+    Mod+Page_Up         { focus-workspace-up; }
+    Mod+Shift+Page_Down { move-window-to-workspace-down; }
+    Mod+Shift+Page_Up   { move-window-to-workspace-up; }
+
+    // ---- Monitor focus ----
+    Mod+Comma       { focus-monitor-left; }
+    Mod+Period      { focus-monitor-right; }
+    Mod+Shift+Comma  { move-window-to-monitor-left; }
+    Mod+Shift+Period { move-window-to-monitor-right; }
+
+    // ---- Overview ----
+    Mod+O           { toggle-overview; }
+
+    // ---- Screenshots ----
+    Print           { screenshot; }
+    Ctrl+Print      { screenshot-screen; }
+    Alt+Print       { screenshot-window; }
+
+    // ---- Scroll binds (mouse wheel with Mod) ----
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollLeft  { focus-column-left; }
+
+    // ---- Session ----
+    Mod+Shift+E     { quit; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+}
+
+// ============================================================
+// ALT-TAB / RECENT WINDOWS
+// ============================================================
+
+recent-windows {
+    debounce-ms 500
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+        // Alt+` to cycle windows of the same app.
+        Alt+grave       { next-window filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+    }
+}

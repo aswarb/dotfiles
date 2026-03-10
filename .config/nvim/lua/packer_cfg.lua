@@ -6,10 +6,8 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
-		end,
+		branch = "main",
+		run = ":TSUpdate",
 	})
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -80,6 +78,37 @@ return require("packer").startup(function(use)
 	use("zapling/mason-conform.nvim")
 	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	use("tpope/vim-fugitive")
+	use({
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!:).
+		run = "make install_jsregexp",
+	})
+	--[[
+	use({
+		"hrsh7th/nvim-cmp",
+		requires = {
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "FelipeLema/cmp-async-path" },
+			{ "petertriho/cmp-git" },
+			{ "lukas-reineke/cmp-rg" },
+			{ "tamago324/cmp-zsh" },
+			{ "andersevenrud/cmp-tmux" },
+			{ "ray-x/cmp-treesitter" },
+			{ "delphinus/cmp-ctags" },
+			{ "hrsh7th/cmp-cmdline" },
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "L3MON4D3/LuaSnip" }, -- snippet engine, already present but harmless
+		},
+	})]]--
+	use({
+    'saghen/blink.cmp',
+    tag = 'v1.*',
+	run = 'cargo build --release',
+	})
+	use("ThePrimeagen/99")
 	--[[
 	use({
 		"zbirenbaum/copilot.lua",
@@ -94,4 +123,7 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 		},
 	})]]
+	use({
+		"nickjvandyke/opencode.nvim",
+	})
 end)
