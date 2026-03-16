@@ -145,6 +145,7 @@ window-rule {
 	draw-border-with-background false
     geometry-corner-radius 1
     clip-to-geometry true
+	tiled-state true
 }
 
 // Browsers open at full width by default.

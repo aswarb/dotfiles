@@ -1,0 +1,164 @@
+# ============================================================================
+# Sway config — translated from Hyprland
+# ============================================================================
+
+# ----- Variables -----
+set $mod Mod4
+set $terminal alacritty
+set $fileManager thunar
+set $menu rofi -show combi -combi-modes "run,drun,window" -modes combi
+
+# ----- Outputs (monitors) -----
+# HDMI-A-1: primary at 0,0 | DP-3: to the left at -1920,0
+output HDMI-A-1  resolution 1920x1080@60Hz position 0,0
+output DP-3      resolution 1920x1080@60Hz position -1920,0
+
+# ----- Wallpaper -----
+# swaybg is built into sway — just set bg per output
+output HDMI-A-1  bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
+output DP-3      bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
+
+# ----- Input -----
+input type:keyboard {
+    xkb_layout gb
+}
+
+# Mouse — 'always' ensures focus follows cursor even onto empty workspaces / outputs
+focus_follows_mouse always
+
+# Per-device sensitivity (sway uses libinput accel)
+input "1133:49291:Logitech_G502_HERO_Gaming_Mouse" {
+    accel_profile flat
+    pointer_accel -0.5
+}
+
+# ----- Cursor -----
+# Sway doesn't warp cursor on focus change by default (matches no_warps=true)
+mouse_warping none
+seat seat0 xcursor_theme default 24
+
+# ----- Appearance -----
+# Gaps
+gaps inner 5
+gaps outer 2
+# Note: hyprland gaps_out 7 is outer on all sides;
+#       sway outer is added on top of inner, so 2 gives ~7 total edge gap
+
+# Borders
+default_border pixel 1
+default_floating_border pixel 1
+
+# Border colors:          border    background  text      indicator   child_border
+client.focused            #afafafaa #afafafaa   #ffffff   #afafafaa   #afafafaa
+client.unfocused          #595959aa #595959aa   #888888   #595959aa   #595959aa
+client.focused_inactive   #595959aa #595959aa   #888888   #595959aa   #595959aa
+
+# Note: Sway doesn't support rounding, blur, shadows, or animations natively.
+# For rounded corners you'd need swayfx (a sway fork). The rest we skip cleanly.
+
+# ----- Layout -----
+# Sway's default tiling is manual split (not dwindle), but behaves similarly.
+# Preserve split direction on container changes:
+default_orientation auto
+
+# ----- Autostart -----
+# Things that should only run once
+exec systemctl --user start xdg-desktop-portal-wlr
+exec gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+exec gsettings set org.gnome.desktop.interface gtk-theme "io.elementary.stylesheet.strawberry"
+
+# Tray applets and services (run via autostart script for clean restart handling)
+exec ~/.config/sway/scripts/autostart.sh
+
+# Autotiling — alternates split direction for dwindle-like layout
+exec ~/.config/sway/scripts/autotile.sh
+
+# ----- Environment -----
+# Qt theming
+exec_always {
+    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+}
+
+# ----- Keybindings -----
+
+# Core
+bindsym $mod+t exec $terminal
+bindsym $mod+c kill
+bindsym $mod+m exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
+bindsym $mod+e exec $fileManager
+bindsym $mod+v floating toggle
+bindsym $mod+r exec $menu
+bindsym $mod+j layout toggle split
+
+# Move windows (vim-style)
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+j move down
+
+# Move focus (arrow keys)
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+
+# Switch workspaces — Python i3ipc for synchronous IPC
+set $ws_switch exec ~/.config/sway/scripts/switch_to_workspace.sh
+bindsym $mod+1 $ws_switch 1
+bindsym $mod+2 $ws_switch 2
+bindsym $mod+3 $ws_switch 3
+bindsym $mod+4 $ws_switch 4
+bindsym $mod+5 $ws_switch 5
+bindsym $mod+6 $ws_switch 6
+bindsym $mod+7 $ws_switch 7
+bindsym $mod+8 $ws_switch 8
+bindsym $mod+9 $ws_switch 9
+bindsym $mod+0 $ws_switch 10
+
+# Move window to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Scratchpad (equivalent to Hyprland special workspace)
+bindsym $mod+s scratchpad show
+bindsym $mod+Shift+s move scratchpad
+
+# Scroll through workspaces (mouse wheel)
+bindsym --whole-window $mod+button4 workspace prev
+bindsym --whole-window $mod+button5 workspace next
+
+# Move/resize with mouse
+floating_modifier $mod normal
+
+# ----- Media / Hardware keys -----
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym --locked XF86MonBrightnessUp exec brightnessctl -e4 -n2 set 5%+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl -e4 -n2 set 5%-
+
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# ----- Window rules -----
+# Suppress maximize (all apps) — sway doesn't honor client maximize requests by default, so this is inherent.
+
+# Steam — force focus and allow popups
+for_window [class="^Steam$"] focus
+for_window [class="^Steam$" title="^Friends List$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title="^Steam Settings$"] floating enable
+
+# ----- Includes -----
+include /etc/sway/config.d/*

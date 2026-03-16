@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/aos/.cache/nvim/packer_hererocks/2.1.1765228720/share/lua/5.1/?.lua;/home/aos/.cache/nvim/packer_hererocks/2.1.1765228720/share/lua/5.1/?/init.lua;/home/aos/.cache/nvim/packer_hererocks/2.1.1765228720/lib/luarocks/rocks-5.1/?.lua;/home/aos/.cache/nvim/packer_hererocks/2.1.1765228720/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/aos/.cache/nvim/packer_hererocks/2.1.1765228720/lib/lua/5.1/?.so"
+local package_path_str = "/home/aos/.cache/nvim/packer_hererocks/2.1.1767980792/share/lua/5.1/?.lua;/home/aos/.cache/nvim/packer_hererocks/2.1.1767980792/share/lua/5.1/?/init.lua;/home/aos/.cache/nvim/packer_hererocks/2.1.1767980792/lib/luarocks/rocks-5.1/?.lua;/home/aos/.cache/nvim/packer_hererocks/2.1.1767980792/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/aos/.cache/nvim/packer_hererocks/2.1.1767980792/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -74,10 +74,20 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["CopilotChat.nvim"] = {
+  ["99"] = {
     loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/CopilotChat.nvim",
-    url = "https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/99",
+    url = "https://github.com/ThePrimeagen/99"
+  },
+  LuaSnip = {
+    loaded = true,
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    url = "https://github.com/L3MON4D3/LuaSnip"
+  },
+  ["blink.cmp"] = {
+    loaded = true,
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/blink.cmp",
+    url = "https://github.com/saghen/blink.cmp"
   },
   ["bufferline.nvim"] = {
     loaded = true,
@@ -89,16 +99,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/conform.nvim",
     url = "https://github.com/stevearc/conform.nvim"
-  },
-  ["copilot-lsp"] = {
-    loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/copilot-lsp",
-    url = "https://github.com/copilotlsp-nvim/copilot-lsp"
-  },
-  ["copilot.lua"] = {
-    loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/copilot.lua",
-    url = "https://github.com/zbirenbaum/copilot.lua"
   },
   ["coq.artifacts"] = {
     loaded = true,
@@ -115,15 +115,15 @@ _G.packer_plugins = {
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/coq_nvim",
     url = "https://github.com/ms-jpq/coq_nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["gen.nvim"] = {
     loaded = true,
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/gen.nvim",
     url = "https://github.com/David-Kunz/gen.nvim"
-  },
-  ["gruvbox-material"] = {
-    loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/gruvbox-material",
-    url = "https://github.com/sainnhe/gruvbox-material"
   },
   harpoon = {
     loaded = true,
@@ -147,6 +147,11 @@ _G.packer_plugins = {
     path = "/home/aos/.local/share/nvim/site/pack/packer/opt/markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
+  ["marks.nvim"] = {
+    loaded = true,
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/marks.nvim",
+    url = "https://github.com/chentoast/marks.nvim"
+  },
   ["mason-conform.nvim"] = {
     loaded = true,
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/mason-conform.nvim",
@@ -161,21 +166,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
-  },
-  neovim = {
-    loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/neovim",
-    url = "https://github.com/rose-pine/neovim"
-  },
-  ["nord.nvim"] = {
-    loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/nord.nvim",
-    url = "https://github.com/shaunsingh/nord.nvim"
-  },
-  nvim = {
-    loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/nvim",
-    url = "https://github.com/everviolet/nvim"
   },
   ["nvim-colorizer.lua"] = {
     loaded = true,
@@ -202,10 +192,10 @@ _G.packer_plugins = {
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
-  ["onedark.nvim"] = {
+  ["opencode.nvim"] = {
     loaded = true,
-    path = "/home/aos/.local/share/nvim/site/pack/packer/start/onedark.nvim",
-    url = "https://github.com/navarasu/onedark.nvim"
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/opencode.nvim",
+    url = "https://github.com/nickjvandyke/opencode.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -236,6 +226,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/aos/.local/share/nvim/site/pack/packer/start/vim-be-good",
     url = "https://github.com/ThePrimeagen/vim-be-good"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/home/aos/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   },
   vimtex = {
     loaded = true,
