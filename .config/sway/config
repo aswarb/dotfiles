@@ -48,10 +48,9 @@ gaps outer 2
 default_border pixel 1
 default_floating_border pixel 1
 
-# Border colors:          border    background  text      indicator   child_border
-client.focused            #afafafaa #afafafaa   #ffffff   #afafafaa   #afafafaa
-client.unfocused          #595959aa #595959aa   #888888   #595959aa   #595959aa
-client.focused_inactive   #595959aa #595959aa   #888888   #595959aa   #595959aa
+client.focused            #527070aa #527070aa   #0c0c0f   #527070aa   #527070aa
+client.unfocused          #1e2e30aa #1e2e30aa   #5a6a70   #1e2e30aa   #1e2e30aa
+client.focused_inactive   #1e2e30aa #1e2e30aa   #5a6a70   #1e2e30aa   #1e2e30aa
 
 # Note: Sway doesn't support rounding, blur, shadows, or animations natively.
 # For rounded corners you'd need swayfx (a sway fork). The rest we skip cleanly.
