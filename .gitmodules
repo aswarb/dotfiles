@@ -4,3 +4,7 @@
 [submodule ".config/rofi/rofi-themes-collection"]
 	path = .config/rofi/rofi-themes-collection
 	url = git@github.com:newmanls/rofi-themes-collection.git
+[submodule ".themes/perigee"]
+	path = .themes/perigee
+	url = https://github.com/aswarb/perigee-gtk-theme.git
+	branch = dist
