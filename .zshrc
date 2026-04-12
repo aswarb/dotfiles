@@ -134,7 +134,7 @@ export TORCH_CUDA_ARCH_LIST="8.6"
 #export QT5_STYLE_OVERRIDE="kvantum"
 #export QT6_STYLE_OVERRIDE="kvantum"
 export QT_QPA_PLATFORMTHEME="qt5ct"
-
+export DISABLE_FEEDBACK_COMMAND=true
 
  export TERM="xterm-256color"
 
