@@ -2,7 +2,7 @@
 ;; Bar
 ;; =========================
 (defwidget bar []
-  (centerbox :orientation "h" :class "bar"
+  (centerbox :orientation "h" :class "bar bottomborder"
     ;; Left section
     (box :hexpand false
       (barLeft)
@@ -23,7 +23,7 @@
 )
 
 (defwidget bottomBar []
-  (box :orientation "h" :class "bar" 
+  (box :orientation "h" :class "bar topborder" 
     (box :orientation "h" :spacing 10 :hexpand false :space-evenly false :halign "start"
       (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
         (label :class "texticon mem icon" :halign "start" :text " ")

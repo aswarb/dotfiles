@@ -2,35 +2,37 @@
 // Base palette (cool, perigee)
 // ===============================
 $cool-darkest: rgba(#0c0c0f, 1);
-$cool-darker:  rgba(#101014, 1);
-$cool-dark:    rgba(#141418, 1);
-$cool-mid:     rgba(#5a6a70, 1);
-$cool-light:   rgba(#aabec2, 1);
+$cool-darker: rgba(#101014, 1);
+$cool-dark: rgba(#141418, 1);
+$cool-mid: rgba(#5a6a70, 1);
+$cool-light: rgba(#aabec2, 1);
 $cool-lighter: rgba(#c0d4d8, 1);
-$cool-white:   rgba(#dceef0, 1);
+$cool-white: rgba(#dceef0, 1);
 // Accents
-$accent-bright:  rgba(#dceef0, 1);
-$accent-red:     rgba(#e04848, 1);
-$accent-orange:  rgba(#b87830, 1);
-$accent-green:   rgba(#38b868, 1);
-$accent-string:  rgba(#6ab0a8, 1);
+$accent-bright: rgba(#dceef0, 1);
+$accent-red: rgba(#e04848, 1);
+$accent-orange: rgba(#b87830, 1);
+$accent-green: rgba(#38b868, 1);
+$accent-string: rgba(#6ab0a8, 1);
 $accent-string-bright: rgba(#78c4b8, 1);
 // ===============================
 // Semantic roles
 // ===============================
-$glass-container: rgba(12, 12, 15, 0.25);
-$glass-menu:      rgba(16, 16, 20, 0.8);
-$glass-hover:     rgba(220, 238, 240, 0.08);
-$glass-active:    rgba(0, 0, 0, 0.45);
+$glass-container: rgba(12, 12, 15, 0.85);
+$glass-border: rgba(#1e2e30, 1);
+$glass-menu: rgba(16, 16, 20, 0.8);
+$glass-hover: rgba(220, 238, 240, 0.08);
+$glass-active: rgba(0, 0, 0, 0.45);
 // Text
-$text-primary:   $cool-white;
+$text-primary: $cool-white;
 $text-secondary: $cool-lighter;
-$text-muted:     rgba($cool-light, 0.85);
-$text-accent:    $accent-bright;
-$text-error:     $accent-red;
+$text-muted: rgba($cool-light, 0.85);
+$text-accent: $accent-bright;
+$text-error: $accent-red;
 // Typography
 $font-family: 'BlexMono Nerd Font', monospace;
 $border-radius: 0.15em;
+
 // ===============================
 // Reset
 // ===============================
@@ -42,8 +44,14 @@ $border-radius: 0.15em;
     box-shadow 0.09s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.mono { font-family: $font-family; }
-.italic { font-style: italic; }
+.mono {
+  font-family: $font-family;
+}
+
+.italic {
+  font-style: italic;
+}
+
 // ===============================
 // Bar
 // ===============================
@@ -51,45 +59,64 @@ $border-radius: 0.15em;
   background-color: $glass-container;
   color: $text-primary;
   font-family: $font-family;
+
+  &.topborder {
+    border-top: 1px solid $glass-border;
+  }
+
+  &.bottomborder {
+    border-bottom: 1px solid $glass-border;
+  }
 }
+
 // ===============================
 // Workspaces
 // ===============================
-.focusedProgramBox{padding-left: 10px}
+.focusedProgramBox {
+  padding-left: 10px
+}
+
 .workspaces {
   button {
-    margin-top:1px;
+    margin-top: 1px;
     padding: 2px 6px;
     font-size: 14px;
     font-family: $font-family;
     color: $text-muted;
     border: 1px solid transparent;
     border-radius: $border-radius;
+
     &:hover {
       color: $accent-red;
       background-color: $glass-hover;
     }
+
     &.active {
       border-color: rgba($cool-light, 0.6);
     }
+
     &.focused {
       color: $text-primary;
       border-color: rgba($cool-light, 0.6);
     }
+
     &.hypr_focus {
       color: $cool-white;
       border-color: $accent-bright;
     }
   }
 }
+
 // ===============================
 // Texticon Components
 // ===============================
 .texticon {
+
   &.icon,
   &.time.icon {
     color: $accent-string-bright;
   }
+
   &.text,
   &.ip,
   &.ssid,
@@ -99,59 +126,71 @@ $border-radius: 0.15em;
   &.time.text {
     color: $text-primary;
   }
+
   &.separator {
     color: $text-secondary;
   }
 }
+
 // ===============================
 // Icon
 // ===============================
 .icon {
   font-size: 18px;
 }
+
 // ===============================
 // Errors
 // ===============================
 .error {
   color: $text-error;
 }
+
 .systray {
   image {
     margin: 0px 3px;
   }
+
   .popup,
   menu {
     padding: 2px;
     border-radius: $border-radius;
     border: 1px solid rgba($cool-light, 0.6);
     background-color: rgba($glass-menu, 0.6);
+
     >menuitem {
       padding: 3px 3px;
       color: $text-primary;
       padding: 5px 5px 5px 5px;
       transition: color 0.02s cubic-bezier(0, 0, 1, 1);
+
       arrow {
         min-width: 12px;
         min-height: 12px;
+
         &:dir(ltr) {
           -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
           margin-left: 10px;
           margin-right: 10px;
         }
       }
+
       &:hover {
         background-color: $glass-hover;
         color: $accent-red;
         text-shadow: 0 0 4px rgba($accent-red, 0.5);
       }
+
       &:disabled {
         padding: 2px 2px 2px 5px;
+
         label {
           font-family: $font-family;
           font-style: italic;
           color: $text-muted;
         }
       }
+
       label {
         font-family: $font-family;
         padding: 0px;
@@ -160,6 +199,7 @@ $border-radius: 0.15em;
         font-family: $font-family;
       }
     }
+
     separator {
       margin: 0px 0;
       min-height: 2px;
