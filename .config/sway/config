@@ -10,13 +10,13 @@ set $menu rofi -show combi -combi-modes "run,drun,window" -modes combi
 
 # ----- Outputs (monitors) -----
 # HDMI-A-1: primary at 0,0 | DP-3: to the left at -1920,0
-output HDMI-A-1  resolution 1920x1080@60Hz position 0,0
-output DP-3      resolution 1920x1080@60Hz position -1920,0
+output HDMI-A-1  resolution 1920x1080@60Hz position 1920,0
+output DP-3      resolution 1920x1080@60Hz position  0,0
 
 # ----- Wallpaper -----
 # swaybg is built into sway — just set bg per output
-output HDMI-A-1  bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
-output DP-3      bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
+output HDMI-A-1  bg ~/wallpapers/wallhaven-o3z85l_3840x2160.png fill
+output DP-3      bg ~/wallpapers/wallhaven-o3z85l_3840x2160.png fill
 
 # ----- Input -----
 input type:keyboard {
@@ -155,10 +155,10 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 # Suppress maximize (all apps) — sway doesn't honor client maximize requests by default, so this is inherent.
 
 # Steam — force focus and allow popups
-for_window [class="^Steam$"] focus
-for_window [class="^Steam$" title="^Friends List$"] floating enable
-for_window [class="^Steam$" title="Steam - News"] floating enable
-for_window [class="^Steam$" title="^Steam Settings$"] floating enable
+#for_window [class="^Steam$"] focus
+#for_window [class="^Steam$" title="^Friends List$"] floating enable
+#for_window [class="^Steam$" title="Steam - News"] floating enable
+#for_window [class="^Steam$" title="^Steam Settings$"] floating enable
 
 # ----- Includes -----
 include /etc/sway/config.d/*
