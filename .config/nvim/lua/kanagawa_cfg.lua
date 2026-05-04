@@ -3,7 +3,7 @@ local G_PRIMARY = "#dceef0" -- main text / variables / function defs (bright)
 local G_SECONDARY = "#aabec2" -- parameters / members / properties (body text)
 local G_TERTIARY = "#6a9aaa" -- regular function/method calls (lighter teal)
 local G_MUTED = "#5a6a70" -- punctuation / types / less important UI
-local G_COMMENT = "#2e3038" -- comments / borders / floats
+local G_COMMENT = "#404247" -- comments / borders / floats
 
 local P_RED = "#e04848" -- operators / control flow / errors
 local P_ORANGE = "#b87830" -- primitives / magic numbers / warnings
