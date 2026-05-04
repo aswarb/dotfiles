@@ -64,7 +64,7 @@ default_orientation auto
 # Things that should only run once
 exec systemctl --user start xdg-desktop-portal-wlr
 exec gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-exec gsettings set org.gnome.desktop.interface gtk-theme "io.elementary.stylesheet.strawberry"
+exec gsettings set org.gnome.desktop.interface gtk-theme "perigee"
 
 # Tray applets and services (run via autostart script for clean restart handling)
 exec ~/.config/sway/scripts/autostart.sh

@@ -139,6 +139,19 @@ export DISABLE_FEEDBACK_COMMAND=true
  export TERM="xterm-256color"
 
  alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+
+# GitHub PR comment management aliases
+alias ghlink='~/link-comment.sh'
+alias ghreply='~/reply-comment.sh'
+alias ghlist='~/list-comments.sh'
+alias ghresolve='~/toggle-resolve.sh'
+alias ghreview='~/review-comment.sh'
+
 # tabtab source for electron-forge package
 # uninstall by removing these lines or running `tabtab uninstall electron-forge`
 [[ -f /home/aos/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/aos/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh
+
+
+export CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY=1
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
