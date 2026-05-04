@@ -6,5 +6,5 @@
 	url = git@github.com:newmanls/rofi-themes-collection.git
 [submodule ".themes/perigee"]
 	path = .themes/perigee
-	url = https://github.com/aswarb/perigee-gtk-theme.git
+	url = https://codeberg.org/aswarb/gtk-theme-perigee.git
 	branch = dist
