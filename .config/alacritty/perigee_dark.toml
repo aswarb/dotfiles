@@ -1,46 +1,50 @@
-# perigee · alacritty colors
-# near-monochrome · blue accent #90c4f8 · rose #d47878
+# cyberpunk rice — alacritty colors
+# derived from the kanagawa_cyberpunk palette:
+#   bg #0f1216 / primary #f4f5f8 / secondary #c4c7ce / tertiary #9aa0ad
+#   muted #888d99 / comment #4f535e
+#   amber #edc99a (primitives)  coral #e07860 (control flow)
+#   cherry #c85a5a (errors)     cyan #8ad0d4 (functions)
 
 [colors.primary]
-background = '#0e0e12'
-foreground = '#e8e8f0'
+background = '#0f1216'
+foreground = '#f4f5f8'
 
 [colors.cursor]
-cursor   = '#90c4f8'
-text     = '#0e0e12'
+cursor = '#8ad0d4'
+text   = '#0f1216'
 
 [colors.vi_mode_cursor]
-cursor   = '#90c4f8'
-text     = '#0e0e12'
+cursor = '#edc99a'
+text   = '#0f1216'
 
 [colors.selection]
-background = '#1c1c24'
-text       = '#e8e8f0'
+background = '#232629'
+text       = '#f4f5f8'
 
 [colors.search.matches]
-background = '#1c1c24'
-foreground = '#90c4f8'
+background = '#232629'
+foreground = '#8ad0d4'
 
 [colors.search.focused_match]
-background = '#90c4f8'
-foreground = '#0e0e12'
+background = '#8ad0d4'
+foreground = '#0f1216'
 
 [colors.normal]
-black   = '#070709'
-red     = '#d47878'
-green   = '#9898a2'
-yellow  = '#c4c4cc'
-blue    = '#90c4f8'
-magenta = '#7a7a84'
-cyan    = '#9898a2'
-white   = '#c4c4cc'
+black   = '#0a0c0f'
+red     = '#e07860'
+green   = '#888d99'
+yellow  = '#edc99a'
+blue    = '#8ad0d4'
+magenta = '#9aa0ad'
+cyan    = '#8ad0d4'
+white   = '#c4c7ce'
 
 [colors.bright]
-black   = '#7a7a84'
-red     = '#d96060'
-green   = '#c4c4cc'
-yellow  = '#e8e8f0'
-blue    = '#90c4f8'
-magenta = '#9898a2'
-cyan    = '#c4c4cc'
-white   = '#e8e8f0'
+black   = '#4f535e'
+red     = '#c85a5a'
+green   = '#c4c7ce'
+yellow  = '#f4f5f8'
+blue    = '#8ad0d4'
+magenta = '#c4c7ce'
+cyan    = '#c4c7ce'
+white   = '#f4f5f8'

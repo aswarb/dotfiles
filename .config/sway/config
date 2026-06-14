@@ -15,8 +15,8 @@ output DP-3      resolution 1920x1080@60Hz position  0,0
 
 # ----- Wallpaper -----
 # swaybg is built into sway — just set bg per output
-output HDMI-A-1  bg ~/wallpapers/wallhaven-o3z85l_3840x2160.png fill
-output DP-3      bg ~/wallpapers/wallhaven-o3z85l_3840x2160.png fill
+output HDMI-A-1  bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
+output DP-3 bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
 
 # ----- Input -----
 input type:keyboard {
@@ -48,9 +48,12 @@ gaps outer 2
 default_border pixel 1
 default_floating_border pixel 1
 
-client.focused            #527070aa #527070aa   #0c0c0f   #527070aa   #527070aa
-client.unfocused          #1e2e30aa #1e2e30aa   #5a6a70   #1e2e30aa   #1e2e30aa
-client.focused_inactive   #1e2e30aa #1e2e30aa   #5a6a70   #1e2e30aa   #1e2e30aa
+client.focused            #edc99a   #0f1216   #f4f5f8   #8ad0d4   #edc99a
+client.focused_inactive   #4f535e   #0f1216   #888d99   #4f535e   #4f535e
+client.unfocused          #232629   #0f1216   #4f535e   #232629   #232629
+
+#for_window [class=".*"] opacity 0.95
+#for_window [app_id=".*"] opacity 0.95
 
 # Note: Sway doesn't support rounding, blur, shadows, or animations natively.
 # For rounded corners you'd need swayfx (a sway fork). The rest we skip cleanly.

@@ -1,34 +1,37 @@
 // ===============================
-// Base palette (warm, opaque)
+// Base palette (cool grey)
 // ===============================
-$warm-darkest: rgba(#1a1614, 1);
-$warm-darker:  rgba(#2a2421, 1);
-$warm-dark:    rgba(#3d3935, 1);
-$warm-mid:     rgba(#8a8479, 1);
-$warm-light:   rgba(#cdc6bc, 1);
-$warm-lighter: rgba(#ebe6e0, 1);
-$warm-white:   rgba(#faf7f2, 1);
+$t0: rgba(#f4f5f8, 1);
+$t1: rgba(#c4c7ce, 1);
+$t2: rgba(#9aa0ad, 1);
+$t3: rgba(#888d99, 1);
+$t4: rgba(#4f535e, 1);
 
 // Accents
-$accent-peach:   rgba(#edc99a, 1);
-$accent-coral:   rgba(#e07860, 1);
-$accent-apricot: rgba(#d4a574, 1);
-$accent-cherry:  rgba(#c85a5a, 1);
+$amber:   rgba(#edc99a, 1);
+$apricot: rgba(#d4a574, 1);
+$cyan:    rgba(#8ad0d4, 1);
+$coral:   rgba(#e07860, 1);
+$cherry:  rgba(#c85a5a, 1);
 
 // ===============================
 // Semantic roles
 // ===============================
-$glass-container: rgba(20, 22, 24, 0.7);
-$glass-menu:      rgba(40, 42, 44, 0.8);
-$glass-hover:     rgba(235, 235, 235, 0.08);
+$glass-container: rgba(15, 18, 22, 0.80);
+$glass-menu:      rgba(38, 42, 48, 0.90);
+$glass-hover:     rgba(145, 150, 162, 0.08);
 $glass-active:    rgba(0, 0, 0, 0.45);
 
 // Text
-$text-primary:   $warm-white;
-$text-secondary: $warm-lighter;
-$text-muted:     rgba($warm-light, 0.85);
-$text-accent:    $accent-peach;
-$text-error:     $accent-cherry;
+$text-primary:   $t0;
+$text-secondary: $t1;
+$text-muted:     $t3;
+$text-accent:    $cyan;
+$text-error:     $cherry;
+
+// Borders
+$border-subtle: rgba(145, 150, 162, 0.10);
+$border-strong: rgba(145, 150, 162, 0.22);
 
 // Typography
 $font-family: 'BlexMono Nerd Font', monospace;
@@ -45,7 +48,7 @@ $border-radius: 0.15em;
     box-shadow 0.09s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
- 
+
 .mono { font-family: $font-family; }
 .italic { font-style: italic; }
 
@@ -70,27 +73,27 @@ $border-radius: 0.15em;
     padding: 2px 6px;
     font-size: 14px;
     font-family: $font-family;
-    color: $text-muted;
+    color: $t2;
     border: 1px solid transparent;
     border-radius: $border-radius;
 
     &:hover {
-      color: $accent-cherry;
+      color: $cherry;
       background-color: $glass-hover;
     }
 
     &.active {
-      border-color: rgba($warm-light, 0.6);
+      border-color: $t4;
     }
 
     &.focused {
       color: $text-primary;
-      border-color: rgba($warm-light, 0.6);
+      border-color: $t4;
     }
 
     &.hypr_focus {
-      color: $warm-white;
-      border-color: $accent-peach;
+      color: $t0;
+      border-color: $amber;
     }
   }
 }
@@ -102,7 +105,7 @@ $border-radius: 0.15em;
 .texticon {
   &.icon,
   &.time.icon {
-    color: $accent-peach;
+    color: $cyan;
   }
 
   &.text,
@@ -143,7 +146,7 @@ $border-radius: 0.15em;
   menu {
     padding: 2px;
     border-radius: $border-radius;
-    border: 1px solid rgba($warm-light, 0.6);
+    border: 1px solid $border-strong;
     background-color: rgba($glass-menu,0.6);
 
 
@@ -167,8 +170,8 @@ $border-radius: 0.15em;
 
       &:hover {
         background-color: $glass-hover;
-        color: $accent-cherry;
-        text-shadow: 0 0 4px rgba($accent-cherry, 0.5);
+        color: $cherry;
+        text-shadow: 0 0 4px rgba($cherry, 0.5);
       }
 
 
@@ -195,7 +198,7 @@ $border-radius: 0.15em;
       margin: 0px 0;
       min-height: 2px;
       padding: 0px;
-      background-color: rgba($warm-light, 0.1);
+      background-color: $border-subtle;
     }
   }
 }

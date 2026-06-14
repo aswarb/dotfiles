@@ -1,16 +1,14 @@
-local G_PRIMARY   = "#f0ebe5" -- main text / locals / numbers (brightest cream)
-local G_SECONDARY = "#cdc6bc" -- structure / types / parameters (lighter cream)
-local G_TERTIARY  = "#a8a299" -- keywords / statements / constructors (medium warm grey)
-local G_MUTED     = "#8a8479" -- operators / punctuation / less important UI (darker warm grey)
-local G_COMMENT   = "#5a524d" -- comments / borders / floats
+local T0 = "#f4f5f8"  -- primary: variables, types, brackets
+local T1 = "#c4c7ce"  -- secondary text
+local T2 = "#9aa0ad"  -- tertiary: keywords
+local T3 = "#888d99"  -- muted: params, props, punctuation
+local T4 = "#4f535e"  -- comment / border
 
-local FRUIT_PEACH   = "#edc99a" -- bright peach for signatures
-local FRUIT_CORAL   = "#e07860" -- coral for control flow
-local FRUIT_CHERRY  = "#d96060" -- vestige pastel red for errors
-local FRUIT_APRICOT = "#d4a574" -- peach for strings
-local FRUIT_WARN    = "#d49050" -- vestige pastel orange for warnings
-
-local BRACKET_WHITE = "#faf7f2" -- bright warm white for brackets
+local AMBER   = "#edc99a"  -- primitives: numbers, booleans
+local APRICOT = "#d4a574"  -- strings
+local CYAN    = "#8ad0d4"  -- functions, class declarations
+local CORAL   = "#e07860"  -- control flow, operators, warnings
+local CHERRY  = "#c85a5a"  -- errors
 
 require("kanagawa").setup({
 	compile = true,
@@ -31,7 +29,7 @@ require("kanagawa").setup({
 			dragon = {},
 			all = {
 				ui = {
-					fg = G_PRIMARY,
+					fg = T0,
 				},
 			},
 		},
@@ -40,104 +38,105 @@ require("kanagawa").setup({
 		local theme = colors.theme
 		return {
 			-- ===== Variables =====
-			["@variable"]            = { fg = G_PRIMARY },
-			["@variable.builtin"]    = { fg = G_SECONDARY },
-			["@variable.typescript"] = { fg = G_PRIMARY },
-			["@variable.parameter"]  = { fg = G_SECONDARY },
-			["@variable.member"]     = { fg = G_SECONDARY },
-			["@variable.property"]   = { fg = G_SECONDARY },
-			["@property"]            = { fg = G_SECONDARY },
-			["@field"]               = { fg = G_SECONDARY },
-			["@constant.builtin"]    = { fg = G_SECONDARY },
-			Identifier               = { fg = G_PRIMARY },
-			["@lsp.type.variable"]   = { fg = G_PRIMARY },
-			["@lsp.type.parameter"]  = { fg = G_SECONDARY },
-			["@lsp.type.property"]   = { fg = G_SECONDARY },
-			["@lsp.type.class"]      = { fg = G_MUTED },
+			["@variable"]            = { fg = T0 },
+			["@variable.builtin"]    = { fg = T2 },
+			["@variable.typescript"] = { fg = T0 },
+			["@variable.parameter"]  = { fg = T3 },
+			["@variable.member"]     = { fg = T3 },
+			["@variable.property"]   = { fg = T3 },
+			["@property"]            = { fg = T3 },
+			["@field"]               = { fg = T3 },
+			["@constant.builtin"]    = { fg = AMBER },
+			Identifier               = { fg = T0 },
+			["@lsp.type.variable"]   = { fg = T0 },
+			["@lsp.type.parameter"]  = { fg = T3 },
+			["@lsp.type.property"]   = { fg = T3 },
+			["@lsp.type.class"]      = { fg = CYAN },
 
 			-- ===== Types =====
-			["@type"]         = { fg = G_SECONDARY },
-			["@type.builtin"] = { fg = G_MUTED },
-			Type              = { fg = G_SECONDARY },
+			["@type"]         = { fg = T0 },
+			["@type.builtin"] = { fg = T0 },
+			Type              = { fg = T0 },
 
 			-- ===== Functions =====
-			["@function"]                         = { fg = G_TERTIARY },
-			["@function.call"]                    = { fg = G_TERTIARY },
-			["@function.method"]                  = { fg = G_TERTIARY },
-			["@function.method.call"]             = { fg = G_TERTIARY },
-			Function                              = { fg = G_TERTIARY },
-			["@lsp.typemod.function.declaration"] = { fg = FRUIT_PEACH, bold = true },
-			["@lsp.typemod.method.declaration"]   = { fg = FRUIT_PEACH, bold = true },
+			["@function"]                         = { fg = CYAN },
+			["@function.call"]                    = { fg = CYAN },
+			["@function.method"]                  = { fg = CYAN },
+			["@function.method.call"]             = { fg = CYAN },
+			Function                              = { fg = CYAN },
+			["@lsp.typemod.function.declaration"] = { fg = CYAN, bold = true },
+			["@lsp.typemod.method.declaration"]   = { fg = CYAN, bold = true },
 
 			-- ===== Keywords / control flow =====
-			["@keyword"]             = { fg = G_TERTIARY,   italic = true },
-			["@keyword.conditional"] = { fg = FRUIT_CORAL,  italic = true },
-			["@keyword.repeat"]      = { fg = FRUIT_CORAL,  italic = true },
-			["@keyword.return"]      = { fg = FRUIT_CORAL,  italic = true },
-			["@statement.return"]    = { fg = FRUIT_CORAL,  italic = true },
-			["@keyword.import"]      = { fg = G_TERTIARY,   italic = true },
-			["@keyword.export"]      = { fg = G_TERTIARY,   italic = true },
-			["@statement.import"]    = { fg = G_TERTIARY,   italic = true },
-			["@keyword.function"]    = { fg = G_TERTIARY,   italic = true },
-			["@keyword.constructor"] = { fg = G_TERTIARY,   italic = true },
-			["@constructor"]         = { fg = G_TERTIARY,   italic = true },
-			["@statement"]           = { fg = G_TERTIARY,   italic = true },
-			Statement                = { fg = G_TERTIARY,   italic = true },
-			Keyword                  = { fg = G_TERTIARY,   italic = true },
+			["@keyword"]             = { fg = T2,    italic = true },
+			["@keyword.conditional"] = { fg = CORAL, italic = true },
+			["@keyword.repeat"]      = { fg = CORAL, italic = true },
+			["@keyword.return"]      = { fg = CORAL, italic = true },
+			["@statement.return"]    = { fg = CORAL, italic = true },
+			["@keyword.import"]      = { fg = T2,    italic = true },
+			["@keyword.export"]      = { fg = T2,    italic = true },
+			["@statement.import"]    = { fg = T2,    italic = true },
+			["@keyword.function"]    = { fg = T2,    italic = true },
+			["@keyword.constructor"] = { fg = T2,    italic = true },
+			["@constructor"]         = { fg = CYAN },
+			["@keyword.exception"]   = { fg = CORAL, italic = true },
+			["@statement"]           = { fg = T2,    italic = true },
+			Statement                = { fg = T2,    italic = true },
+			Keyword                  = { fg = T2,    italic = true },
 
 			-- ===== Operators / punctuation =====
-			["@keyword.operator"]      = { fg = FRUIT_CORAL, italic = true },
-			["@operator"]              = { fg = FRUIT_CORAL },
-			Operator                   = { fg = FRUIT_CORAL },
-			Exception                  = { fg = FRUIT_CORAL },
-			["@punctuation.bracket"]   = { fg = BRACKET_WHITE },
-			["@punctuation.delimiter"] = { fg = G_MUTED },
-			Delimiter                  = { fg = G_MUTED },
+			["@keyword.operator"]      = { fg = CORAL, italic = true },
+			["@operator"]              = { fg = CORAL },
+			Operator                   = { fg = CORAL },
+			Exception                  = { fg = CORAL },
+			["@punctuation.bracket"]   = { fg = T0 },
+			["@punctuation.delimiter"] = { fg = T3 },
+			Delimiter                  = { fg = T3 },
 
 			-- ===== Numbers / constants =====
-			["@number"]       = { fg = G_PRIMARY },
-			["@number.float"] = { fg = G_PRIMARY },
-			["@boolean"]      = { fg = G_SECONDARY },
-			["@constant"]     = { fg = G_PRIMARY },
-			Constant          = { fg = G_PRIMARY },
-			Boolean           = { fg = G_SECONDARY },
-			Number            = { fg = G_PRIMARY },
+			["@number"]       = { fg = AMBER },
+			["@number.float"] = { fg = AMBER },
+			["@boolean"]      = { fg = AMBER },
+			["@constant"]     = { fg = T0 },
+			Constant          = { fg = T0 },
+			Boolean           = { fg = AMBER },
+			Number            = { fg = AMBER },
 
 			-- ===== Strings =====
-			["@string"] = { fg = FRUIT_APRICOT },
-			String      = { fg = FRUIT_APRICOT },
+			["@string"] = { fg = APRICOT },
+			String      = { fg = APRICOT },
 
 			-- ===== Comments =====
-			["@comment"] = { fg = G_COMMENT, italic = true },
-			Comment      = { fg = G_COMMENT, italic = true },
+			["@comment"] = { fg = T4, italic = true },
+			Comment      = { fg = T4, italic = true },
 
 			-- ===== Normal / UI / Floats =====
-			Normal      = { fg = G_PRIMARY },
-			NormalFloat = { bg = "#131210", fg = G_PRIMARY },
-			FloatTitle  = { bg = "#131210", fg = G_PRIMARY },
-			FloatBorder = { bg = "#131210", fg = G_COMMENT },
-			NormalDark  = { fg = G_MUTED,   bg = "#131210" },
-			LazyNormal  = { bg = "#131210", fg = G_MUTED },
-			MasonNormal = { bg = "#131210", fg = G_MUTED },
-			Pmenu       = { fg = G_MUTED,   bg = "#181818" },
-			PmenuSel    = { fg = G_PRIMARY, bg = "#222222" },
-			PmenuSbar   = { bg = "#181818" },
-			PmenuThumb  = { bg = "#2a2a2a" },
+			Normal      = { fg = T0 },
+			NormalFloat = { bg = "#0c0f13", fg = T0 },
+			FloatTitle  = { bg = "#0c0f13", fg = T0 },
+			FloatBorder = { bg = "#0c0f13", fg = T4 },
+			NormalDark  = { fg = T3,        bg = "#0c0f13" },
+			LazyNormal  = { bg = "#0c0f13", fg = T3 },
+			MasonNormal = { bg = "#0c0f13", fg = T3 },
+			Pmenu       = { fg = T3,        bg = "#12151a" },
+			PmenuSel    = { fg = T0,        bg = "#1e2128" },
+			PmenuSbar   = { bg = "#12151a" },
+			PmenuThumb  = { bg = "#2a2d33" },
 
 			-- ===== Diagnostics =====
-			DiagnosticVirtualTextHint  = { fg = G_COMMENT,    bg = "none" },
-			DiagnosticVirtualTextInfo  = { fg = G_MUTED,      bg = "none" },
-			DiagnosticVirtualTextWarn  = { fg = FRUIT_WARN,   bg = "none" },
-			DiagnosticVirtualTextError = { fg = FRUIT_CHERRY, bg = "none" },
+			DiagnosticVirtualTextHint  = { fg = T4,     bg = "none" },
+			DiagnosticVirtualTextInfo  = { fg = T3,     bg = "none" },
+			DiagnosticVirtualTextWarn  = { fg = CORAL,  bg = "none" },
+			DiagnosticVirtualTextError = { fg = CHERRY, bg = "none" },
 
 			-- ===== Telescope =====
-			TelescopeTitle         = { fg = G_PRIMARY,   bg = "#131210" },
-			TelescopePromptNormal  = { fg = G_PRIMARY,   bg = "#131210" },
-			TelescopePromptBorder  = { fg = G_COMMENT,   bg = "#131210" },
-			TelescopeResultsNormal = { fg = G_MUTED,     bg = "#181818" },
-			TelescopeResultsBorder = { fg = G_COMMENT,   bg = "#181818" },
-			TelescopePreviewNormal = { fg = G_PRIMARY,   bg = "#181818" },
-			TelescopePreviewBorder = { fg = G_COMMENT,   bg = "#181818" },
+			TelescopeTitle         = { fg = T0, bg = "#0c0f13" },
+			TelescopePromptNormal  = { fg = T0, bg = "#0c0f13" },
+			TelescopePromptBorder  = { fg = T4, bg = "#0c0f13" },
+			TelescopeResultsNormal = { fg = T3, bg = "#12151a" },
+			TelescopeResultsBorder = { fg = T4, bg = "#12151a" },
+			TelescopePreviewNormal = { fg = T0, bg = "#12151a" },
+			TelescopePreviewBorder = { fg = T4, bg = "#12151a" },
 		}
 	end,
 	theme = "dragon",

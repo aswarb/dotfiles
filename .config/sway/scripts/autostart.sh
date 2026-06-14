@@ -38,7 +38,7 @@ alacritty --command tmux attach &
 # EWW bars — adjust widget names if needed
 eww daemon &
 sleep 0.3
-eww open-many top1 top0 bottom1 bottom0 &
+eww open-many top1 top0 buttom0 bottom1 &
 
 # NOTE: swaybg / wallpaper is handled natively via `output ... bg` in the sway config.
 # NOTE: hyprsunset → gammastep. Install gammastep if not already present.
