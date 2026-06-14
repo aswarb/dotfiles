@@ -11,13 +11,13 @@ let mapleader = "\<Space>"
 lua require('telescope_cfg')
 lua require('lualine_cfg')
 lua require('blink-cmp_cfg')
-lua require('gen-nvim_cfg')
+"lua require('gen-nvim_cfg')
 lua require('undotree_cfg')
 lua require('keybinds')
 lua require('marks_cfg')
 lua require('diffview')
 "lua require('99_cfg')
-lua require('opencode_cfg')
+"lua require('opencode_cfg')
 lua require('clipboard_cfg')
 
 let g:gruvbox_material_transparent_background = 1

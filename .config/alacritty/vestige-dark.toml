@@ -1,0 +1,31 @@
+[colors.primary]
+background = "#0e1012"
+foreground = "#e8d8b8"  # warm cream — primary text
+
+[colors.cursor]
+text   = "#0e1012"
+cursor = "#c87880"  # dusty rose cursor
+
+[colors.selection]
+text       = "#0e1012"
+background = "#c87880"
+
+[colors.normal]
+black   = "#262830"
+red     = "#d96060"
+green   = "#90a898"
+yellow  = "#a87828"
+blue    = "#303238"
+magenta = "#c87880"
+cyan    = "#90a898"  # celadon — distinct from rose
+white   = "#e8d8b8"
+
+[colors.bright]
+black   = "#3a3c44"
+red     = "#ef7070"
+green   = "#a8c0b8"
+yellow  = "#c89838"
+blue    = "#505258"
+magenta = "#e0b0b8"
+cyan    = "#a8c0b8"  # celadon bright
+white   = "#f0ebe5"

@@ -1,31 +1,46 @@
+# perigee · alacritty colors
+# near-monochrome · blue accent #90c4f8 · rose #d47878
+
 [colors.primary]
-background = '#0c0e0f'
-foreground = '#aabec2'
+background = '#0e0e12'
+foreground = '#e8e8f0'
 
 [colors.cursor]
-text   = '#0c0c0f'
-cursor = '#dceef0'
+cursor   = '#90c4f8'
+text     = '#0e0e12'
+
+[colors.vi_mode_cursor]
+cursor   = '#90c4f8'
+text     = '#0e0e12'
 
 [colors.selection]
-text       = '#dceef0'
-background = '#141418'
+background = '#1c1c24'
+text       = '#e8e8f0'
+
+[colors.search.matches]
+background = '#1c1c24'
+foreground = '#90c4f8'
+
+[colors.search.focused_match]
+background = '#90c4f8'
+foreground = '#0e0e12'
 
 [colors.normal]
-black   = '#101014'
-red     = '#e04848'
-green   = '#38b868'
-yellow  = '#d08838'
-blue    = '#4a6470'
-cyan    = '#6a8890'
-magenta = '#90a8b0'
-white   = '#c0d4d8'
+black   = '#070709'
+red     = '#d47878'
+green   = '#9898a2'
+yellow  = '#c4c4cc'
+blue    = '#90c4f8'
+magenta = '#7a7a84'
+cyan    = '#9898a2'
+white   = '#c4c4cc'
 
 [colors.bright]
-black   = '#1e1e24'
-red     = '#f05858'
-green   = '#50d880'
-yellow  = '#e09848'
-blue    = '#5a7480'
-cyan    = '#7a9aa0'
-magenta = '#a8c0c4'
-white   = '#dceef0'
+black   = '#7a7a84'
+red     = '#d96060'
+green   = '#c4c4cc'
+yellow  = '#e8e8f0'
+blue    = '#90c4f8'
+magenta = '#9898a2'
+cyan    = '#c4c4cc'
+white   = '#e8e8f0'

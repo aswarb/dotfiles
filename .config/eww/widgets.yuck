@@ -25,29 +25,24 @@
 (defwidget bottomBar []
   (box :orientation "h" :class "bar topborder" 
     (box :orientation "h" :spacing 10 :hexpand false :space-evenly false :halign "start"
-      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
-        (label :class "texticon mem icon" :halign "start" :text " ")
-        (label :class "texticon mem text" :halign "start" :text "${mem_used}/${mem_total} ${mem_cached} ${mem_free}")
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start"         
+        (label :class "texticon mem text" :markup true :halign "start" :text "${mem_used}/${mem_cached}/${mem_total}")
       )
       (separator)
-      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
-        (label :class "texticon cpu icon" :halign "start" :text " ")
-        (label :halign "start" :text "${cpu} ${cpu_temp} ${cpu_freq}")
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" 
+        (label :markup true :halign "start" :text "${cpu} ${cpu_temp} ${cpu_freq}")
       )
       (separator)
-      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start" :width 200
-        (label :class "texticon gpu icon" :halign "start" :text "󰾲 ")
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start"
         (label :class "texticon gpu text" :halign "start" :text "${gpu} ${gpu_temp} ${gpu_freq}")
       )
     )
-    (box :orientation "h" :spacing 6 :space-evenly false :halign "end" :width 500
-      (label :class "texticon network icon" :halign "start" :text "󰑩 ")
+    (box :orientation "h" :spacing 6 :space-evenly false :halign "end" 
       (label :class "texticon network ip" :halign "start" :text "${network_ip}")
       (label :class "texticon network at" :halign "start" :text "@")
       (label :class "texticon network ssid" :halign "start" :text "${network_ssid}")
       (separator)
       (label :class "texticon network up" :halign "start" :text "${network_up}")
-      (separator)
       (label :class "texticon network down" :halign "start" :text "${network_down}")
     )
   )
@@ -185,7 +180,7 @@
 ;; Separator
 ;; =========================
 (defwidget separator []
-  (label :class "texticon separator" :text "|")
+  (label :class "texticon separator" :text "·")
 )
 
 ;; =========================
@@ -211,7 +206,6 @@
     )
 
     (box :hexpand true :halign "end" :space-evenly false
-      (label :class "texticon time icon" :hexpand false :halign "start" :text " ")
       (label :class "texticon time text" :hexpand false :halign "start" :text "${time} ")
     )
 

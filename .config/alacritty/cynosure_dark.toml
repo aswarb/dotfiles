@@ -1,7 +1,6 @@
 # Default colors
 [colors.primary]
-#background = '#1a1614'  # Warm dark (slight brown tint, like dark chocolate)
-background = '#1a1a1a'  # Warm dark (slight brown tint, like dark chocolate)
+background = '#121216'  # Warm dark (slight brown tint, like dark chocolate)
 foreground = '#ebe6e0'  # Warm cream (meringue)
 
 [colors.normal]
