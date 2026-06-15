@@ -15,8 +15,8 @@ output DP-3      resolution 1920x1080@60Hz position  0,0
 
 # ----- Wallpaper -----
 # swaybg is built into sway — just set bg per output
-output HDMI-A-1  bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
-output DP-3 bg ~/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png fill
+output HDMI-A-1  bg ~/wallpapers/wallhaven-3q97jd_3840x2160.png fill
+output DP-3 bg ~/wallpapers/wallhaven-3q97jd_3840x2160.png fill
 
 # ----- Input -----
 input type:keyboard {
@@ -45,12 +45,13 @@ gaps outer 2
 #       sway outer is added on top of inner, so 2 gives ~7 total edge gap
 
 # Borders
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 
 client.focused            #edc99a   #0f1216   #f4f5f8   #8ad0d4   #edc99a
 client.focused_inactive   #4f535e   #0f1216   #888d99   #4f535e   #4f535e
 client.unfocused          #232629   #0f1216   #4f535e   #232629   #232629
+client.urgent             #c85a5a   #0f1216   #f4f5f8   #c85a5a   #c85a5a
 
 #for_window [class=".*"] opacity 0.95
 #for_window [app_id=".*"] opacity 0.95
