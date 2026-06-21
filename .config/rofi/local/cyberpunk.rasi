@@ -1,0 +1,118 @@
+/* cyberpunk.rasi — follows design_language.md */
+
+* {
+    bg-panel:         rgba(38,42,48,0.97);
+    hairline:         rgba(145,150,162,0.10);
+    amber:            #edc99a;
+    amber-dim:        rgba(237,201,154,0.08);
+    cyan-dim:         rgba(138,208,212,0.10);
+    cyan:             #8ad0d4;
+    cherry:           #c85a5a;
+    t0:               #f4f5f8;
+    t1:               #c4c7ce;
+    t3:               #888d99;
+    t4:               #4f535e;
+
+    background-color: transparent;
+    text-color:       @t1;
+    border-color:     @hairline;
+}
+
+window {
+    background-color: @bg-panel;
+    border:           2px solid;
+    border-color:     @hairline;
+    border-radius:    0;
+    width:            600px;
+    padding:          0;
+}
+
+mainbox {
+    padding: 0;
+    spacing: 0;
+}
+
+/* panel-head: amber prompt as identity marker, mono entry as data input */
+inputbar {
+    border:     0px 0px 1px 0px;
+    padding:    10px 16px;
+    spacing:    10px;
+    children:   [ prompt, entry ];
+}
+
+prompt {
+    text-color: @amber;
+    font:       "IBM Plex Serif 13";
+    padding:    0px 4px 0px 0px;
+}
+
+entry {
+    text-color:        @t0;
+    font:              "IBM Plex Mono 11";
+    placeholder:       "search...";
+    placeholder-color: @t4;
+}
+
+listview {
+    padding:   0;
+    spacing:   0;
+    lines:     10;
+    scrollbar: false;
+    cycle:     false;
+}
+
+element {
+    padding:       5px 16px;
+    border:        0px 0px 1px 0px;
+    border-radius: 0;
+}
+
+element-text {
+    text-color: inherit;
+    font:       "IBM Plex Mono 11";
+}
+
+element.normal.normal {
+    background-color: transparent;
+    text-color:       @t1;
+}
+
+element.alternate.normal {
+    background-color: transparent;
+    text-color:       @t1;
+}
+
+element.selected.normal {
+    background-color: @cyan-dim;
+    text-color:       @cyan;
+}
+
+element.normal.active {
+    background-color: transparent;
+    text-color:       @cyan;
+}
+
+element.alternate.active {
+    background-color: transparent;
+    text-color:       @cyan;
+}
+
+element.selected.active {
+    background-color: @cyan-dim;
+    text-color:       @cyan;
+}
+
+element.normal.urgent {
+    background-color: transparent;
+    text-color:       @cherry;
+}
+
+element.alternate.urgent {
+    background-color: transparent;
+    text-color:       @cherry;
+}
+
+element.selected.urgent {
+    background-color: @cyan-dim;
+    text-color:       @cherry;
+}

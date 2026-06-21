@@ -1,0 +1,39 @@
+# Mako notification daemon config
+# Colors from cyberpunk_rice.html .alert spec — #RRGGBBAA format
+
+# Layout
+width=300
+margin=10
+padding=10
+border-size=1
+border-radius=0
+layer=overlay
+anchor=top-right
+max-visible=3
+
+# Font
+font=IBM Plex Mono 12
+
+# Behavior
+default-timeout=5000
+ignore-timeout=0
+sort=-time
+
+# urgency=low → .alert.info (cyan-dim)
+[urgency=low]
+background-color=#8ad0d41a
+text-color=#8ad0d4ff
+border-color=#8ad0d440
+
+# urgency=normal → .alert.warn-a (coral)
+[urgency=normal]
+background-color=#e0786010
+text-color=#e07860ff
+border-color=#e0786040
+
+# urgency=critical → .alert.crit (cherry)
+[urgency=critical]
+background-color=#c85a5a14
+text-color=#c85a5aff
+border-color=#c85a5a4d
+default-timeout=0
