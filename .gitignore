@@ -1,1 +1,74 @@
-__pycache__
+# $HOME dotfiles — allowlist model.
+# Everything is denied at every level; entries below unignore what's
+# explicitly tracked. To add a new file, add a matching `!` rule at
+# each parent level down to it.
+
+# ---------- root ----------
+/*
+!/.gitignore
+!/.gitattributes
+!/.gitmodules
+!/.zshrc
+!/.tmux.conf
+
+# root-level scripts
+!/get-diff-links.sh
+!/gh-pr-comment.sh
+!/link-comment.sh
+!/list-comments.sh
+!/reply-comment.sh
+!/review-comment.sh
+!/toggle-resolve.sh
+!/iris_rev__8.layout.json
+
+# allowlisted directories at root
+!/.config/
+!/.themes/
+!/wallpapers/
+
+# ---------- .config ----------
+/.config/*
+!/.config/alacritty/
+!/.config/btop/
+!/.config/eww/
+!/.config/hypr/
+!/.config/mako/
+!/.config/niri/
+!/.config/nix/
+!/.config/nvim/
+!/.config/qtile/
+!/.config/ranger/
+!/.config/rofi/
+!/.config/sway/
+!/.config/waybar/
+
+# rofi: allowlist config + local theme only; block the nested submodule
+# collection so it can't be manually added
+/.config/rofi/*
+!/.config/rofi/config.rasi
+!/.config/rofi/rofi.rasi
+!/.config/rofi/local/
+
+# nvim: allowlist hand-written config; block plugin/ (compiled lua) and
+# any other generated dir
+/.config/nvim/*
+!/.config/nvim/.gitignore
+!/.config/nvim/init.vim
+!/.config/nvim/lua/
+!/.config/nvim/LICENSE
+!/.config/nvim/README.md
+
+# ---------- .themes ----------
+/.themes/*
+!/.themes/perigee/
+
+# ---------- wallpapers ----------
+# specific files only; LFS handles binaries via .gitattributes
+/wallpapers/*
+!/wallpapers/wallhaven-3q97jd_3840x2160.png
+!/wallpapers/wallhaven-4dj2o4_3840x2160_modified.png
+!/wallpapers/wallhaven-o3z85l_3840x2160.png
+!/wallpapers/inprogress/
+/wallpapers/inprogress/*
+!/wallpapers/inprogress/wallhaven-4dj2o4_3840x2160_modified.xcf
+!/wallpapers/inprogress/wallhaven-o3z85l_3840x2160.xcf
