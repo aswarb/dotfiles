@@ -30,6 +30,15 @@ vim.lsp.config("rust_analyzer", {
 })
 
 vim.lsp.config("vtsls", {
+	  capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          insertReplaceSupport = false,
+        },
+      },
+    },
+  },
 	settings = {
 		typescript = {
 			preferences = {

@@ -1,4 +1,4 @@
-let g:coq_settings = { 'auto_start' : 'shut-up' }
+"let g:coq_settings = { 'auto_start' : 'shut-up' }
 
 lua require("packer_cfg")
 lua require("kanagawa_cfg")

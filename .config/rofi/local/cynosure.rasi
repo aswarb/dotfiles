@@ -1,0 +1,118 @@
+/* cynosure.rasi — matches the telescope/completion mock in the spec exactly:
+ *   window bg1, 1px comment border, 5px radius
+ *   inputbar: prompt + entry in primary cream, rule hairline underneath
+ *   listview bg2 with 4px inset; results in muted, selected promotes to
+ *   bg3 + primary cream with 3px radius (margin left visible around it)
+ */
+
+* {
+    bg-window:        #161616;
+    bg-list:          #1B1B1B;
+    bg-selected:      #222222;
+    border-warm:      #5A524D;
+    rule:             #2D2D2D;
+
+    primary:          #F0EBE5;
+    muted:            #7A746A;
+    peach:            #EDC99A;
+    coral:            #E07860;
+    cherry:           #D96060;
+
+    background-color: transparent;
+    text-color:       @muted;
+    border-color:     @border-warm;
+    markup:           true;
+}
+
+window {
+    background-color: @bg-window;
+    border:           1px solid;
+    border-color:     @border-warm;
+    border-radius:    5px;
+    width:            600px;
+    padding:          0;
+}
+
+mainbox {
+    padding: 0;
+    spacing: 0;
+    background-color: transparent;
+}
+
+inputbar {
+    background-color: @bg-window;
+    border:           0px 0px 1px 0px;
+    border-color:     @rule;
+    padding:          8px 12px;
+    spacing:          6px;
+    children:         [ prompt, entry ];
+}
+
+/* peach as identity marker: the prompt names the current mode/context,
+ * mirroring the file-manager pattern where the current location is peach. */
+prompt {
+    text-color: @peach;
+    font:       "IosevkaTerm Nerd Font Mono Regular 11";
+    padding:    0;
+}
+
+entry {
+    text-color:        @primary;
+    font:              "IosevkaTerm Nerd Font Mono Regular 11";
+    placeholder:       "";
+    placeholder-color: @muted;
+}
+
+listview {
+    background-color: @bg-list;
+    padding:          4px;
+    spacing:          2px;
+    lines:            10;
+    scrollbar:        false;
+    cycle:            false;
+}
+
+element {
+    padding:       5px 9px;
+    spacing:       10px;
+    border:        0;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+element-icon {
+    size:             16px;
+    background-color: transparent;
+}
+
+element-text {
+    text-color:       inherit;
+    font:             "IosevkaTerm Nerd Font Mono Regular 11";
+    background-color: transparent;
+    markup:           true;
+}
+
+element normal.normal,
+element alternate.normal,
+element normal.active,
+element alternate.active {
+    background-color: transparent;
+    text-color:       @muted;
+}
+
+element selected.normal,
+element selected.active {
+    background-color: @bg-selected;
+    text-color:       @primary;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color: transparent;
+    text-color:       @cherry;
+}
+
+element selected.urgent {
+    background-color: @bg-selected;
+    text-color:       @cherry;
+}

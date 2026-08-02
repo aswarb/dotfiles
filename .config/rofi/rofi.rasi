@@ -5,7 +5,7 @@ configuration {
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
 /*	fixed-num-lines: true;*/
-	show-icons: true;
+	show-icons: false;
 /*	preview-cmd: ;*/
 /*	on-selection-changed: ;*/
 /*	on-mode-changed: ;*/
@@ -166,3 +166,110 @@ configuration {
       sorting-method:    "name";
   }
 }
+
+/* ── Theme ─────────────────────────────────────────────────────────────────
+   Palette (from design_language.md):
+     --bg      #0f1216   --t0 #f4f5f8   --t1 #c4c7ce   --t3 #888d99
+     --t4      #4f535e   panel-surface rgba(38,42,48,0.8) = #cc262a30
+     --cyan    #8ad0d4   --cherry #c85a5a
+   ARGB format: #AARRGGBB
+*/
+
+* {
+    bg:          #cc0f1216;
+    bg-raised:   #33353a40;
+    t0:          #f4f5f8ff;
+    t1:          #c4c7ceff;
+    t3:          #888d99ff;
+    t4:          #4f535eff;
+    cyan:        #8ad0d4ff;
+    cherry:      #c85a5aff;
+    hairline:    #1a9196a2;
+
+    background-color: transparent;
+    text-color:       @t1;
+}
+
+window {
+    background-color: @bg;
+    border:           2px;
+    border-color:     @hairline;
+    border-radius:    0;
+    width:            650px;
+    padding:          0;
+}
+
+mainbox {
+    background-color: transparent;
+    padding:          0;
+    spacing:          0;
+}
+
+inputbar {
+    background-color: transparent;
+    border:           0 0 1px 0;
+    border-color:     @hairline;
+    padding:          10px 14px;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @t4;
+    font:             "IBM Plex Mono 11";
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @t0;
+    font:             "IBM Plex Mono 11";
+    placeholder:      "search...";
+    placeholder-color: @t4;
+}
+
+listview {
+    background-color: transparent;
+    padding:          6px 0;
+    spacing:          0;
+    lines:            10;
+    scrollbar:        false;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @t1;
+    padding:          7px 14px;
+    spacing:          0;
+    border-radius:    0;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    font:             "IBM Plex Sans 11";
+}
+
+element selected.normal {
+    background-color: @bg-raised;
+    text-color:       @t0;
+}
+
+element active {
+    text-color: @cyan;
+}
+
+element selected.active {
+    background-color: @bg-raised;
+    text-color:       @cyan;
+}
+
+element urgent {
+    text-color: @cherry;
+}
+
+element selected.urgent {
+    background-color: @bg-raised;
+    text-color:       @cherry;
+}
+

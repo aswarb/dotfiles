@@ -1,8 +1,22 @@
 require("blink.cmp").setup({
-	keymap = { preset = "super-tab" },
+	keymap = {
+		preset = "enter",
+		["<Tab>"] = { "select_next", "fallback" },
+		["<S-Tab>"] = { "select_prev", "fallback" },
+		["<C-k>"] = { "scroll_documentation_up", "fallback" },
+		["<C-j>"] = { "scroll_documentation_down", "fallback" },
+		["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
+	},
 	completion = {
-		accept = {
-			auto_brackets = { enabled = true },
+		documentation = { auto_show = true, auto_show_delay_ms = 150 },
+		menu = {
+			draw = {
+				columns = {
+					{ "kind_icon" },
+					{ "label", "label_description", gap = 1 },
+					{ "source_name" },
+				},
+			},
 		},
 		list = {
 			selection = {
@@ -10,24 +24,21 @@ require("blink.cmp").setup({
 				auto_insert = false,
 			},
 		},
-		documentation = { auto_show = false },
 		ghost_text = { enabled = true },
+		accept = {
+			auto_brackets = { enabled = true },
+		},
 	},
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer" },
 		providers = {
-			lsp = {
-				--async = true,
-				transform_items = function(_, items)
-    local f = io.open("/tmp/cmp_debug.txt", "a")
-    if f then
-        f:write(vim.inspect(items[1]))
-        f:close()
-    end
-    return items
-end,
-			},
+			snippets = { score_offset = -4 },
+			buffer = { score_offset = -5 },
 		},
+	},
+	signature = {
+		enabled = true,
+		trigger = { enabled = true },
 	},
 	fuzzy = {
 		implementation = "prefer_rust_with_warning",

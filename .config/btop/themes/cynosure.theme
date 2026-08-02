@@ -1,40 +1,58 @@
-theme[main_bg]="#0e1012"
-theme[main_fg]="#f0ebe5"
-theme[title]="#cdc6bc"
-theme[hi_fg]="#e07860"
-theme[selected_bg]="#1a1c1e"
-theme[selected_fg]="#f0ebe5"
-theme[inactive_fg]="#605868"
-theme[graph_text]="#a8a299"
-theme[meter_bg]="#141618"
-theme[proc_misc]="#a8a299"
-theme[cpu_box]="#1e2022"
-theme[mem_box]="#1e2022"
-theme[net_box]="#1e2022"
-theme[proc_box]="#1e2022"
-theme[gpu_box]="#1e2022"
-theme[div_line]="#1e2022"
-theme[temp_start]="#403840"
-theme[temp_mid]="#a8a299"
-theme[temp_end]="#d96459"
-theme[cpu_start]="#403840"
-theme[cpu_mid]="#a8a299"
-theme[cpu_end]="#d96459"
-theme[free_start]="#403840"
-theme[free_mid]="#a8a299"
-theme[free_end]="#d96459"
-theme[cached_start]="#403840"
-theme[cached_mid]="#a8a299"
-theme[cached_end]="#d96459"
-theme[available_start]="#403840"
-theme[available_mid]="#a8a299"
-theme[available_end]="#d96459"
-theme[used_start]="#403840"
-theme[used_mid]="#a8a299"
-theme[used_end]="#d96459"
-theme[download_start]="#403840"
-theme[download_mid]="#a8a299"
-theme[download_end]="#d96459"
-theme[upload_start]="#403840"
-theme[upload_mid]="#a8a299"
-theme[upload_end]="#d96459"
+# cynosure · btop theme
+# warm cream ink on cool obsidian; hierarchy runs backwards — data is the
+# brightest thing on screen, the machine's vocabulary recedes to neutral grey.
+#
+# load gauges ramp muted → peach → cherry. Muted is a warm dim grey from
+# the ink ladder, so the interpolation to peach stays on-hue and skips the
+# brown zone that neutral grey would produce.
+#
+# neutral greys (not the spec's warm ink greys) fill the recede slots so
+# they don't read warm against the cream fg.
+
+theme[main_bg]="#161616"
+theme[main_fg]="#CDC6BC"
+theme[title]="#F0EBE5"
+theme[hi_fg]="#F0EBE5"
+theme[selected_bg]="#222222"
+theme[selected_fg]="#F0EBE5"
+theme[inactive_fg]="#707070"
+theme[graph_text]="#A0A0A0"
+theme[meter_bg]="#0E0E0E"
+theme[proc_misc]="#F0EBE5"
+
+theme[cpu_box]="#2D2D2D"
+theme[mem_box]="#2D2D2D"
+theme[net_box]="#2D2D2D"
+theme[proc_box]="#2D2D2D"
+theme[gpu_box]="#2D2D2D"
+theme[div_line]="#2D2D2D"
+
+# load gauges — muted grey → primary cream → cherry
+theme[temp_start]="#7A746A"
+theme[temp_mid]="#EDC99A"
+theme[temp_end]="#D96060"
+theme[cpu_start]="#7A746A"
+theme[cpu_mid]="#EDC99A"
+theme[cpu_end]="#D96060"
+theme[used_start]="#7A746A"
+theme[used_mid]="#EDC99A"
+theme[used_end]="#D96060"
+
+# headroom gauges — neutral greyscale; success is brightness, never green
+theme[free_start]="#707070"
+theme[free_mid]="#A0A0A0"
+theme[free_end]="#F0EBE5"
+theme[available_start]="#707070"
+theme[available_mid]="#A0A0A0"
+theme[available_end]="#F0EBE5"
+theme[cached_start]="#707070"
+theme[cached_mid]="#A0A0A0"
+theme[cached_end]="#CDC6BC"
+
+# network throughput — same load ramp as cpu/used
+theme[download_start]="#7A746A"
+theme[download_mid]="#EDC99A"
+theme[download_end]="#D96060"
+theme[upload_start]="#7A746A"
+theme[upload_mid]="#EDC99A"
+theme[upload_end]="#D96060"

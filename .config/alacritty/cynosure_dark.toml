@@ -1,24 +1,62 @@
-# Default colors
+# cynosure — alacritty colors
+# warm cream ink on cool obsidian; hierarchy runs backwards from convention —
+# data (primary cream) is the brightest thing on screen, the machine's own
+# vocabulary recedes to grey. Five fruit tokens carry the rest, tied to
+# role rather than severity.
+#
+# ANSI mapping is mostly spec-strict; one deliberate deviation:
+#   color4 blue → peach (dirs). Dirs are the most common ls category, so
+# tinting them peach surfaces one fruit in daily use without loud recolouring.
+# magenta/cyan stay grey so the machine's vocabulary recedes as the spec asks.
+#
+# Palette:
+#   Surfaces  bg0 #0E0E0E  bg1 #161616  bg2 #1B1B1B  bg3 #222222  rule #2D2D2D
+#   Inks      primary #F0EBE5  secondary #CDC6BC  tertiary #A8A299
+#             muted #7A746A  comment #5A524D
+#   Fruit     peach #EDC99A · declarations   coral #E07860 · control flow
+#             cherry #D96060 · exceptions    apricot #D4A574 · literals
+#             warn #D49050 · warnings
+
 [colors.primary]
-background = '#121216'  # Warm dark (slight brown tint, like dark chocolate)
-foreground = '#ebe6e0'  # Warm cream (meringue)
+background = '#161616'
+foreground = '#CDC6BC'
+
+[colors.cursor]
+cursor = '#F0EBE5'
+text   = '#161616'
+
+[colors.vi_mode_cursor]
+cursor = '#D49050'
+text   = '#161616'
+
+[colors.selection]
+background = '#222222'
+text       = '#F0EBE5'
+
+[colors.search.matches]
+background = '#EDC99A'
+foreground = '#161616'
+
+[colors.search.focused_match]
+background = '#F0EBE5'
+foreground = '#161616'
 
 [colors.normal]
-black   = '#2a2421'  # Warm dark grey (espresso)
-red     = '#d96459'  # Deeper cherry/strawberry red (richer fruit)
-green   = '#a8a299'  # Medium-light warm cream-grey
-yellow  = '#e0a865'  # Brighter peach/apricot (more vibrant fruit)
-blue    = '#999489'  # Darkest warm cream-grey
-magenta = '#b8b2a9'  # Lighter warm cream-grey
-cyan    = '#c8c3ba'  # Lightest warm cream-grey
-white   = '#cdc6bc'  # Warm light grey (lighter cream)
+black   = '#161616'  # bg1 / obsidian
+red     = '#D96060'  # cherry — errors
+green   = '#CDC6BC'  # secondary — success is brightness, not green
+yellow  = '#D49050'  # warn — alerts
+blue    = '#EDC99A'  # peach — dirs (deviation)
+magenta = '#A0A0A0'  # neutral grey — recedes
+cyan    = '#707070'  # neutral grey, dimmer
+white   = '#CDC6BC'  # secondary — default ink
 
 [colors.bright]
-black   = '#4a443f'  # Lighter warm dark grey
-red     = '#eb8570'  # Bright coral/salmon (fresh ripe strawberry)
-green   = '#c0bbb2'  # Medium-light
-yellow  = '#f5c785'  # Bright honey/golden peach (very ripe)
-blue    = '#b0aba2'  # Darkest (bright version)
-magenta = '#d0cbc2'  # Lighter
-cyan    = '#e0dbd2'  # Lightest
-white   = '#ebe6e0'  # Foreground cream (brightest)
+black   = '#2D2D2D'  # rule
+red     = '#E07860'  # coral — control flow
+green   = '#F0EBE5'  # primary — brightest cream
+yellow  = '#D4A574'  # apricot — literals
+blue    = '#EDC99A'  # peach (same as normal)
+magenta = '#C0C0C0'  # neutral grey, brighter
+cyan    = '#A0A0A0'  # neutral grey, matches normal magenta
+white   = '#F0EBE5'  # primary — emphasis

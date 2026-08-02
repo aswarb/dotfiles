@@ -1,14 +1,16 @@
-local T0 = "#f4f5f8"  -- primary: variables, types, brackets
-local T1 = "#c4c7ce"  -- secondary text
-local T2 = "#9aa0ad"  -- tertiary: keywords
-local T3 = "#888d99"  -- muted: params, props, punctuation
-local T4 = "#4f535e"  -- comment / border
+-- ===== THE CLEANED CYNOSURE CORE =====
+local G_PRIMARY   = "#f0ebe5" -- Raw Data Content: Variables, Identifiers, Numbers (Brightest Cream)
+local G_SECONDARY = "#cdc6bc" -- Secondary Scaffolding: Types, Parameters, Built-ins (Lighter Cream)
+local G_TERTIARY  = "#a8a299" -- Machine Commands: Keywords, Statements, Core Logic (Medium Warm Grey)
+local G_MUTED     = "#7a746a" -- Structural Frame: Punctuation, Delimiters, Less Important UI (Stepped Down Warm Grey)
+local G_COMMENT   = "#5a524d" -- Inactive Text: Comments, Floating Borders, Gutter Elements
 
-local AMBER   = "#edc99a"  -- primitives: numbers, booleans
-local APRICOT = "#d4a574"  -- strings
-local CYAN    = "#8ad0d4"  -- functions, class declarations
-local CORAL   = "#e07860"  -- control flow, operators, warnings
-local CHERRY  = "#c85a5a"  -- errors
+-- ===== THE ISOLATED FRUIT TOKENS =====
+local FRUIT_PEACH   = "#edc99a" -- Function Declarations Only (The Header Signature)
+local FRUIT_CORAL   = "#e07860" -- Control Flow Logic Only (return, if, loop loops)
+local FRUIT_CHERRY  = "#d96060" -- Critical Exceptions & Errors (High-Contrast Diagnostic Crimson)
+local FRUIT_APRICOT = "#d4a574" -- Text Literals & Strings (The Soft Ochre Ink)
+local FRUIT_WARN    = "#d49050" -- Transitory Alerts & Warnings (Pastel Warning Amber)
 
 require("kanagawa").setup({
 	compile = true,
@@ -24,126 +26,110 @@ require("kanagawa").setup({
 	colors = {
 		palette = {},
 		theme = {
-			wave = {},
-			lotus = {},
-			dragon = {},
-			all = {
-				ui = {
-					fg = T0,
-				},
-			},
+			all = { ui = { fg = G_PRIMARY } },
 		},
 	},
 	overrides = function(colors)
-		local theme = colors.theme
 		return {
-			-- ===== Variables =====
-			["@variable"]            = { fg = T0 },
-			["@variable.builtin"]    = { fg = T2 },
-			["@variable.typescript"] = { fg = T0 },
-			["@variable.parameter"]  = { fg = T3 },
-			["@variable.member"]     = { fg = T3 },
-			["@variable.property"]   = { fg = T3 },
-			["@property"]            = { fg = T3 },
-			["@field"]               = { fg = T3 },
-			["@constant.builtin"]    = { fg = AMBER },
-			Identifier               = { fg = T0 },
-			["@lsp.type.variable"]   = { fg = T0 },
-			["@lsp.type.parameter"]  = { fg = T3 },
-			["@lsp.type.property"]   = { fg = T3 },
-			["@lsp.type.class"]      = { fg = CYAN },
+			-- ===== Data Nouns (Primary Content Ledger) =====
+			["@variable"]            = { fg = G_PRIMARY },
+			["@variable.typescript"] = { fg = G_PRIMARY },
+			Identifier               = { fg = G_PRIMARY },
+			["@lsp.type.variable"]   = { fg = G_PRIMARY },
+			["@constant"]            = { fg = G_PRIMARY },
+			Constant                 = { fg = G_PRIMARY },
+			["@number"]              = { fg = G_PRIMARY },
+			["@number.float"] = { fg = G_PRIMARY },
+			Number                   = { fg = G_PRIMARY },
 
-			-- ===== Types =====
-			["@type"]         = { fg = T0 },
-			["@type.builtin"] = { fg = T0 },
-			Type              = { fg = T0 },
+			-- ===== Architectural Scaffolding (Secondary Tier) =====
+			["@variable.builtin"]    = { fg = G_SECONDARY },
+			["@variable.parameter"]  = { fg = G_SECONDARY },
+			["@variable.member"]     = { fg = G_SECONDARY },
+			["@variable.property"]   = { fg = G_SECONDARY },
+			["@property"]            = { fg = G_SECONDARY },
+			["@field"]               = { fg = G_SECONDARY },
+			["@constant.builtin"]    = { fg = G_SECONDARY },
+			["@lsp.type.parameter"]  = { fg = G_SECONDARY },
+			["@lsp.type.property"]   = { fg = G_SECONDARY },
+			["@boolean"]             = { fg = G_SECONDARY },
+			Boolean                  = { fg = G_SECONDARY },
+			["@type"]                = { fg = G_SECONDARY },
+			Type                     = { fg = G_SECONDARY },
 
-			-- ===== Functions =====
-			["@function"]                         = { fg = CYAN },
-			["@function.call"]                    = { fg = CYAN },
-			["@function.method"]                  = { fg = CYAN },
-			["@function.method.call"]             = { fg = CYAN },
-			Function                              = { fg = CYAN },
-			["@lsp.typemod.function.declaration"] = { fg = CYAN, bold = true },
-			["@lsp.typemod.method.declaration"]   = { fg = CYAN, bold = true },
+			-- ===== Machine Code Logic (The Grey Baseline) =====
+			["@function"]             = { fg = G_TERTIARY },
+			["@function.call"]        = { fg = G_TERTIARY },
+			["@function.method"]      = { fg = G_TERTIARY },
+			["@function.method.call"] = { fg = G_TERTIARY },
+			Function                  = { fg = G_TERTIARY },
+			["@keyword"]              = { fg = G_TERTIARY, italic = true },
+			["@keyword.import"]       = { fg = G_TERTIARY, italic = true },
+			["@keyword.export"]       = { fg = G_TERTIARY, italic = true },
+			["@statement.import"]     = { fg = G_TERTIARY, italic = true },
+			["@keyword.function"]     = { fg = G_TERTIARY, italic = true },
+			["@keyword.constructor"]  = { fg = G_TERTIARY, italic = true },
+			["@constructor"]          = { fg = G_TERTIARY, italic = true },
+			["@statement"]            = { fg = G_TERTIARY, italic = true },
+			Statement                 = { fg = G_TERTIARY, italic = true },
+			Keyword                   = { fg = G_TERTIARY, italic = true },
+			["@type.builtin"]         = { fg = G_MUTED },
 
-			-- ===== Keywords / control flow =====
-			["@keyword"]             = { fg = T2,    italic = true },
-			["@keyword.conditional"] = { fg = CORAL, italic = true },
-			["@keyword.repeat"]      = { fg = CORAL, italic = true },
-			["@keyword.return"]      = { fg = CORAL, italic = true },
-			["@statement.return"]    = { fg = CORAL, italic = true },
-			["@keyword.import"]      = { fg = T2,    italic = true },
-			["@keyword.export"]      = { fg = T2,    italic = true },
-			["@statement.import"]    = { fg = T2,    italic = true },
-			["@keyword.function"]    = { fg = T2,    italic = true },
-			["@keyword.constructor"] = { fg = T2,    italic = true },
-			["@constructor"]         = { fg = CYAN },
-			["@keyword.exception"]   = { fg = CORAL, italic = true },
-			["@statement"]           = { fg = T2,    italic = true },
-			Statement                = { fg = T2,    italic = true },
-			Keyword                  = { fg = T2,    italic = true },
+			-- ===== Active Fruit Highlights (Isolated Semantics) =====
+			["@lsp.typemod.function.declaration"] = { fg = FRUIT_PEACH, bold = true },
+			["@lsp.typemod.method.declaration"]   = { fg = FRUIT_PEACH, bold = true },
+			["@keyword.conditional"]              = { fg = FRUIT_CORAL, italic = true },
+			["@keyword.repeat"]                   = { fg = FRUIT_CORAL, italic = true },
+			["@keyword.return"]                   = { fg = FRUIT_CORAL, italic = true },
+			["@statement.return"]                 = { fg = FRUIT_CORAL, italic = true },
+			["@string"]                           = { fg = FRUIT_APRICOT },
+			String                                = { fg = FRUIT_APRICOT },
 
-			-- ===== Operators / punctuation =====
-			["@keyword.operator"]      = { fg = CORAL, italic = true },
-			["@operator"]              = { fg = CORAL },
-			Operator                   = { fg = CORAL },
-			Exception                  = { fg = CORAL },
-			["@punctuation.bracket"]   = { fg = T0 },
-			["@punctuation.delimiter"] = { fg = T3 },
-			Delimiter                  = { fg = T3 },
+			-- ===== Mechanical Hardening (The Punctuation Layer) =====
+			["@punctuation.bracket"]   = { fg = G_PRIMARY }, -- Rejoined to content white to prevent double-cream noise
+			["@punctuation.delimiter"] = { fg = G_MUTED },
+			Delimiter                  = { fg = G_MUTED },
+			["@keyword.operator"]      = { fg = G_MUTED }, -- Softened to grey to keep large code screens resting
+			["@operator"]              = { fg = G_MUTED },
+			Operator                   = { fg = G_MUTED },
+			Exception                  = { fg = FRUIT_CHERRY, bold = true }, -- Exception maps natively to failure crimson
 
-			-- ===== Numbers / constants =====
-			["@number"]       = { fg = AMBER },
-			["@number.float"] = { fg = AMBER },
-			["@boolean"]      = { fg = AMBER },
-			["@constant"]     = { fg = T0 },
-			Constant          = { fg = T0 },
-			Boolean           = { fg = AMBER },
-			Number            = { fg = AMBER },
+			-- ===== Inactive Canvas Layers =====
+			["@comment"] = { fg = G_COMMENT, italic = true },
+			Comment      = { fg = G_COMMENT, italic = true },
+			["@lsp.type.class"]      = { fg = G_COMMENT },
 
-			-- ===== Strings =====
-			["@string"] = { fg = APRICOT },
-			String      = { fg = APRICOT },
+			-- ===== UI Windows / Panes / Floating Layouts =====
+			Normal      = { fg = G_PRIMARY },
+			NormalFloat = { bg = "#111215", fg = G_PRIMARY }, -- Tightened obsidian black to match your terminal base
+			FloatTitle  = { bg = "#111215", fg = G_PRIMARY },
+			FloatBorder = { bg = "#111215", fg = G_COMMENT },
+			NormalDark  = { fg = G_MUTED,   bg = "#111215" },
+			LazyNormal  = { bg = "#111215", fg = G_MUTED },
+			MasonNormal = { bg = "#111215", fg = G_MUTED },
+			Pmenu       = { fg = G_MUTED,   bg = "#16161a" },
+			PmenuSel    = { fg = G_PRIMARY, bg = "#22242b" },
+			PmenuSbar   = { bg = "#16161a" },
+			PmenuThumb  = { bg = "#262930" },
 
-			-- ===== Comments =====
-			["@comment"] = { fg = T4, italic = true },
-			Comment      = { fg = T4, italic = true },
+			-- ===== Real-Time Diagnostic Channels =====
+			DiagnosticVirtualTextHint  = { fg = G_COMMENT,    bg = "none" },
+			DiagnosticVirtualTextInfo  = { fg = G_MUTED,      bg = "none" },
+			DiagnosticVirtualTextWarn  = { fg = FRUIT_WARN,   bg = "none" },
+			DiagnosticVirtualTextError = { fg = FRUIT_CHERRY, bg = "none" },
 
-			-- ===== Normal / UI / Floats =====
-			Normal      = { fg = T0 },
-			NormalFloat = { bg = "#0c0f13", fg = T0 },
-			FloatTitle  = { bg = "#0c0f13", fg = T0 },
-			FloatBorder = { bg = "#0c0f13", fg = T4 },
-			NormalDark  = { fg = T3,        bg = "#0c0f13" },
-			LazyNormal  = { bg = "#0c0f13", fg = T3 },
-			MasonNormal = { bg = "#0c0f13", fg = T3 },
-			Pmenu       = { fg = T3,        bg = "#12151a" },
-			PmenuSel    = { fg = T0,        bg = "#1e2128" },
-			PmenuSbar   = { bg = "#12151a" },
-			PmenuThumb  = { bg = "#2a2d33" },
-
-			-- ===== Diagnostics =====
-			DiagnosticVirtualTextHint  = { fg = T4,     bg = "none" },
-			DiagnosticVirtualTextInfo  = { fg = T3,     bg = "none" },
-			DiagnosticVirtualTextWarn  = { fg = CORAL,  bg = "none" },
-			DiagnosticVirtualTextError = { fg = CHERRY, bg = "none" },
-
-			-- ===== Telescope =====
-			TelescopeTitle         = { fg = T0, bg = "#0c0f13" },
-			TelescopePromptNormal  = { fg = T0, bg = "#0c0f13" },
-			TelescopePromptBorder  = { fg = T4, bg = "#0c0f13" },
-			TelescopeResultsNormal = { fg = T3, bg = "#12151a" },
-			TelescopeResultsBorder = { fg = T4, bg = "#12151a" },
-			TelescopePreviewNormal = { fg = T0, bg = "#12151a" },
-			TelescopePreviewBorder = { fg = T4, bg = "#12151a" },
+			-- ===== Telescope Command Windows =====
+			TelescopeTitle         = { fg = G_PRIMARY,   bg = "#111215" },
+			TelescopePromptNormal  = { fg = G_PRIMARY,   bg = "#111215" },
+			TelescopePromptBorder  = { fg = G_COMMENT,   bg = "#111215" },
+			TelescopeResultsNormal = { fg = G_MUTED,     bg = "#16161a" },
+			TelescopeResultsBorder = { fg = G_COMMENT,   bg = "#16161a" },
+			TelescopePreviewNormal = { fg = G_PRIMARY,   bg = "#16161a" },
+			TelescopePreviewBorder = { fg = G_COMMENT,   bg = "#16161a" },
 		}
 	end,
 	theme = "dragon",
-	background = {
-		dark = "dragon",
-		light = "lotus",
-	},
+	background = { dark = "dragon", light = "lotus" },
 })
 
 vim.treesitter.query.set(
@@ -155,3 +141,4 @@ vim.treesitter.query.set(
 ((identifier) @variable (#set! priority 101))
 ]]
 )
+

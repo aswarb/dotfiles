@@ -1,0 +1,55 @@
+# augur — alacritty colors
+# greyscale stock, two earned pigments; no green, no blue anywhere.
+#
+#   bg0 #0E0E0E  chrome        line1 #2D2D2D  hairline
+#   bg1 #161616  terminal      line2 #3F3F3F  control border
+#   bg2 #1B1B1B  fields        txt3  #6F6D6B  meta, gutter
+#   bg3 #222222  selection     txt2  #9B9895  labels, keywords
+#   bg4 #2A2A2A  hover fill    txt1  #C7C4C0  body, values
+#                              txt0  #ECE9E4  emphasis, focus
+#   oxide #A85751  failure and exits (return, throw, ?)
+#   clay  #B98F68  caution and data (strings, numbers, booleans)
+
+[colors.primary]
+background = '#161616'
+foreground = '#C7C4C0'
+
+[colors.cursor]
+cursor = '#ECE9E4'
+text   = '#161616'
+
+[colors.vi_mode_cursor]
+cursor = '#B98F68'
+text   = '#161616'
+
+[colors.selection]
+background = '#222222'
+text       = '#ECE9E4'
+
+[colors.search.matches]
+background = '#2A2A2A'
+foreground = '#ECE9E4'
+
+[colors.search.focused_match]
+background = '#ECE9E4'
+foreground = '#161616'
+
+[colors.normal]
+black   = '#161616'  # bg1   — terminal ground
+red     = '#A85751'  # oxide — errors, deletions
+green   = '#C7C4C0'  # fg    — success is not louder than normal
+yellow  = '#B98F68'  # clay  — warnings, modified
+blue    = '#9B9895'  # txt2  — directories
+magenta = '#9B9895'  # txt2  — same as blue
+cyan    = '#6F6D6B'  # txt3  — symlinks, dim
+white   = '#C7C4C0'  # fg    — the default ink
+
+[colors.bright]
+black   = '#2D2D2D'  # line1       — box drawing, dim rules
+red     = '#C06A63'  # oxide light — urgent
+green   = '#ECE9E4'  # ivory       — passing, additions
+yellow  = '#CFA277'  # clay light  — staged
+blue    = '#C7C4C0'  # fg          — same as white
+magenta = '#C7C4C0'  # fg          — same as white
+cyan    = '#9B9895'  # txt2        — same as blue
+white   = '#ECE9E4'  # ivory       — emphasis

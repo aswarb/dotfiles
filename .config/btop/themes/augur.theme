@@ -1,0 +1,56 @@
+# augur · btop theme
+# greyscale stock, two earned pigments; no green, no blue anywhere.
+#
+# load gauges ramp line1 → ivory → oxide. Going through white avoids the
+# muddy warm-grey middle you get when interpolating grey directly into a
+# warm chromatic colour: the low half is a pure brightness lift and the
+# high half is a clean fade from ivory into brick red, no brown zone.
+# Start is line1 so low values recede quietly and mid/high fills pop.
+
+theme[main_bg]="#161616"
+theme[main_fg]="#C7C4C0"
+theme[title]="#ECE9E4"
+theme[hi_fg]="#ECE9E4"
+theme[selected_bg]="#222222"
+theme[selected_fg]="#ECE9E4"
+theme[inactive_fg]="#6F6D6B"
+theme[graph_text]="#9B9895"
+theme[meter_bg]="#0E0E0E"
+theme[proc_misc]="#ECE9E4"
+
+theme[cpu_box]="#2D2D2D"
+theme[mem_box]="#2D2D2D"
+theme[net_box]="#2D2D2D"
+theme[proc_box]="#2D2D2D"
+theme[gpu_box]="#2D2D2D"
+theme[div_line]="#2D2D2D"
+
+# load gauges — line1 → ivory → oxide
+theme[temp_start]="#6F6D6B"
+theme[temp_mid]="#ECE9E4"
+theme[temp_end]="#A85751"
+theme[cpu_start]="#6F6D6B"
+theme[cpu_mid]="#ECE9E4"
+theme[cpu_end]="#A85751"
+theme[used_start]="#6F6D6B"
+theme[used_mid]="#ECE9E4"
+theme[used_end]="#A85751"
+
+# headroom gauges — greyscale; success is brightness, never green
+theme[free_start]="#6F6D6B"
+theme[free_mid]="#9B9895"
+theme[free_end]="#ECE9E4"
+theme[available_start]="#6F6D6B"
+theme[available_mid]="#9B9895"
+theme[available_end]="#ECE9E4"
+theme[cached_start]="#6F6D6B"
+theme[cached_mid]="#9B9895"
+theme[cached_end]="#C7C4C0"
+
+# network throughput — same load ramp as cpu/used
+theme[download_start]="#6F6D6B"
+theme[download_mid]="#ECE9E4"
+theme[download_end]="#A85751"
+theme[upload_start]="#6F6D6B"
+theme[upload_mid]="#ECE9E4"
+theme[upload_end]="#A85751"
