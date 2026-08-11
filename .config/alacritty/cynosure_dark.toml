@@ -42,7 +42,7 @@ background = '#F0EBE5'
 foreground = '#161616'
 
 [colors.normal]
-black   = '#161616'  # bg1 / obsidian
+black   = '#5A524D'  # comment — dim but visible; bg1 would render invisible
 red     = '#D96060'  # cherry — errors
 green   = '#CDC6BC'  # secondary — success is brightness, not green
 yellow  = '#D49050'  # warn — alerts
@@ -52,7 +52,7 @@ cyan    = '#707070'  # neutral grey, dimmer
 white   = '#CDC6BC'  # secondary — default ink
 
 [colors.bright]
-black   = '#2D2D2D'  # rule
+black   = '#7A746A'  # muted — brighter dim, one rung up from normal black
 red     = '#E07860'  # coral — control flow
 green   = '#F0EBE5'  # primary — brightest cream
 yellow  = '#D4A574'  # apricot — literals
