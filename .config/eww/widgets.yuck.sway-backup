@@ -79,12 +79,10 @@
 (defwidget barLeft []
   (box :orientation "h" :halign "start" :valign "center" :spacing 1 :space-evenly false
     (button :class "button"
-      :onclick "~/.config/dwl/menu.sh"
+      :onclick "~/.config/sway/scripts/showAppMenu.sh"
       :width 30
       "󰣇"
     )
-    (separator)
-    (layoutSelector)
     (separator)
     (box
       (focusedProgramBox)
@@ -99,7 +97,7 @@
   (box :class "workspaces" :orientation "h" :spacing 2
     (for workspace_id in allWorkspaces
       (button :class {"button" + (workspace_id == focusedWorkspace ? " hypr_focus" : "") + (jq(activeWorkspaces, "contains([${workspace_id}])") == "true" ? " active" : "")}
-        :onclick "~/.config/dwl/dwlmsg view ${workspace_id}"
+        :onclick "~/.config/sway/scripts/switch_to_workspace.sh ${workspace_id}"
         workspace_id
       )
     )
@@ -190,20 +188,6 @@
 ;; =========================
 (defwidget barCenter []
   (workspaces)
-)
-
-;; =========================
-;; Layout selector
-;; =========================
-;; dwl owns the cycling: monocle rewrites its own symbol to "[N]", so the
-;; symbol can't be mapped back to an index here.
-(defwidget layoutSelector []
-  (button :class "button layout"
-    :tooltip "Layout: ${focusedLayout}"
-    :onclick "~/.config/dwl/dwlmsg cyclelayout 1"
-    :onrightclick "~/.config/dwl/dwlmsg cyclelayout -1"
-    focusedLayout
-  )
 )
 
 ;; =========================
