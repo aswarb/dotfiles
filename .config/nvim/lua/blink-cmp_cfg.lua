@@ -40,6 +40,11 @@ require("blink.cmp").setup({
 		enabled = true,
 		trigger = { enabled = true },
 	},
+	-- Completion in : and / as well. blink enables cmdline by default but only
+	-- pops the menu in cmdwin; this shows it inline.
+	cmdline = {
+		completion = { menu = { auto_show = true } },
+	},
 	fuzzy = {
 		implementation = "prefer_rust_with_warning",
 	},

@@ -54,6 +54,7 @@
 /.config/nvim/*
 !/.config/nvim/.gitignore
 !/.config/nvim/init.vim
+!/.config/nvim/init.lua
 !/.config/nvim/lua/
 !/.config/nvim/LICENSE
 !/.config/nvim/README.md

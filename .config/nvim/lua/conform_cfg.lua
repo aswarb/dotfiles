@@ -9,12 +9,10 @@ require("conform").setup({
 		javascript = { "prettierd", "prettier", stop_after_first = true },
 		json = { "prettierd", "prettier", stop_after_first = true },
 		vue = { "prettierd", "prettier", stop_after_first = true },
-		react = { "prettierd", "prettier", stop_after_first = true },
+		javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+		typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 		go = { "gofmt" },
 		toml = { "taplo" },
-	},
-	formatters = {
-		gofmt = { exe = "gofmt", args = {}, stdin = true },
 	},
 })
 
@@ -27,5 +25,5 @@ vim.api.nvim_create_user_command("Format", function(args)
 			["end"] = { args.line2, 0 },
 		}
 	end
-	require("conform").format({ async = true, lsp_fallback = true, range = range })
+	require("conform").format({ async = true, lsp_format = "fallback", range = range })
 end, { range = true })
