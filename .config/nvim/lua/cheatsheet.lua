@@ -76,6 +76,26 @@ local REFERENCE = {
 		},
 	},
 	{
+		title = "DIAGNOSTICS (built-in)",
+		items = {
+			{ "]d  [d", "Next / previous diagnostic", "nvim 0.10+" },
+			{ "]D  [D", "Last / first diagnostic", "nvim 0.10+" },
+			{ "<C-w>d", "Show diagnostic under cursor", "nvim 0.10+" },
+			{ ":lua vim.diagnostic.setqflist()", "All diagnostics into quickfix" },
+			{ ":lua vim.diagnostic.setloclist()", "Buffer diagnostics into loclist" },
+		},
+	},
+	{
+		title = "LISTS (built-in)",
+		items = {
+			{ "]q  [q", "Next / previous quickfix item", "nvim 0.11+" },
+			{ "]Q  [Q", "Last / first quickfix item", "nvim 0.11+" },
+			{ "]l  [l", "Next / previous loclist item", "nvim 0.11+" },
+			{ ":colder  :cnewer", "Previous / next of the last 10 lists" },
+			{ ":Cfilter /pat/", "Narrow list to matches, ! to invert" },
+		},
+	},
+	{
 		title = "WINDOWS (built-in)",
 		items = {
 			{ "<C-w>s  <C-w>v", "Split horizontal / vertical" },
@@ -185,10 +205,17 @@ local function build()
 	for _, section in ipairs(REFERENCE) do
 		lines[#lines + 1] = ""
 		lines[#lines + 1] = section.title
+
+		-- Size the key column to this section so long commands still get a gap.
+		local width = 14
+		for _, item in ipairs(section.items) do
+			width = math.max(width, #item[1])
+		end
+
 		for _, item in ipairs(section.items) do
 			local keys, desc, note = item[1], item[2], item[3]
 			lines[#lines + 1] = string.format(
-				"  %-6s %-14s %s%s",
+				"  %-6s %-" .. width .. "s  %s%s",
 				"",
 				keys,
 				desc,

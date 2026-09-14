@@ -8,11 +8,17 @@
 #
 # neutral greys (not the spec's warm ink greys) fill the recede slots so
 # they don't read warm against the cream fg.
+#
+# hi_fg is the keyboard-shortcut highlight — the controls. It carries the
+# dragon blue #949FB5, matching the editor and the terminal's color4, so the
+# one cool note means the same thing everywhere: a thing you act through
+# rather than a thing you read. It was primary cream, indistinguishable from
+# the title and the selected row.
 
 theme[main_bg]="#161616"
 theme[main_fg]="#CDC6BC"
 theme[title]="#F0EBE5"
-theme[hi_fg]="#F0EBE5"
+theme[hi_fg]="#949FB5"
 theme[selected_bg]="#222222"
 theme[selected_fg]="#F0EBE5"
 theme[inactive_fg]="#707070"

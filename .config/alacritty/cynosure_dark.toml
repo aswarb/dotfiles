@@ -4,9 +4,9 @@
 # vocabulary recedes to grey. Five fruit tokens carry the rest, tied to
 # role rather than severity.
 #
-# ANSI mapping is mostly spec-strict; one deliberate deviation:
-#   color4 blue → peach (dirs). Dirs are the most common ls category, so
-# tinting them peach surfaces one fruit in daily use without loud recolouring.
+# ANSI mapping is spec-strict. color4 blue previously carried peach as a
+# deviation for ls dirs; it now holds the dragon blue, matching the editor,
+# where the same colour marks method calls and template interpolation.
 # magenta/cyan stay grey so the machine's vocabulary recedes as the spec asks.
 #
 # Palette:
@@ -16,6 +16,7 @@
 #   Fruit     peach #EDC99A · declarations   coral #E07860 · control flow
 #             cherry #D96060 · exceptions    apricot #D4A574 · literals
 #             warn #D49050 · warnings
+#   Blue      dragon #949FB5 · normal        #A3AEC5 · bright
 
 [colors.primary]
 background = '#161616'
@@ -46,7 +47,7 @@ black   = '#5A524D'  # comment — dim but visible; bg1 would render invisible
 red     = '#D96060'  # cherry — errors
 green   = '#CDC6BC'  # secondary — success is brightness, not green
 yellow  = '#D49050'  # warn — alerts
-blue    = '#EDC99A'  # peach — dirs (deviation)
+blue    = '#949FB5'  # dragon blue — matches the editor's method-call blue
 magenta = '#A0A0A0'  # neutral grey — recedes
 cyan    = '#707070'  # neutral grey, dimmer
 white   = '#CDC6BC'  # secondary — default ink
@@ -56,7 +57,7 @@ black   = '#7A746A'  # muted — brighter dim, one rung up from normal black
 red     = '#E07860'  # coral — control flow
 green   = '#F0EBE5'  # primary — brightest cream
 yellow  = '#D4A574'  # apricot — literals
-blue    = '#EDC99A'  # peach (same as normal)
+blue    = '#A3AEC5'  # dragon blue, one rung up (+5.7 L*, matching red/yellow)
 magenta = '#C0C0C0'  # neutral grey, brighter
 cyan    = '#A0A0A0'  # neutral grey, matches normal magenta
 white   = '#F0EBE5'  # primary — emphasis

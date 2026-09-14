@@ -1,39 +1,73 @@
-# Mako notification daemon config
-# Colors from cyberpunk_rice.html .alert spec — #RRGGBBAA format
+# cynosure — mako notifications
+# warm cream ink on cool obsidian. A notice is Augur's geometry with Cynosure's
+# ink: bg1 ground, one 1px rule frame, and a single fruit token carried by the
+# label. The frame never changes colour — severity moves the summary only, so a
+# critical toast reads as louder text rather than a louder box.
+#
+# Deviations from Cynosure.dc.html, both forced by mako:
+#   · the notice's 2px inset fruit rule and float shadow are not expressible —
+#     the fruit moves to the summary span instead.
+#   · there is no timestamp specifier, so the label's meta slot takes %a
+#     (app name) in muted rather than a relative time.
+#   · warn #D49050 is unused: mako has no "warning" urgency. It stays free for
+#     an [app-name=…] or [category=…] block if something wants it.
+#
+# Palette:
+#   Surfaces  bg0 #0E0E0E  bg1 #161616  bg2 #1B1B1B  bg3 #222222  rule #2D2D2D
+#   Inks      primary #F0EBE5 15.27:1   secondary #CDC6BC 10.69:1
+#             tertiary #A8A299 7.15:1   muted #7A746A 3.91:1
+#   Fruit     cherry #D96060 4.99:1 · exceptions and errors
+#   (ratios on bg1; the f2 ground shifts them by at most 0.3:1)
 
-# Layout
-width=300
-margin=10
-padding=10
+# Layout — notice elevation: bg1 + 1px rule, stacked 8px apart, 10px gap
+width=360
+height=110
+outer-margin=10
+margin=8
+padding=12,14
 border-size=1
-border-radius=0
+border-radius=5
 layer=overlay
 anchor=top-right
 max-visible=3
 
-# Font
-font=IBM Plex Mono 12
+# Font — prose takes IBM Plex Sans; italic is the machine's voice, never a label
+font=IBM Plex Sans 11
+
+# Ink — near-opaque bg1, secondary body, the rule token as frame
+background-color=#161616f2
+text-color=#cdc6bcff
+border-color=#2d2d2dff
+progress-color=over #222222ff
+
+# Icons — 3px, the row radius
+icons=1
+max-icon-size=32
+icon-border-radius=3
 
 # Behavior
+markup=1
+actions=1
 default-timeout=5000
 ignore-timeout=0
 sort=-time
 
-# urgency=low → .alert.info (cyan-dim)
+# Label + muted app name on one row, body under. The colour lives inside the
+# markup span, so each urgency repeats the whole line with its own label ink.
+format=<b><span color="#f0ebe5">%s</span></b>  <span color="#7a746a" size="small">%a</span>\n%b
+
+# urgency=low → inactive by definition; label drops to tertiary, body with it
 [urgency=low]
-background-color=#8ad0d41a
-text-color=#8ad0d4ff
-border-color=#8ad0d440
+text-color=#a8a299ff
+format=<b><span color="#a8a299">%s</span></b>  <span color="#7a746a" size="small">%a</span>\n%b
 
-# urgency=normal → .alert.warn-a (coral)
+# urgency=normal → the everyday notice; cream label, secondary body
 [urgency=normal]
-background-color=#e0786010
-text-color=#e07860ff
-border-color=#e0786040
+text-color=#cdc6bcff
+format=<b><span color="#f0ebe5">%s</span></b>  <span color="#7a746a" size="small">%a</span>\n%b
 
-# urgency=critical → .alert.crit (cherry)
+# urgency=critical → cherry label on the same neutral frame; never expires
 [urgency=critical]
-background-color=#c85a5a14
-text-color=#c85a5aff
-border-color=#c85a5a4d
+text-color=#cdc6bcff
+format=<b><span color="#d96060">%s</span></b>  <span color="#7a746a" size="small">%a</span>\n%b
 default-timeout=0
