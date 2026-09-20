@@ -62,7 +62,6 @@ require("kanagawa").setup({
 		return {
 			-- ===== Data Nouns (Primary Content Ledger) =====
 			["@variable"]            = { fg = G_PRIMARY },
-			["@variable.typescript"] = { fg = G_PRIMARY },
 			Identifier               = { fg = G_PRIMARY },
 			["@lsp.type.variable"]   = { fg = G_PRIMARY },
 			["@constant"]            = { fg = G_PRIMARY },
@@ -177,6 +176,14 @@ require("kanagawa").setup({
 			["@lsp.typemod.function.declaration"] = { fg = FRUIT_PEACH, bold = true },
 			["@lsp.typemod.method.declaration"]   = { fg = FRUIT_PEACH, bold = true },
 
+			-- `definition` is gopls's spelling of `declaration`. Without these, a Go
+			-- func name falls through to @lsp.type.function -- the grey bold meant
+			-- for call sites -- because gopls types both a definition and a call as
+			-- `function` and separates them only by this modifier, where tsc uses
+			-- two different type names. Same rule, second dialect.
+			["@lsp.typemod.function.definition"] = { fg = FRUIT_PEACH, bold = true },
+			["@lsp.typemod.method.definition"]   = { fg = FRUIT_PEACH, bold = true },
+
 			-- Standard-library callables. Treesitter paints @function.builtin on
 			-- first parse, so the teal is present with no language server at all;
 			-- the semantic-token groups then widen the same colour to everything
@@ -205,6 +212,15 @@ require("kanagawa").setup({
 			-- weight is what separates them without spending another colour.
 			["@lsp.type.function"]             = { fg = G_TERTIARY, bold = true },
 			["@lsp.typemod.function.readonly"] = { fg = G_TERTIARY, bold = true },
+
+			-- Cleared, not coloured. gopls sends one flat `keyword` token covering
+			-- `for`, `if`, `return`, `func` and `const` alike, and it sits at
+			-- priority 125 -- above treesitter, which is the only layer that knows
+			-- which kind of keyword it is. Any colour here would apply to all of
+			-- them, so the group is emptied instead: it then contributes nothing
+			-- and @keyword.repeat / .conditional / .return below decide the colour.
+			-- tsc never sends this token, so TypeScript was never affected.
+			["@lsp.type.keyword"] = {},
 
 			["@keyword.conditional"]              = { fg = FRUIT_CORAL, italic = true },
 			["@keyword.repeat"]                   = { fg = FRUIT_CORAL, italic = true },
@@ -242,6 +258,23 @@ require("kanagawa").setup({
 			Operator                   = { fg = G_TERTIARY },
 			Exception                  = { fg = FRUIT_CHERRY, bold = true }, -- Exception maps natively to failure crimson
 
+			-- ===== Neutralising kanagawa's Language-Specific Groups =====
+			-- These are the only three suffixed groups kanagawa defines, and a
+			-- suffixed group outranks the base one this theme sets -- so they were
+			-- the sole places where a language rendered by different rules. They
+			-- exist here purely to point back at their bases; nothing else in the
+			-- file is language-specific.
+			--
+			-- @constructor.lua was #8992a7, kanagawa's blue, which is why Lua table
+			-- braces looked like TypeScript's builtin methods.
+			-- @lsp.type.decorator.rust was #c4746e, the one red belonging to no
+			-- token in this palette.
+			-- @keyword.lua already matches @keyword, but is pinned so it cannot
+			-- drift if kanagawa changes it.
+			["@constructor.lua"]         = { fg = G_SECONDARY, italic = true },
+			["@keyword.lua"]             = { fg = G_QUATERNARY, italic = true },
+			["@lsp.type.decorator.rust"] = { fg = G_PRIMARY },
+
 			-- ===== Inactive Canvas Layers =====
 			["@comment"] = { fg = COMMENT_TEAL, italic = true },
 			Comment      = { fg = COMMENT_TEAL, italic = true },
@@ -249,6 +282,82 @@ require("kanagawa").setup({
 			-- your own -- to comment darkness. Classes are scaffolding, so they
 			-- belong on the secondary tier alongside types.
 			["@lsp.type.class"] = { fg = G_SECONDARY },
+
+			-- ===== File Listings (netrw) and the Vim Groups Behind Them =====
+			-- netrw colours nothing itself; it links to stock vim groups, four of
+			-- which kanagawa left off this palette. Setting the base groups rather
+			-- than the netrw* ones keeps this from being plugin-specific -- these
+			-- same groups are used by quickfix, help files and most plugins.
+			--
+			-- Directory and PreProc are matched to what `ls` already does in the
+			-- terminal theme, so a file listing looks the same in both: dirs on the
+			-- blue (alacritty color4), executables on the secondary cream (green).
+			Directory  = { fg = DRAGON_TEAL },  -- netrwDir       -- was #8ba4b0
+			PreProc    = { fg = G_SECONDARY },  -- netrwExe       -- was #c4746e
+			Question   = { fg = G_TERTIARY },   -- netrwSymLink   -- was #658594
+			Title      = { fg = G_PRIMARY },    -- headers        -- was #8ba4b0
+			Folded     = { fg = G_MUTED },      -- netrwData      -- was #7a8382
+			WarningMsg = { fg = FRUIT_WARN },   --                -- was #ff9e3b
+			TabLineSel = { fg = G_PRIMARY, bg = "NONE" }, -- netrwMarkFile -- was #c8c093
+
+			-- The one netrw group with no base to point at: netrw hard-codes it to
+			-- gray70 in its own syntax file. Backups, archives and object files,
+			-- so the muted tier is right for it anyway.
+			netrwGray  = { fg = G_MUTED },
+
+			-- ===== Highlighting =====
+			-- Both fills are DRAGON_TEAL's hue (273.7) taken dark. In a palette
+			-- where everything else is warm, leaving the warm band is the only way
+			-- to be findable peripherally -- a warm fill competes with the page.
+			-- This keeps the cool block that already worked and makes it a colour
+			-- the palette actually contains, rather than kanagawa's #2d4f67.
+			--
+			-- Search replaces the foreground, so the fill can be strong: legibility
+			-- is guaranteed because both channels are controlled.
+			--
+			-- Two levels, separated by hue rather than by shade. A blue block is *a*
+			-- hit; warn is the one under focus -- the same thing warn already means
+			-- on MatchParen, so focus has one colour across the editor.
+			--
+			-- Weight alone was not enough to pick out the current item, especially
+			-- under `:s///gc`, which uses IncSearch for the match awaiting
+			-- confirmation: it sat identical to every other hit at the moment you
+			-- most need to find it.
+			Search     = { fg = G_PRIMARY, bg = "#2d486c" },
+			CurSearch  = { fg = "#16161a", bg = FRUIT_WARN, bold = true },
+			IncSearch  = { fg = "#16161a", bg = FRUIT_WARN, bold = true },
+
+			-- Substitute is the one destructive operation outside diagnostics, so
+			-- it earns the error colour. Bold because cream on cherry is only
+			-- 3.06:1 -- fine for a transient flash, thin for sustained reading.
+			Substitute = { fg = G_PRIMARY, bg = FRUIT_CHERRY, bold = true },
+
+			-- Visual keeps the foreground and changes only the background, so the
+			-- fill has to sit under every token. Comments are the casualty at any
+			-- darkness -- they land within ~2:1 of it -- which is also true of the
+			-- kanagawa fill this replaces.
+			Visual     = { bg = "#243145" },
+			VisualNOS  = { bg = "#243145" },
+
+			-- Brace matching stays on the warm side: one glyph, so a foreground
+			-- change is enough and no fill is needed. Was kanagawa's #ff9e3b.
+			MatchParen = { fg = FRUIT_WARN, bold = true },
+
+			-- ===== Statusline / Tabline =====
+			-- `transparent = true` clears Normal but not these, so kanagawa left
+			-- them opaque at #0d0c0c -- *darker* than the terminal background, so
+			-- the bar read as a black slab under a transparent buffer. Fully
+			-- transparent is no better, since then there is no edge at all.
+			--
+			-- Lifted instead of sunk: #22242b is one step above the buffer on the
+			-- existing surface ladder (the PmenuSel background), so the frame
+			-- reads as a surface sitting on top rather than a hole cut into it.
+			StatusLine   = { fg = G_SECONDARY, bg = "#22242b" },
+			StatusLineNC = { fg = G_MUTED,     bg = "#22242b" },
+			TabLine      = { fg = G_MUTED,     bg = "#22242b" },
+			TabLineFill  = { bg = "#22242b" },
+			WinBar       = { fg = G_SECONDARY, bg = "#22242b" },
+			WinBarNC     = { fg = G_MUTED,     bg = "#22242b" },
 
 			-- ===== UI Windows / Panes / Floating Layouts =====
 			Normal      = { fg = G_PRIMARY },
@@ -277,6 +386,29 @@ require("kanagawa").setup({
 			TelescopeResultsBorder = { fg = G_COMMENT,   bg = "#16161a" },
 			TelescopePreviewNormal = { fg = G_PRIMARY,   bg = "#16161a" },
 			TelescopePreviewBorder = { fg = G_COMMENT,   bg = "#16161a" },
+
+			-- The rest of Telescope, which was still on kanagawa's palette --
+			-- #ff9e3b on the caret, #393836 behind the selection, #54546d borders.
+			TelescopeBorder        = { fg = G_COMMENT,   bg = "#16161a" },
+			TelescopeSelection     = { fg = G_PRIMARY,   bg = "#22242b" },
+			TelescopeSelectionCaret = { fg = FRUIT_PEACH, bg = "#22242b" },
+			TelescopeMultiSelection = { fg = FRUIT_WARN, bg = "#22242b" },
+			TelescopeMultiIcon     = { fg = FRUIT_WARN },
+			TelescopeMatching      = { fg = FRUIT_WARN,  bold = true },
+			TelescopePromptPrefix  = { fg = FRUIT_PEACH, bg = "#111215" },
+			TelescopePromptCounter = { fg = G_MUTED,     bg = "#111215" },
+			TelescopePreviewHyphen = { fg = G_MUTED },
+			TelescopePreviewLine   = { bg = "#22242b" },
+			TelescopePreviewMatch  = { fg = G_PRIMARY,   bg = "#22242b" },
+			TelescopeResultsLineNr = { fg = G_MUTED,     bg = "#16161a" },
+
+			-- Diff status in results. Following the palette's own rule that
+			-- success is brightness rather than green: added is the brightest
+			-- cream, changed takes the amber, deleted the cherry.
+			TelescopeResultsDiffAdd       = { fg = G_PRIMARY },
+			TelescopeResultsDiffChange    = { fg = FRUIT_WARN },
+			TelescopeResultsDiffDelete    = { fg = FRUIT_CHERRY },
+			TelescopeResultsDiffUntracked = { fg = G_MUTED },
 		}
 	end,
 	theme = "dragon",
