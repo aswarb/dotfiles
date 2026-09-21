@@ -79,7 +79,15 @@ require("kanagawa").setup({
 			["@variable.property"]   = { fg = G_SECONDARY },
 			["@property"]            = { fg = G_SECONDARY },
 			["@field"]               = { fg = G_SECONDARY },
-			["@constant.builtin"]    = { fg = G_SECONDARY },
+			-- NULL / null / undefined / EOF are literal values, the same class as
+			-- true and false, so they join the literal colour rather than sitting
+			-- on the type cream where they read as scaffolding.
+			["@constant.builtin"]    = { fg = FRUIT_EMBER },
+
+			-- A #define'd name is a named constant, so it takes the identifier
+			-- cream. clangd's macro token is neutralised after the colorscheme
+			-- loads -- see the bottom of this file.
+			["@constant.macro"]      = { fg = G_PRIMARY },
 			["@lsp.type.parameter"]  = { fg = G_SECONDARY },
 			["@lsp.type.property"]   = { fg = G_SECONDARY },
 			["@boolean"]             = { fg = FRUIT_EMBER },
@@ -213,15 +221,6 @@ require("kanagawa").setup({
 			["@lsp.type.function"]             = { fg = G_TERTIARY, bold = true },
 			["@lsp.typemod.function.readonly"] = { fg = G_TERTIARY, bold = true },
 
-			-- Cleared, not coloured. gopls sends one flat `keyword` token covering
-			-- `for`, `if`, `return`, `func` and `const` alike, and it sits at
-			-- priority 125 -- above treesitter, which is the only layer that knows
-			-- which kind of keyword it is. Any colour here would apply to all of
-			-- them, so the group is emptied instead: it then contributes nothing
-			-- and @keyword.repeat / .conditional / .return below decide the colour.
-			-- tsc never sends this token, so TypeScript was never affected.
-			["@lsp.type.keyword"] = {},
-
 			["@keyword.conditional"]              = { fg = FRUIT_CORAL, italic = true },
 			["@keyword.repeat"]                   = { fg = FRUIT_CORAL, italic = true },
 			["@keyword.return"]                   = { fg = FRUIT_CORAL, italic = true },
@@ -293,7 +292,13 @@ require("kanagawa").setup({
 			-- terminal theme, so a file listing looks the same in both: dirs on the
 			-- blue (alacritty color4), executables on the secondary cream (green).
 			Directory  = { fg = DRAGON_TEAL },  -- netrwDir       -- was #8ba4b0
-			PreProc    = { fg = G_SECONDARY },  -- netrwExe       -- was #c4746e
+			-- netrwExe is set directly rather than through PreProc. Pointing it at
+			-- PreProc matched `ls` green for executables, but PreProc is also every
+			-- #include and #define in C -- and clangd's macros land on it too, so a
+			-- decision about file listings was colouring C. Preprocessor directives
+			-- belong with the declaration keywords instead.
+			netrwExe   = { fg = G_SECONDARY },
+			PreProc    = { fg = G_TERTIARY },   -- #include / #define -- was #c4746e
 			Question   = { fg = G_TERTIARY },   -- netrwSymLink   -- was #658594
 			Title      = { fg = G_PRIMARY },    -- headers        -- was #8ba4b0
 			Folded     = { fg = G_MUTED },      -- netrwData      -- was #7a8382
@@ -413,6 +418,17 @@ require("kanagawa").setup({
 	end,
 	theme = "dragon",
 	background = { dark = "dragon", light = "lotus" },
+})
+
+-- Emptied so treesitter's finer captures win; after the colorscheme, since
+-- kanagawa's overrides merge rather than replace.
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = vim.api.nvim_create_augroup("cynosure_lsp_neutralise", { clear = true }),
+	callback = function()
+		for _, group in ipairs({ "@lsp.type.macro", "@lsp.type.keyword" }) do
+			vim.api.nvim_set_hl(0, group, {})
+		end
+	end,
 })
 
 -- The custom highlights query that used to live here has been removed. It called
