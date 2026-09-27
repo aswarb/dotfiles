@@ -1,0 +1,241 @@
+// ===============================
+// Reset
+// ===============================
+// One curve and one property list for everything that can change, so a state
+// change reads as a single move rather than several arriving out of step.
+//
+// The list lives in a mixin because `transition` is a shorthand: any rule
+// that declares its own replaces the inherited one outright. Scoping a
+// different *duration* therefore has to restate every property, and doing
+// that by hand is how the dropdown ended up easing its text while its
+// background snapped. Pass a duration, keep the list.
+//
+// The four border-*-color longhands are named individually. GTK animates
+// longhands, and naming only the `border-color` shorthand does not reach
+// them -- which is why the focused tag's 2px mark appeared instantly while
+// its text faded in.
+$ease:     cubic-bezier(0.4, 0.0, 0.2, 1);
+$dur:      0.09s;  // bar items: a considered, visible move
+$dur-menu: 0.04s;  // menu rows: the pointer is already moving, so keep up
+
+@mixin transitions($d: $dur) {
+  transition:
+    background-color $d $ease,
+    color $d $ease,
+    border-color $d $ease,
+    border-top-color $d $ease,
+    border-right-color $d $ease,
+    border-bottom-color $d $ease,
+    border-left-color $d $ease,
+    box-shadow $d $ease;
+}
+
+* {
+  all: unset;
+  @include transitions;
+}
+
+
+.mono { font-family: $font-family; }
+.italic { font-style: italic; }
+
+// ===============================
+// Bar
+// ===============================
+// Unclassed labels inherit this, and in the bottom bar that is the cpu group
+// — values, so secondary is the right default.
+.bar {
+  // Named again on the interactive children: GTK styles buttons and their
+  // labels from the theme, not from the parent.
+  label, button, button label { font-family: $font-family; }
+  background-color: $glass-container;
+  color: $text-secondary;
+  font-family: $font-family;
+
+}
+
+// border 1px #2C2826 in the panel. Both classes are already set in
+// widgets.yuck (bar bottomborder / bar topborder) but carried no rule.
+.bar.bottomborder { border-bottom: 1px solid $border-rule; }
+.bar.topborder    { border-top: 1px solid $border-rule; }
+
+// ===============================
+// Workspaces
+// ===============================
+.focusedProgramBox {
+  padding-left: 10px;
+  color: $text-secondary; // "nvim" in the mock
+}
+
+.workspaces {
+  button {
+    margin-top:1px;
+    padding: 2px 6px;
+    font-size: $fs-tag;
+    font-family: $font-family;
+    font-weight: 400;
+    color: $t3; // a tag with nothing on it
+    border: 1px solid transparent;
+    border-bottom: 2px solid transparent; // the mark's gutter, so nothing shifts
+    border-radius: $border-radius;
+
+    // A surface step and brighter ink. Cherry means something failed.
+    &:hover {
+      color: $text-primary;
+      background-color: $glass-hover;
+    }
+
+    // displayed, but on the other monitor — cream
+    &.active {
+      color: $t0;
+      font-weight: 500;
+    }
+
+    // the tag you are looking at — the accent, exactly as the focused window
+    // border, the tmux session block and the nvim mode block use it
+    &.focused,
+    &.hypr_focus {
+      color: $vermilion;
+      font-weight: 600;
+      border-bottom-color: $vermilion; // the panel's 2px mark
+    }
+
+    // the only other pigment a tag may carry
+    &.urgent {
+      color: $cherry;
+      font-weight: 500;
+      border-bottom-color: $cherry;
+    }
+  }
+}
+
+
+// ===============================
+// Texticon Components
+// ===============================
+.texticon {
+  &.icon,
+  &.time.icon {
+    color: $text-muted; // glyphs are the machine's vocabulary
+  }
+
+  &.text,
+  &.ip,
+  &.ssid,
+  &.up,
+  &.down,
+  &.at {
+    color: $text-secondary; // "cpu 18" — the value, not the label
+  }
+
+  // the clock is the one primary thing in the bar
+  &.time.text {
+    color: $text-primary;
+  }
+
+  &.separator {
+    color: $text-muted;
+  }
+}
+
+// "[]=" sits in muted, like any other piece of the machine's vocabulary
+.layout {
+  color: $text-muted;
+}
+
+// ===============================
+// Icon
+// ===============================
+.icon {
+  font-size: $fs-glyph;
+}
+
+// The launcher glyph. The size has to land on the child label — setting it on
+// the button does not take.
+//
+// This was scoped to `box:not(.workspaces) > button:first-child`, which only
+// worked while the launcher happened to be the first button on the bar. The
+// clock is now the first child of the centre box, so that selector would have
+// caught it too and blown the time up to 20px. Targeting the class instead
+// means moving the launcher around cannot break anything else.
+//
+// The old note here said 20px was the ceiling, because the bar was 20px tall.
+// It is 24px now, as the panel specifies, so there is room.
+.launcher label {
+  font-family: $font-family;
+  font-size: $fs-glyph;
+}
+
+// ===============================
+// Errors
+// ===============================
+.error {
+  color: $text-error;
+}
+
+
+// ===============================
+// Bar items that own a popup
+// ===============================
+// The panel's caption: "Idle items in ink 2. Open items: selection fill with
+// an accent underline." The clock and the power glyph are the two items here
+// that open something, so they are the two that can be `.open`.
+//
+// The transparent 2px bottom border on the idle state reserves the gutter, so
+// opening a popup does not shift the bar's baseline by two pixels.
+// The underline is an inset box-shadow, not a border. A border consumes
+// layout: with `border-bottom: 2px` the content box became the top 22px of
+// the 24px bar, so everything centred inside that and the 2px gutter read as
+// extra space underneath -- most visibly on the power glyph, which sat
+// noticeably high on the line. A shadow is painted, not laid out, so the
+// content centres in the full height and no transparent gutter is needed to
+// stop the baseline shifting when a popup opens.
+.barItem {
+  color: $text-secondary;
+  padding: 0 8px;
+
+  // Full bar height, so the rule below lands on the bar's bottom edge rather
+  // than on the item's. $bar-height, not a literal, because the window
+  // geometry in windows.yuck has to agree with it.
+  min-height: $bar-height;
+
+  &:hover { color: $text-primary; }
+
+  &.open {
+    background-color: $menu-selection;
+    box-shadow: inset 0 -2px 0 $vermilion;
+    color: $text-primary;
+  }
+}
+
+// The power glyph is the one thing in the bar that is always accent: it is
+// the way out of the session, and the panel draws it that way.
+.barItem.power {
+  color: $vermilion;
+  &:hover  { color: $text-primary; }
+  &.open   { color: $vermilion; }
+
+  // On the label, not the button — see $fs-nerd.
+  //
+  // $fs-glyph, the same as the launcher: both are bar glyphs sitting in the
+  // same 24px strip, and at $fs-nerd this one came out visibly smaller than
+  // the mark at the other end of the bar.
+  label {
+    font-family: $font-family;
+    font-size: $fs-glyph;
+  }
+}
+
+// ===============================
+// Vitals
+// ===============================
+// "Warning and error recolour only the value." The label never moves.
+.vital {
+  .vitalLabel { color: $text-muted; }
+  .vitalValue { color: $text-secondary; }
+
+  .vitalValue.warn  { color: $warn; }
+  .vitalValue.error { color: $text-error; }
+}
+
+.trayWrap { padding: 0 2px; }

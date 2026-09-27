@@ -24,3 +24,8 @@
   :initial "[]="
   "scripts/dwl_getLayout.sh"
 )
+
+(deflisten focusedMonitor
+  :initial "0"
+  "scripts/dwl_getFocusedMonitor.sh"
+)

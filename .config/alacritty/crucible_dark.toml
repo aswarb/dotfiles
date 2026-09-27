@@ -1,0 +1,63 @@
+# crucible — alacritty colors
+#
+# Neovim runs transparent, so this background *is* the editor's background.
+# Warm near-black, and the editor sits straight on it.
+#
+# Warm cream ink with the hierarchy running backwards from convention: data
+# is the brightest thing on screen and the machine's own vocabulary recedes
+# to grey. Five warm tokens carry the rest, tied to role rather than to
+# severity, and the vermilion is the same red as the bar, the prompt caret
+# and the focus border.
+#
+# Palette:
+#   Surfaces  bg #131111  sel #241C1B  rule #2C2826
+#   Inks      primary #F0EBE5  secondary #CDC6BC  tertiary #A8A299
+#             muted #7A746A  comment #5A524D
+#   Warm      peach #EDC99A · declarations   vermilion #D9534A · control flow
+#             cherry #D96060 · exceptions    apricot #D4A574 · literals
+#             ember #F28C46 · numbers        warn #D49050 · warnings
+#   Blue      dragon #949FB5 · builtins      #A3AEC5 · bright
+
+[colors.primary]
+background = '#131111'
+foreground = '#CDC6BC'
+
+[colors.cursor]
+cursor = '#F0EBE5'
+text   = '#131111'
+
+[colors.vi_mode_cursor]
+cursor = '#D49050'
+text   = '#131111'
+
+[colors.selection]
+background = '#241C1B'
+text       = '#F0EBE5'
+
+[colors.search.matches]
+background = '#EDC99A'
+foreground = '#131111'
+
+[colors.search.focused_match]
+background = '#D9534A'
+foreground = '#131111'
+
+[colors.normal]
+black   = '#5A524D'  # comment — dim but visible; the surface would be invisible
+red     = '#D96060'  # cherry — errors
+green   = '#CDC6BC'  # secondary — success is brightness, not green
+yellow  = '#D49050'  # warn — alerts
+blue    = '#949FB5'  # dragon blue — matches the editor's builtin calls
+magenta = '#A0A0A0'  # neutral grey — recedes
+cyan    = '#707070'  # neutral grey, dimmer
+white   = '#CDC6BC'  # secondary — default ink
+
+[colors.bright]
+black   = '#7A746A'  # muted — one rung up from normal black
+red     = '#D9534A'  # vermilion — control flow, and the desktop accent
+green   = '#F0EBE5'  # primary — brightest cream
+yellow  = '#F28C46'  # ember — the glow on numeric literals
+blue    = '#A3AEC5'  # dragon blue, one rung up
+magenta = '#C0C0C0'  # neutral grey, brighter
+cyan    = '#A0A0A0'  # neutral grey
+white   = '#F0EBE5'  # primary — emphasis

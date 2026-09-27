@@ -26,7 +26,8 @@ bindings = [
 
 [general]
 #import = ["./themes/themes/vesper.toml"]
-import = ["./cynosure_dark.toml"]
+import = ["./crucible_dark.toml"]
+#import = ["./cynosure_dark.toml"]
 #import = ["./perigee_dark.toml"]
 #import = ["./augur_dark.toml"]
 #import = ["./themes/themes/kanagawa_dragon.toml"]

@@ -1,4 +1,22 @@
-(include "listeners.yuck")
-(include "widgets.yuck")
-(include "windows.yuck")
+;; =========================================================================
+;; crucible — eww
+;; =========================================================================
+;;   lib/      state: what the compositor tells us, what we poll, what the
+;;             popups remember
+;;   bar/      the 24px bar, split by the three regions of the centrebox
+;;   popups/   panels that drop from a bar item
+;;   windows.yuck  where all of it is placed on the outputs
+;; =========================================================================
 
+(include "lib/listeners.yuck")
+(include "lib/vars.yuck")
+
+(include "bar/bar.yuck")
+(include "bar/left.yuck")
+(include "bar/center.yuck")
+(include "bar/right.yuck")
+
+(include "popups/calendar.yuck")
+(include "popups/control.yuck")
+
+(include "windows.yuck")

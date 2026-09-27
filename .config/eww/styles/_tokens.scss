@@ -1,0 +1,116 @@
+// ===============================
+// cynosure/red — eww bars
+//
+// Mapped from the bar panel in Crucible.dc.html (`tags` at :667, `barItems`
+// at :767), which states the rule plainly: idle items sit in ink, the live
+// one takes the accent, and a warning recolours only the value.
+//
+//   bar          #131111, border 1px #2C2826, Iosevka
+//   tags         empty #7a746a · occupied #f0ebe5
+//                focused #D9534A + 2px #D9534A mark
+//                urgent  #d96060 + 2px #d96060 mark
+//   layout       #7a746a
+//   client       #cdc6bc, its file #7a746a
+//   vitals       label #7a746a, value #cdc6bc, warned value #d49050
+//   clock        #f0ebe5
+//
+// Structure, sizes and glass alphas are untouched; only the tint moves. The
+// bar now carries exactly one pigment -- the vermilion on the focused tag --
+// plus cherry for urgency and amber for a value in warning.
+// ===============================
+
+// ===============================
+// Base palette (cynosure ink)
+// ===============================
+$t0: rgba(#f0ebe5, 1); // primary   — the clock, the focused tag
+$t1: rgba(#cdc6bc, 1); // secondary — every value, the client name
+$t2: rgba(#a8a299, 1); // tertiary  — occupied tags
+$t3: rgba(#7a746a, 1); // muted     — labels, layout, separators, empty tags
+$t4: rgba(#5a524d, 1); // comment   — float borders only
+
+// Accents
+$vermilion: rgba(#d9534a, 1); // the desktop accent — the focused tag, and
+                              // the only pigment the bar carries by default
+$amber:     rgba(#edc99a, 1); // peach
+$apricot:   rgba(#d4a574, 1);
+$coral:     rgba(#e07860, 1);
+$cherry:    rgba(#d96060, 1);
+$warn:      rgba(#d49050, 1);
+
+// ===============================
+// Semantic roles
+// ===============================
+// Alphas unchanged; only the tint moves, from cool slate to the sheet's
+// obsidian, so the glass reads as the same black as the surfaces beneath it.
+$glass-container: rgba(19, 17, 17, 0.80);    // #131111 — the bar ground,
+                                             // the same surface the terminal
+                                             // and the editor sit on
+$glass-menu:      rgba(26, 23, 22, 0.90);    // #1A1716 — floats and menus
+$glass-hover:     rgba(240, 235, 229, 0.08); // a cream wash, not a cool one
+$glass-active:    rgba(0, 0, 0, 0.45);       // the float shadow's black
+// The accent at low alpha, for something that is switched ON rather than
+// merely selected. A neutral fill says "this row is highlighted"; a tinted
+// one says "this thing is live", which is what a toggle means.
+$accent-fill:     rgba(217, 83, 74, 0.11);   // #D9534A at 11%
+$accent-fill-hi:  rgba(217, 83, 74, 0.16);   // and under the pointer
+
+$menu-selection:  rgba(46, 39, 37, 1);       // #2E2725 — the selection fill,
+                                             // the same one the tmux window,
+                                             // the nvim tab and the launcher
+                                             // row are marked with
+
+// Text
+$text-primary:   $t0;
+$text-secondary: $t1;
+$text-muted:     $t3;
+$text-accent:    $vermilion; // the bar has exactly one accent: what is live
+$text-error:     $cherry;
+
+// Borders
+$border-subtle: rgba(240, 235, 229, 0.10);
+$border-strong: rgba(240, 235, 229, 0.22);
+$border-rule:   rgba(44, 40, 38, 1); // #2C2826 — the bar's hairline, the same
+                                     // rule the editor draws its splits with
+$border-float:  rgba(90, 82, 77, 1); // #5A524D — the one warm border
+
+// Structure
+//
+// The bar's height lives here because two places need to agree on it: the
+// window geometry in windows.yuck, and the min-height that makes a bar item
+// fill the strip so its accent rule sits on the bar's bottom edge.
+$bar-height: 24px;
+
+// The gap a popup leaves under the bar. The panel does not butt them
+// together -- the rule under the open item reads as the bar's own edge, and
+// the popup hangs below it.
+$popup-gap: 3px;
+
+// Typography
+//
+// One family everywhere, including the popups and every button and scale
+// inside them. GTK does not reliably inherit font-family into widgets that
+// carry their own theme styling -- buttons, scales, menu items -- so it is
+// applied to them explicitly rather than left to cascade.
+$font-family: 'IosevkaTerm Nerd Font Mono', monospace;
+
+// And one scale, so a label in a popup is the same size as the equivalent
+// label in the bar instead of being whatever looked right at the time.
+$fs-glyph: 22px; // bar glyphs: the launcher mark and the power icon
+$fs-tag:   14px; // tags and the layout symbol
+$fs-body:  12px; // bar items, popup rows, anything you read
+$fs-meta:  11px; // labels, timestamps, sub-lines
+
+// Nerd Font glyphs sit in the private-use planes and are drawn to fill the
+// cell, so they read smaller than text set at the same nominal size and want
+// a couple of points more. Two rules apply wherever one is used:
+//
+//   - use the Nerd Font codepoint, not the Unicode text symbol. U+23FB POWER
+//     SYMBOL and U+F011 nf-fa-power_off are both in IosevkaTerm, but the
+//     former is a text glyph with text side-bearings and comes out small
+//     however it is sized.
+//   - set the size on the child label. On an eww button it does not take.
+$fs-nerd:  15px;
+// 5px menus and dialogs, 3px rows and menu items, structure stays 0
+$border-radius: 3px;
+$border-radius-menu: 5px;
+

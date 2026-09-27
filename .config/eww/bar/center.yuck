@@ -1,0 +1,21 @@
+;; =========================================================================
+;; Bar · centre
+;; =========================================================================
+;; The clock, and the thing that opens the calendar.
+;;
+;; Per the panel's own caption: "Idle items in ink 2. Open items: selection
+;; fill with an accent underline." So this carries `.barItem`, and `.open`
+;; while its popup is up -- the fill and the rule come from the stylesheet,
+;; not from here.
+;;
+;; Opening one popup closes the other: two panels hanging off a 24px bar at
+;; once reads as a mistake, and the design only ever shows one. That rule and
+;; the open/close itself both live in scripts/popup.sh -- it is the only thing
+;; allowed to decide which popup is up, so clicking faster than the panel can
+;; map cannot leave the item lit with nothing under it.
+
+(defwidget barCenter []
+  (box :halign "center" :valign "fill"
+    (button :class {"barItem datetime" + (cal_open ? " open" : "")}
+      :onclick "scripts/popup.sh calendar"
+      clock)))

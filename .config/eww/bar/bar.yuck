@@ -1,0 +1,41 @@
+;; =========================================================================
+;; Bar · shells
+;; =========================================================================
+;; The 24px top bar, and the bottom bar as it was.
+
+;; The three regions fill the bar's height rather than centring inside it, so
+;; an item that owns a popup can put its accent rule on the bar's own bottom
+;; edge. Centred, the button was shorter than the bar and the rule floated a
+;; couple of pixels above it, leaving a strip of bar between the mark and the
+;; popup below.
+(defwidget bar []
+  (centerbox :orientation "h" :class "bar bottomborder"
+    (box :hexpand false :halign "start"  :valign "fill" (barLeft))
+    (box :hexpand true  :halign "center" :valign "fill" (barCenter))
+    (box :hexpand false :halign "end"    :valign "fill" (barRight))))
+
+(defwidget topBar [] (bar))
+
+(defwidget bottomBar []
+  (box :orientation "h" :class "bar topborder"
+    (box :orientation "h" :spacing 10 :hexpand false :space-evenly false :halign "start"
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start"
+        (label :class "texticon mem text" :markup true :halign "start"
+               :text "${mem_used}/${mem_cached}/${mem_total}"))
+      (separator)
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start"
+        (label :markup true :halign "start" :text "${cpu} ${cpu_temp} ${cpu_freq}"))
+      (separator)
+      (box :orientation "h" :spacing 5 :hexpand false :space-evenly false :halign "start"
+        (label :class "texticon gpu text" :halign "start"
+               :text "${gpu} ${gpu_temp} ${gpu_freq}")))
+    (box :orientation "h" :spacing 6 :space-evenly false :halign "end"
+      (label :class "texticon network ip"   :halign "start" :text network_ip)
+      (label :class "texticon network at"   :halign "start" :text "@")
+      (label :class "texticon network ssid" :halign "start" :text network_ssid)
+      (separator)
+      (label :class "texticon network up"   :halign "start" :text network_up)
+      (label :class "texticon network down" :halign "start" :text network_down))))
+
+(defwidget separator []
+  (label :class "texticon separator" :text "·"))

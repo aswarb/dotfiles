@@ -1,0 +1,48 @@
+;; =========================================================================
+;; Bar · left
+;; =========================================================================
+;; Tags, the layout symbol, then the focused client -- the order the panel
+;; prints it: "1 2 3 4 5 6  []=  opencode — parser".
+;;
+;; The tags used to sit in the centre and the launcher glyph on the left.
+;; The panel gives the centre to the clock, so the tags moved left and the
+;; launcher moved into the run item on the right, where the other things you
+;; press live.
+
+(defwidget barLeft []
+  (box :orientation "h" :halign "start" :valign "center" :spacing 8 :space-evenly false
+    (launcher)
+    (workspaces)
+    (layoutSelector)
+    (focusedProgramBox)))
+
+;; The run menu. Kept at the head of the bar, where it was -- it is the other
+;; thing on this bar you press to get somewhere, and it belongs next to the
+;; tags rather than beside the session controls.
+(defwidget launcher []
+  (button :class "button launcher"
+    :onclick "~/.config/dwl/menu.sh"
+    :tooltip "Run"
+    "󰣇"))
+
+;; Reactive tag buttons. `focused` is the tag you are looking at, `active` is
+;; a tag displayed on another output.
+(defwidget workspaces []
+  (box :class "workspaces" :orientation "h" :spacing 2 :space-evenly false
+    (for workspace_id in allWorkspaces
+      (button :class {"button" + (workspace_id == focusedWorkspace ? " hypr_focus" : "") + (jq(activeWorkspaces, "contains([${workspace_id}])") == "true" ? " active" : "")}
+        :onclick "~/.config/dwl/dwlmsg view ${workspace_id}"
+        workspace_id))))
+
+;; dwl owns the cycling: monocle rewrites its own symbol to "[N]", so the
+;; symbol cannot be mapped back to an index here.
+(defwidget layoutSelector []
+  (button :class "button layout"
+    :tooltip "Layout: ${focusedLayout}"
+    :onclick "~/.config/dwl/dwlmsg cyclelayout 1"
+    :onrightclick "~/.config/dwl/dwlmsg cyclelayout -1"
+    focusedLayout))
+
+(defwidget focusedProgramBox []
+  (box :orientation "h" :halign "start"
+    (label :class "italic focusedProgramBox" :text focusedProgram :wrap false)))

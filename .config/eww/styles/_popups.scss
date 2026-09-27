@@ -1,0 +1,236 @@
+// ===============================
+// Popups
+// ===============================
+// From the panel's caption: "Surface with a 2px accent top edge. Active rows
+// use the cursorline plus an accent left rule, as in wmenu and Settings."
+//
+// So a popup is the raised surface, a hairline all round, and one accent
+// edge along the top where it meets the bar item that opened it. Every live
+// row inside it -- a toggled tile, the chosen network -- is the cursorline
+// fill with a 2px accent rule down its left side. That is the same language
+// as the wmenu selection and the nvim tabline, applied one level in.
+
+.popup {
+  background-color: $glass-menu;
+  border: 1px solid $border-rule;
+  border-top: 2px solid $vermilion; // the edge it drops from
+  color: $text-secondary;
+  font-family: $font-family;
+  font-size: $fs-body;
+  padding: 0;
+
+  // GTK styles buttons, scales and their labels from the theme rather than
+  // from the parent, so the family has to be named again for them or they
+  // fall back to the system sans.
+  label, button, button label, scale { font-family: $font-family; }
+}
+
+// A hairline between blocks. A box rather than a border so the blocks can
+// keep their own padding without doubling it up.
+.popupRule {
+  min-height: 1px;
+  background-color: $border-rule;
+  margin: 4px 0;
+}
+
+// The shared "this row is live" treatment: cursorline fill, accent left rule.
+// The transparent rule on the idle state reserves the gutter, so nothing
+// shifts sideways when a row becomes active.
+@mixin live-row {
+  border-left: 2px solid transparent;
+  &.on {
+    background-color: $menu-selection;
+    border-left-color: $vermilion;
+  }
+}
+
+// ===============================
+// Calendar
+// ===============================
+.calendarPopup { padding: 10px 12px 8px; }
+
+.calHeader {
+  padding-bottom: 8px;
+
+  .calTitle {
+    color: $text-primary;
+    font-size: $fs-body;
+  }
+
+  .calNav {
+    color: $text-muted;
+    padding: 0 6px;
+    &:hover { color: $text-primary; }
+  }
+}
+
+.calWeekdays {
+  padding-bottom: 4px;
+
+  .calWeekday {
+    color: $text-muted;
+    font-size: $fs-meta;
+  }
+}
+
+.calDay {
+  color: $text-secondary;
+  font-size: $fs-body;
+  padding: 3px 0;
+  min-width: 26px;
+
+  // days belonging to the neighbouring months
+  &.outside { color: $t4; }
+
+  // today: the accent fill, the one solid mark in the popup
+  &.today {
+    background-color: $vermilion;
+    color: $glass-menu;
+    font-weight: 600;
+    border-radius: $border-radius;
+  }
+}
+
+.calEvents { padding-top: 2px; }
+
+.calEvent {
+  padding: 3px 0;
+
+  .calEventAt   { color: $text-muted; font-size: $fs-meta; }
+  .calEventWhat { color: $text-secondary; }
+}
+
+// ===============================
+// Control centre
+// ===============================
+.controlPopup { padding: 10px 12px 8px; }
+
+// ---- quick toggles ----
+.toggleGrid { padding-bottom: 10px; }
+
+// A tile takes the accent as a full outline, not as the left rule the list
+// rows use -- a tile is a box you switch, so the whole box is marked. It also
+// takes the selection fill, so an on tile is lifted off the popup surface as
+// well as outlined.
+//
+// The transparent 1px border on the idle state reserves the edge, so
+// switching a tile on does not nudge its neighbours by a pixel.
+.toggleTile {
+  padding: 6px 8px;
+  background-color: transparent;
+  // Off: the design's `c.rule` border -- a dark grey only a shade darker than
+  // the popup surface, so it reads as a very faint outline rather than a hard
+  // edge. The 1px is kept on the idle state (not transparent) so switching a
+  // tile on to the vermilion border still does not nudge its neighbours.
+  border: 1px solid $border-rule;
+
+  .toggleName { color: $text-secondary; font-size: $fs-body; }
+  .toggleSub  { color: $text-muted;     font-size: $fs-meta; }
+
+  &:hover { background-color: $glass-hover; }
+
+  // On: the accent tint, so a switched-ON tile reads as "this thing is live"
+  // rather than merely highlighted. A neutral fill says "selected"; a tinted
+  // one says "on", which is what a toggle means -- see $accent-fill. Stronger
+  // under the pointer. Accent outline and accent name; the sub-line stays quiet
+  // so the tile has one loud thing in it rather than two.
+  &.on {
+    background-color: $accent-fill;
+    border-color: $vermilion;
+    .toggleName { color: $text-accent; }
+    .toggleSub  { color: $text-muted; }
+
+    &:hover { background-color: $accent-fill-hi; }
+  }
+}
+
+// ---- dials ----
+.dials { padding-bottom: 6px; }
+
+.dial {
+  padding: 3px 0;
+
+  .dialName  { color: $text-muted; min-width: 54px; }
+  .dialValue { color: $text-secondary; min-width: 38px; }
+}
+
+// GTK scale: a hairline trough with an accent fill and a small accent knob.
+.dialScale {
+  trough {
+    background-color: $border-rule;
+    border-radius: 0;
+    min-height: 2px;
+
+    highlight {
+      background-color: $vermilion;
+      border-radius: 0;
+      min-height: 2px;
+    }
+  }
+
+  slider {
+    background-color: $vermilion;
+    border: none;
+    border-radius: 50%;
+    min-width: 9px;
+    min-height: 9px;
+    margin: -4px;
+  }
+}
+
+// ---- lists ----
+.listBlock { padding: 4px 0; }
+
+.listTitle {
+  color: $text-muted;
+  font-size: $fs-meta;
+  padding-bottom: 4px;
+}
+
+.listRow {
+  @include live-row;
+  padding: 4px 8px;
+  background-color: transparent;
+
+  .listRowName { color: $text-secondary; }
+  .listRowMeta { color: $text-muted; }
+
+  &:hover { background-color: $glass-hover; }
+  &.on .listRowName { color: $text-accent; }
+}
+
+// ---- media ----
+.mediaBlock { padding: 4px 0 2px; }
+
+.mediaTitle  { color: $text-secondary; }
+.mediaTime   { color: $text-muted; font-size: $fs-meta; }
+.mediaArtist { color: $text-muted; font-size: $fs-meta; padding-bottom: 4px; }
+
+.mediaTransport { padding: 2px 0 4px; }
+
+.mediaBtn {
+  color: $text-muted;
+  padding: 2px 4px;
+  &:hover { color: $text-accent; }
+
+  // Nerd Font transport glyphs, sized on the label — see $fs-nerd.
+  label { font-size: $fs-nerd; }
+}
+
+// ---- session ----
+.sessionRow {
+  padding-top: 4px;
+
+  .sessionUptime { color: $text-muted; font-size: $fs-meta; }
+
+  .sessionBtn {
+    color: $text-muted;
+    font-size: $fs-meta;
+    padding: 2px 6px;
+    &:hover { color: $text-primary; }
+  }
+
+  // power off is the only destructive thing in the panel, so it is the only
+  // thing allowed to go cherry -- and only under the pointer.
+  .sessionBtn.danger:hover { color: $text-error; }
+}

@@ -1,0 +1,89 @@
+;; =========================================================================
+;; Popup · control centre
+;; =========================================================================
+;; Drops from the power glyph. Quick toggles, dials, the network list, what is
+;; playing, and the session row.
+;;
+;; Everything here is clickable and everything holds its state -- toggles
+;; flip, dials move, a network row can be picked -- but nothing is connected
+;; to the system yet. Flipping wi-fi does not touch the radio; the volume dial
+;; does not touch pipewire; lock, suspend and power off do nothing. The shapes
+;; and the interactions first.
+
+(defwidget controlPopup []
+  (box :class "popup controlPopup" :orientation "v" :space-evenly false
+    (quickToggles)
+    (dials)
+    (box :class "popupRule")
+    (wifiList)
+    (box :class "popupRule")
+    (mediaBlock)
+    (box :class "popupRule")
+    (sessionRow)))
+
+;; ---- quick toggles, 2x2 -------------------------------------------------
+(defwidget quickToggles []
+  (box :class "toggleGrid" :orientation "v" :space-evenly false :spacing 8
+    (box :orientation "h" :space-evenly true :spacing 8
+      (quickToggle :name "wi-fi"     :sub {wifi_on  ? wifi_sel : "off"}       :on wifi_on
+                   :action "eww update wifi_on=${!wifi_on}")
+      (quickToggle :name "bluetooth" :sub {bt_on    ? "on" : "off"}           :on bt_on
+                   :action "eww update bt_on=${!bt_on}"))
+    (box :orientation "h" :space-evenly true :spacing 8
+      (quickToggle :name "do not disturb" :sub {dnd_on ? "until 23:00" : "off"} :on dnd_on
+                   :action "eww update dnd_on=${!dnd_on}")
+      (quickToggle :name "night light"    :sub {night_on ? "on" : "off"}       :on night_on
+                   :action "eww update night_on=${!night_on}"))))
+
+;; A tile. On: cursorline fill, accent left rule, accent name -- the same
+;; "this one is live" language as the wmenu row and the nvim tab.
+(defwidget quickToggle [name sub on action]
+  (button :class {"toggleTile" + (on ? " on" : "")} :onclick action
+    (box :orientation "v" :space-evenly false :halign "start"
+      (label :class "toggleName" :halign "start" :text name)
+      (label :class "toggleSub"  :halign "start" :text sub))))
+
+;; ---- dials --------------------------------------------------------------
+(defwidget dials []
+  (box :class "dials" :orientation "v" :space-evenly false
+    (dial :name "volume"  :value volume     :action "eww update volume={}")
+    (dial :name "display" :value brightness :action "eww update brightness={}")))
+
+(defwidget dial [name value action]
+  (box :class "dial" :orientation "h" :space-evenly false :spacing 10
+    (label :class "dialName" :text name)
+    (scale :class "dialScale" :hexpand true :value value :onchange action
+           :min 0 :max 100 :tooltip "${value}%")
+    (label :class "dialValue" :text "${value}%")))
+
+;; ---- network list -------------------------------------------------------
+(defwidget wifiList []
+  (box :class "listBlock" :orientation "v" :space-evenly false
+    (label :class "listTitle" :halign "start" :text "wi-fi")
+    (for n in wifi_networks
+      (button :class {"listRow" + (n.ssid == wifi_sel ? " on" : "")}
+        :onclick "eww update wifi_sel='${n.ssid}'"
+        (box :orientation "h" :space-evenly false
+          (label :class "listRowName" :halign "start" :hexpand true :text {n.ssid})
+          (label :class "listRowMeta" :halign "end"   :text {n.bars}))))))
+
+;; ---- media --------------------------------------------------------------
+(defwidget mediaBlock []
+  (box :class "mediaBlock" :orientation "v" :space-evenly false
+    (box :orientation "h" :space-evenly false
+      (label :class "mediaTitle" :halign "start" :hexpand true :text media_title)
+      (label :class "mediaTime"  :halign "end"   :text media_time))
+    (label :class "mediaArtist" :halign "start" :text media_artist)
+    (box :class "mediaTransport" :orientation "h" :space-evenly false :halign "center" :spacing 18
+      (button :class "mediaBtn" :onclick "" "󰒮")
+      (button :class "mediaBtn" :onclick "eww update media_playing=${!media_playing}"
+              {media_playing ? "󰏤" : "󰐊"})
+      (button :class "mediaBtn" :onclick "" "󰒭"))))
+
+;; ---- session ------------------------------------------------------------
+(defwidget sessionRow []
+  (box :class "sessionRow" :orientation "h" :space-evenly false
+    (label :class "sessionUptime" :halign "start" :hexpand true :text "up ${uptime}")
+    (button :class "sessionBtn" :onclick "" "lock")
+    (button :class "sessionBtn" :onclick "" "suspend")
+    (button :class "sessionBtn danger" :onclick "" "power off")))

@@ -124,7 +124,7 @@ require("cheatsheet")
 vim.keymap.set("n", "<leader>?", "<Cmd>Cheatsheet<CR>", { desc = "Keymap cheatsheet" })
 
 require("plugins")
-require("kanagawa_cfg")
+require("cynored_cfg")
 vim.cmd.colorscheme("kanagawa")
 require("mason_cfg")
 require("conform_cfg")

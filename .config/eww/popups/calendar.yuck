@@ -1,0 +1,47 @@
+;; =========================================================================
+;; Popup · calendar
+;; =========================================================================
+;; Drops from the clock. Month grid, then the day's events.
+;;
+;; The grid is always 42 cells so the popup does not change height from month
+;; to month; days from the neighbouring months are dimmed rather than blank,
+;; which is what the panel draws.
+;;
+;; The events are static. Hooking this to a real source is a later job.
+
+(defwidget calendarPopup []
+  (box :class "popup calendarPopup" :orientation "v" :space-evenly false
+    (calHeader)
+    (calGrid)
+    (box :class "popupRule")
+    (calEvents)))
+
+(defwidget calHeader []
+  (box :class "calHeader" :orientation "h" :space-evenly false
+    (label :class "calTitle" :hexpand true :halign "start"
+           :text {calendar_month.title})
+    ;; Present and pressable, deliberately inert: paging months is real
+    ;; functionality and this pass is shapes only.
+    (button :class "calNav" :onclick "" "‹")
+    (button :class "calNav" :onclick "" "›")))
+
+(defwidget calGrid []
+  (box :class "calGrid" :orientation "v" :space-evenly false
+    (box :class "calWeekdays" :orientation "h" :space-evenly true
+      (for d in '["Mo","Tu","We","Th","Fr","Sa","Su"]'
+        (label :class "calWeekday" :text d)))
+    (box :orientation "v" :space-evenly false
+      (for row in '[0,1,2,3,4,5]'
+        (box :orientation "h" :space-evenly true
+          (for col in '[0,1,2,3,4,5,6]'
+            (label :class {"calDay"
+                           + (calendar_month.days[row * 7 + col].cur ? "" : " outside")
+                           + (calendar_month.days[row * 7 + col].today ? " today" : "")}
+                   :text {calendar_month.days[row * 7 + col].n})))))))
+
+(defwidget calEvents []
+  (box :class "calEvents" :orientation "v" :space-evenly false
+    (for e in '[{"at":"09:30","what":"Standup"},{"at":"14:00","what":"Dentist"}]'
+      (box :class "calEvent" :orientation "h" :space-evenly false :spacing 12
+        (label :class "calEventAt"   :text {e.at})
+        (label :class "calEventWhat" :halign "start" :hexpand true :text {e.what})))))

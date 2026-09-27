@@ -71,3 +71,7 @@ format=<b><span color="#f0ebe5">%s</span></b>  <span color="#7a746a" size="small
 text-color=#cdc6bcff
 format=<b><span color="#d96060">%s</span></b>  <span color="#7a746a" size="small">%a</span>\n%b
 default-timeout=0
+
+# Mako mode toggled by the Quickshell control centre.
+[mode=do-not-disturb]
+invisible=1

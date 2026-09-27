@@ -1,0 +1,77 @@
+.systray {
+  image {
+    margin: 0px 3px;
+  }
+
+  // A menu is a float: bg2 ground, 1px comment border, the float shadow.
+  .popup,
+  menu {
+    padding: 2px;
+    border-radius: $border-radius-menu;
+    border: 1px solid $border-float;
+    background-color: $glass-menu;
+    box-shadow: 0 8px 24px $glass-active;
+
+
+    >menuitem {
+      padding: 3px 3px;
+      color: $text-secondary;
+      padding: 5px 5px 5px 5px;
+      border-radius: $border-radius;
+      // Faster than the bar: by the time a menu row highlights, the pointer
+      // is already moving to the next one, so the bar's 0.09s reads as lag.
+      // Same property list, shorter duration -- see the mixin.
+      @include transitions($dur-menu);
+
+      arrow {
+        min-width: 12px;
+        min-height: 12px;
+
+        &:dir(ltr) {
+          -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+
+
+      // The hovered row follows the dropdown rule from the panel (`dd` at
+      // :689, `side` at :688): a selection fill behind it and the accent on
+      // the text. Same treatment as the wmenu row, the tmux window and the
+      // nvim tabline -- the live thing is a fill, and it is vermilion.
+      //
+      // It was a cream wash at 8% with primary ink, which is GTK's generic
+      // hover and says "the pointer is here" rather than "this is the one".
+      &:hover {
+        background-color: $menu-selection;
+        color: $text-accent;
+      }
+
+
+      &:disabled {
+        padding: 2px 2px 2px 5px;
+
+        label {
+          font-family: $font-family;
+          font-style: italic;
+          color: $text-muted;
+        }
+      }
+
+      label {
+        font-family: $font-family;
+        padding: 0px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: $font-family;
+      }
+    }
+
+    separator {
+      margin: 0px 0;
+      min-height: 2px;
+      padding: 0px;
+      background-color: $border-rule;
+    }
+  }
+}

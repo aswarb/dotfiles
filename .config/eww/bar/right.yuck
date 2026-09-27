@@ -1,0 +1,51 @@
+;; =========================================================================
+;; Bar · right
+;; =========================================================================
+;; Vitals, then the systray, then the power glyph that opens the control
+;; centre: "wlan0  vol 60  cpu 34%  dsk 92%  bat 84%  ⏻".
+;;
+;; The panel's rule for these: idle items in ink 2, and a warning or an error
+;; recolours ONLY the value -- the label stays where it is. So `vital` takes
+;; a label and a value as separate children, and the state class lands on the
+;; value alone.
+;;
+;; The systray is left exactly where it was, per instruction.
+
+(defwidget barRight []
+  (box :orientation "h" :halign "end" :valign "center" :spacing 10 :space-evenly false
+    (vital :label "wlan0" :value network_ssid)
+    (vital :label "vol"   :value "${volume}")
+    (vital :label "cpu"   :value cpu)
+    ;; The one vital that changes colour: at 90% or over the value goes amber,
+    ;; the label does not. Matching on the string keeps the threshold here
+    ;; rather than buried in disk.sh.
+    (vital :label "dsk"   :value disk
+           :state {matches(disk, "^(9[0-9]|100)") ? "warn" : ""})
+    (vital :label "mem"   :value "${mem_used}")
+
+    (box :class "trayWrap" :hexpand false :halign "end"
+      (box :width 24 :height 20
+        (systray :icon-size 20 :class "systray"
+          :space-evenly false :spacing 4 :prepend-new true)))
+
+    (powerItem)))
+
+;; One vital. `state` is "", "warn" or "error" and lands on the value only.
+(defwidget vital [label value ?state]
+  (box :class "vital" :orientation "h" :spacing 4 :space-evenly false
+    (label :class "vitalLabel" :text label)
+    (label :class "vitalValue ${state ?: ''}" :text value)))
+
+;; The glyph that opens the control centre. Accent, always -- it is the one
+;; thing in the bar you press to get somewhere else.
+;;
+;; U+F011, the Nerd Font power glyph, not U+23FB POWER SYMBOL. Both exist in
+;; IosevkaTerm, but U+23FB is a text symbol: drawn at text proportions with
+;; text side-bearings, so it comes out noticeably smaller than the glyphs
+;; around it however the size is set. The private-use Nerd Font glyphs are
+;; drawn to fill the cell.
+(defwidget powerItem []
+  (button :class {"barItem power" + (ctl_open ? " open" : "")}
+    :onclick "scripts/popup.sh control"
+    :tooltip "Session and quick settings"
+    ""))

@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="pi"
+ZSH_THEME="crucible"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,6 +77,23 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
+# ── crucible ──────────────────────────────────────────────────────────────
+# Bad commands type in error, as the prompt spec's legend calls for. Strings
+# take the secondary, everything else stays on the ink ramp — the command
+# line is not a syntax-highlighted buffer and should not read like one.
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#D9534A'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#8CB896'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#8CB896'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#8CB896'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#8CB896'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#8CB896'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#EBE4DC'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#A9B4C2'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#A9B4C2'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#6B645E'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#D8B26A'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#D8B26A'
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -136,7 +153,9 @@ export TORCH_CUDA_ARCH_LIST="8.6"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export DISABLE_FEEDBACK_COMMAND=true
 
- export TERM="xterm-256color"
+# Only outside tmux -- tmux sets its own TERM, and clobbering it here made
+# tmux advertise the wrong terminal capabilities to everything inside it.
+[[ -z $TMUX ]] && export TERM="xterm-256color"
 
  alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 

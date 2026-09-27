@@ -1,0 +1,75 @@
+;; =========================================================================
+;; Polled state
+;; =========================================================================
+;; Everything the bar reads from the system. Nothing here is new -- these
+;; moved out of widgets.yuck so that file could be about layout.
+
+(defpoll time :interval "0.95s" "date '+%Y-%m-%d %H:%M:%S'")
+
+;; The bar's own clock reads the way the panel prints it: "Thu 25 Sep 21:40".
+(defpoll clock :interval "10s" "date '+%a %d %b %H:%M'")
+
+;; Current month, as 42 cells. See scripts/cal_month.sh.
+(defpoll calendar_month :interval "300s" "scripts/cal_month.sh")
+
+(defpoll uptime :interval "60s" "uptime -p | sed 's/^up //'")
+
+(defpoll fontart :interval "600" "cat fontart.txt")
+
+(defpoll cpu          :interval "5s"  "scripts/cpu.sh")
+(defpoll cpu_temp     :interval "1s"  "scripts/cpu_temp.sh")
+(defpoll cpu_freq     :interval "1s"  "scripts/cpu_freq.sh")
+(defpoll mem_used     :interval "1s"  "scripts/mem_used.sh")
+(defpoll mem_total    :interval "1s"  "scripts/mem_total.sh")
+(defpoll mem_cached   :interval "1s"  "scripts/mem_cached.sh")
+(defpoll mem_free     :interval "1s"  "scripts/mem_free.sh")
+(defpoll disk         :interval "10s" "scripts/disk.sh")
+(defpoll network_ip   :interval "1s"  "scripts/network_ip.sh")
+(defpoll network_ssid :interval "1s"  "scripts/network_ssid.sh")
+(defpoll network_up   :interval "1s"  "scripts/network_up.sh")
+(defpoll network_down :interval "1s"  "scripts/network_down.sh")
+(defpoll gpu          :interval "1s"  "scripts/gpu.sh")
+(defpoll gpu_temp     :interval "1s"  "scripts/gpu_temp.sh")
+(defpoll gpu_freq     :interval "1s"  "scripts/gpu_freq.sh")
+
+;; =========================================================================
+;; Popup state
+;; =========================================================================
+;; Which popup is open, so the bar item that owns one can show itself as the
+;; open item. These are a MIRROR of the daemon's real window list, not the
+;; truth -- scripts/popup.sh is the only writer, and it writes them last, from
+;; what it actually did. Do not set them from a button handler: an `eww update`
+;; racing an `eww open` is exactly how the item and its panel fell out of
+;; step.
+
+(defvar cal_open false)
+(defvar ctl_open false)
+
+;; =========================================================================
+;; Control centre -- placeholder state
+;; =========================================================================
+;; These drive the toggles, dials and the network list so the panel can be
+;; clicked through and looks alive. NOTHING here is wired to the system yet:
+;; flipping wifi_on does not touch the radio, and moving the volume dial does
+;; not touch pipewire. That is deliberate for this pass -- the shapes and the
+;; interactions first, the plumbing after.
+
+(defvar wifi_on    true)
+(defvar bt_on      false)
+(defvar dnd_on     true)
+(defvar night_on   false)
+
+(defvar volume     60)
+(defvar brightness 72)
+
+(defvar wifi_sel "home-5g")
+(defvar wifi_networks '[
+  {"ssid":"home-5g",     "bars":"▂▄▆█"},
+  {"ssid":"home-2g",     "bars":"▂▄▆_"},
+  {"ssid":"BTHub-7F2A",  "bars":"▂▄__"}
+]')
+
+(defvar media_title  "Resonance")
+(defvar media_artist "Home · Odyssey")
+(defvar media_time   "1:42")
+(defvar media_playing true)

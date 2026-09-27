@@ -1,0 +1,77 @@
+# crucible · btop theme
+# one vermilion accent on warm black. The accent owns identity and state —
+# here that is the keyboard shortcuts, the things you act through. It is
+# deliberately absent from every gauge: per the design system, "progress is
+# accent, level bars use the btop scale: bright black, then green, then
+# error. Never the accent for load."
+#
+# load ramp — bright black → green → red
+#   off        #554E4A  bright black; effectively idle
+#   fine       #8CB896  green; on, and nothing to do about it
+#   full       #D9534A  ANSI color1; the value turns too
+#
+# The doc's error is the magenta-pink #E8456A. Saturation here uses the same
+# vermilion that fastfetch's keys and the zsh failure caret use, so one red
+# means "at the limit" across the whole desktop. A local tweak — see
+# TWEAKS.md, which also records the cost: #D9534A is the accent, and the doc
+# reserves the accent for identity, never for load.
+#
+# The doc's gradient holds bright black flat to 30%, lands green across
+# 55–70%, and reaches crimson by 90%. btop interpolates start→mid→end with
+# mid fixed at the midpoint, so the green plateau sits a little earlier than
+# the spec draws it. Three stops is all btop gives us; the reading is the
+# same — idle is dim, working is green, saturated is crimson.
+#
+# Headroom gauges (free/available/cached) and network throughput run the
+# neutral ink ramp instead. Neither is a severity: free memory is not an
+# alarm, and btop's network graphs auto-scale to the current peak, so a red
+# top would mean "busy", not "bad". Status colours stay reserved for status.
+
+theme[main_bg]="#131111"
+theme[main_fg]="#A8A098"
+theme[title]="#EBE4DC"
+theme[hi_fg]="#D9534A"
+theme[selected_bg]="#241C1B"
+theme[selected_fg]="#EBE4DC"
+theme[inactive_fg]="#6B645E"
+theme[graph_text]="#6B645E"
+theme[meter_bg]="#241C1B"
+theme[proc_misc]="#A8A098"
+
+theme[cpu_box]="#2C2826"
+theme[mem_box]="#2C2826"
+theme[net_box]="#2C2826"
+theme[proc_box]="#2C2826"
+theme[gpu_box]="#2C2826"
+theme[div_line]="#2C2826"
+
+# load gauges — bright black → green → error
+theme[temp_start]="#554E4A"
+theme[temp_mid]="#8CB896"
+theme[temp_end]="#D9534A"
+theme[cpu_start]="#554E4A"
+theme[cpu_mid]="#8CB896"
+theme[cpu_end]="#D9534A"
+theme[used_start]="#554E4A"
+theme[used_mid]="#8CB896"
+theme[used_end]="#D9534A"
+
+# headroom gauges — neutral ink ramp; spare capacity is not a status
+theme[free_start]="#6B645E"
+theme[free_mid]="#A8A098"
+theme[free_end]="#EBE4DC"
+theme[available_start]="#6B645E"
+theme[available_mid]="#A8A098"
+theme[available_end]="#EBE4DC"
+theme[cached_start]="#6B645E"
+theme[cached_mid]="#A8A098"
+theme[cached_end]="#A8A098"
+
+# network throughput — ink ramp; the graphs auto-scale, so brightness reads
+# as volume rather than severity
+theme[download_start]="#6B645E"
+theme[download_mid]="#A8A098"
+theme[download_end]="#EBE4DC"
+theme[upload_start]="#6B645E"
+theme[upload_mid]="#A8A098"
+theme[upload_end]="#EBE4DC"
